@@ -8,6 +8,10 @@ class Topic {
 	Boolean resolved; // If the author has accepted an answer.
 	List    topicMessages;
     
+    static constraints = {
+        title(blank:false)
+    }
+
     static mapping = {
     	creationDate type:'date'
     }

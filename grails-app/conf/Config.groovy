@@ -69,6 +69,11 @@ environments {
     }
 }
 
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'isima.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'isima.UserRole'
+grails.plugins.springsecurity.authority.className = 'isima.Role'
+
 // log4j configuration
 log4j = {
     // Example of changing the log pattern for the default console appender:

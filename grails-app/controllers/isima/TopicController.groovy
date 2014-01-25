@@ -1,15 +1,19 @@
 package isima
 
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.security.access.annotation.Secured
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 class TopicController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
         redirect(action: "list", params: params)
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
 

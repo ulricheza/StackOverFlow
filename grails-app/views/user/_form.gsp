@@ -1,7 +1,5 @@
 <%@ page import="isima.User" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'profileImage', 'error')} required">
 	<label for="profileImage">
 		<g:message code="user.profileImage.label" default="Profile Image" />
@@ -34,12 +32,12 @@
 	<g:textField name="location" value="${userInstance?.location}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'name', 'error')} ">
-	<label for="name">
-		<g:message code="user.name.label" default="Name" />
+<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'username', 'error')} ">
+	<label for="username">
+		<g:message code="user.username.label" default="User Name" />
 		
 	</label>
-	<g:textField name="name" value="${userInstance?.name}"/>
+	<g:textField name="username" value="${userInstance?.username}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'realName', 'error')} ">
