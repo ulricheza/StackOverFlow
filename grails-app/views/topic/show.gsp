@@ -59,12 +59,12 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${topicInstance?.topicMessages}">
+				<g:if test="${topicInstance?.replies}">
 				<li class="fieldcontain">
-					<span id="topicMessages-label" class="property-label"><g:message code="topic.topicMessages.label" default="Topic Messages" /></span>
+					<span id="replies-label" class="property-label"><g:message code="topic.replies.label" default="Topic Replies" /></span>
 					
-						<g:each in="${topicInstance.topicMessages}" var="t">
-						<span class="property-value" aria-labelledby="topicMessages-label"><g:link controller="message" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></span>
+						<g:each in="${topicInstance.replies}" var="t">
+						<span class="property-value" aria-labelledby="replies-label"><g:link controller="message" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></span>
 						</g:each>
 					
 				</li>

@@ -3,10 +3,13 @@ package isima
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.security.access.annotation.Secured
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
+@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class TopicController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+    def springSecurityService
+    def tagService
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
@@ -19,7 +22,7 @@ class TopicController {
 
         def messageHeaders = []
         Topic.list(params).each {
-        	messageHeaders.add(it.topicMessages[0].content)
+        	messageHeaders.add(it.replies[0].content)
         }
         
         [topicInstanceList:Topic.list(params) , messageHeaders:messageHeaders, topicInstanceTotal: Topic.count()]
@@ -30,21 +33,34 @@ class TopicController {
     }
 
     def save() {
-    	User u = User.get(1) // dumb user for now
-    	params.author = u
+        // logged user
+    	def user = springSecurityService.currentUser 
+
+        // Topic
+    	params.author = user
     	params.creationDate = new Date()
     	params.resolved = false
         def topicInstance = new Topic(params)
 
-        // Relationships requirements. The question message is always duplicate (one in Topic and one in User)
-        Message topicMessage = new Message([author:u,topic:topicInstance,content:params.msgContent,replyDate:new Date()])
-        topicInstance.addToTopicMessages(topicMessage)
-        u.addToUserMessages(topicMessage)
-        u.addToUserQuestions(topicInstance)
+        // Topic message
+        params.replyDate = new Date()
+        params.topic = topicInstance
+        def topicInstanceMessage = new Message(params)
+        topicInstanceMessage.validate()
+
+        // Topic tags
+        topicInstance.tags = tagService.findOrCreateTags(params.tagNames)
+
+        // Relationships requirements. The topic message is always duplicate (one in Topic and one in User)        
+        topicInstance.addToReplies(topicInstanceMessage)
+        user.addToAnswers(topicInstanceMessage)
+        user.addToQuestions(topicInstance)
 
         // Saving
         if (!topicInstance.save(flush: true)) {
-            render(view: "create", model: [topicInstance: topicInstance])
+            render(view: "create", model: [topicInstance:topicInstance, 
+                                           topicInstanceMessage:topicInstanceMessage,
+                                           topicInstanceTags:params.tagNames])
             return
         }
 

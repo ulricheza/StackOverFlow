@@ -23,7 +23,7 @@
           	<a href="${createLink(uri: '/questions')}" style="color:white; text-decoration: none; font-size:17px">Questions</a>
         </div>
         <div width="100" height="30" style="margin-left:10px; padding:5px; display:inline-block; background:grey; font-size:17px">
-            <a href="${createLink(uri: '/')}" style="color:white; text-decoration: none">Tags</a>
+            <a href="${createLink(uri: '/tags')}" style="color:white; text-decoration: none">Tags</a>
         </div>
         <div width="100" height="30" style="margin-left:10px; padding:5px; display:inline-block; background:grey; font-size:17px">
             <a href="${createLink(uri: '/users')}" style="color:white; text-decoration: none">Users</a>

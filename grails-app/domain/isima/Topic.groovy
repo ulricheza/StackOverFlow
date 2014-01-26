@@ -2,14 +2,15 @@ package isima
 
 class Topic {
 
-	String 	title;
-	User 	author;
-	Date	creationDate;
-	Boolean resolved; // If the author has accepted an answer.
-	List    topicMessages;
-    
+	String 	title
+	User 	author
+	Date	creationDate
+	Boolean resolved // If the author has accepted an answer.
+	List    replies
+
     static constraints = {
-        title(blank:false)
+        title blank: false
+        tags nullable: false, size: 1..5
     }
 
     static mapping = {
@@ -17,7 +18,7 @@ class Topic {
     }
 
     static belongsTo = [author:User]
-    static hasMany = [topicMessages:Message]
+    static hasMany = [replies:Message,tags:Tag]
 
     def String toString(){
     	title

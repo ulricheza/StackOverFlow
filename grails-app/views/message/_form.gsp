@@ -1,7 +1,5 @@
 <%@ page import="isima.Message" %>
 
-
-
 <div class="fieldcontain ${hasErrors(bean: messageInstance, field: 'author', 'error')} required">
 	<label for="author">
 		<g:message code="message.author.label" default="Author" />

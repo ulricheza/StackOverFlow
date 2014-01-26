@@ -2,15 +2,15 @@ package isima
 
 class User {
 
-	String 	username; // not userName because of spring security
-	String 	location;  // Country
-	Date	birthDate;
-	String  aboutMe; // User's description of himself
-	String 	realName;
-	byte[]	profileImage; // user's profile picture
-	List    userQuestions
-	List    userMessages
-
+	String 	username  // not userName because of spring security
+	String 	location  // Country
+	Date	birthDate
+	String  aboutMe // User's description of himself
+	String 	realName
+	byte[]	profileImage // user's profile picture
+    List    questions
+    List    answers
+	
     // Security fields
     transient springSecurityService
 
@@ -20,6 +20,8 @@ class User {
     boolean accountLocked
     boolean passwordExpired
     // end
+
+    static hasMany = [questions:Topic, answers:Message]
 
 	static constraints = {
         username(blank:false, unique:true, maxSize:30)
@@ -33,8 +35,6 @@ class User {
     static mapping = {
     	birthDate type:'date'
     }
-
-    static hasMany = [userQuestions:Topic, userMessages:Message]
 
     def String toString(){
     	username

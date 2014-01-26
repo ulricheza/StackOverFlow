@@ -2,13 +2,11 @@ package isima
 
 class Message {
 
-	User	author;	
-	Topic	topic;
 	String 	content;
 	Date	replyDate;
 
 	static constraints = {
-		content(blank: false) //minSize:30
+		content blank: false//, minSize:30
 	}
 
     static mapping = {
