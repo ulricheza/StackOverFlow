@@ -48,7 +48,8 @@ body {
 }
 
 #grailsLogo {
-	background-color: #abbf78;
+	/*background-color: #abbf78;*/
+	display: inline-block;
 }
 
 /* replace with .no-boxshadow body if you have modernizr available */
@@ -65,7 +66,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-	color: #48802c;
+	/*color: #48802c;*/
 }
 
 a:hover, a:active {
@@ -108,7 +109,7 @@ img {
 }
 
 .footer {
-	background: #abbf78;
+	/*background: #abbf78;*/
 	color: #000;
 	clear: both;
 	font-size: 0.8em;
@@ -594,3 +595,43 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+/* Added */
+
+.post-tag {
+	padding: 2px 2px;
+	color:rgb(62,109,142);
+	text-decoration:none
+}
+
+#menus ul {
+	padding:0;
+	margin:0;
+	list-style-type:none;
+ }
+
+#menus li {
+	margin-left:2px;
+	float:left; /*pour IE*/
+ }
+
+ #menus ul li a {
+ 	display:block;
+ 	margin-left:10px; 
+ 	margin-bottom:10px;
+	float:left;   
+	width:100px;
+	color:white; 
+	text-decoration: none; 
+	font-size:17px;		
+	text-align:center;
+	padding:5px;
+	border:2px solid;
+	background:gray;
+	/*pour avoir un effet "outset" avec IE :*/
+	border-color:#DCDCDC #696969 #696969 #DCDCDC;
+ }
+
+#menus ul li a:hover {
+	
+} 

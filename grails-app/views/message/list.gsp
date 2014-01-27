@@ -40,7 +40,7 @@
 					
 						<td><g:link action="show" id="${messageInstance.id}">${fieldValue(bean: messageInstance, field: "author")}</g:link></td>
 					
-						<td>${fieldValue(bean: messageInstance, field: "content")}</td>
+						<td><g:message code="${messageInstance.content}" /></td>
 					
 						<td><g:formatDate type="date" date="${messageInstance.replyDate}" /></td>
 					

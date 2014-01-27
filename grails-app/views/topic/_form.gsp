@@ -9,10 +9,17 @@
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: topicInstanceMessage, field: 'content', 'error')}">
-	<label for="content">
-		<g:message code="topic.content.label" default="Message" />		
-	</label>
-	<g:textArea name="content" value="${topicInstanceMessage?.content}" rows="5" cols="100"/>
+	<ckeditor:config
+		removePlugins = 'save'
+		resize_dir = 'vertical'
+		skin = 'v2'
+	/>
+	
+	<ckeditor:editor name="content" >	
+		${topicInstanceMessage?.content}
+	</ckeditor:editor>
+<!-- <g:textArea name="content" value="" rows="5" cols="100"/>  -->
+	 
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'tags', 'error')}">

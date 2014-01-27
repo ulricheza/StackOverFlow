@@ -30,7 +30,14 @@
 				<g:each in="${topicInstanceList}" status="i" var="topicInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 										
-						<td><strong>${fieldValue(bean: topicInstance, field: "title")}</strong> <br /> ${messageHeaders[i]}</td>
+						<td><strong><a class="home" href="${createLink(uri: '/topic/show/')}${fieldValue(bean: topicInstance, field: "id")}">${fieldValue(bean: topicInstance, field: "title")}</a></strong> <br /> ${messageHeaders[i]}
+
+							<g:each in="${topicInstance.tags}" var="tag">
+								<div style="display: inline-block; background-color:rgb(224,234,241);">
+									<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</div>
+									</a>
+							</g:each>
+						</td>
 					
 					</tr>
 				</g:each>

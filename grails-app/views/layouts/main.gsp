@@ -18,22 +18,20 @@
 		<r:layoutResources />
 	</head>
 	<body>
-		<div id="grailsLogo" role="banner"><a href="${createLink(uri: '/')}"><img width="250" src="${resource(dir: 'images', file: 'logo.StackOverflow.png')}" alt="logo"/></a></div>
-		<div width="100" height="30" style="margin-left:10px; padding:5px; display: inline-block; background:grey">
-          	<a href="${createLink(uri: '/questions')}" style="color:white; text-decoration: none; font-size:17px">Questions</a>
-        </div>
-        <div width="100" height="30" style="margin-left:10px; padding:5px; display:inline-block; background:grey; font-size:17px">
-            <a href="${createLink(uri: '/tags')}" style="color:white; text-decoration: none">Tags</a>
-        </div>
-        <div width="100" height="30" style="margin-left:10px; padding:5px; display:inline-block; background:grey; font-size:17px">
-            <a href="${createLink(uri: '/users')}" style="color:white; text-decoration: none">Users</a>
-        </div>
-        <div width="100" height="30" style="margin-left:10px; padding:5px; display:inline-block; background:grey; font-size:17px">
-            <a href="${createLink(uri: '/')}" style="color:white; text-decoration: none">Badges</a>
-        </div>
-        <div width="100" height="30" style="margin-left:10px; padding:5px; display: inline-block; background:grey; font-size:17px">
-            <a href="${createLink(uri: '/unanswered')}" style="color:white; text-decoration: none">Unanswered</a>
-        </div>
+		<div id="header" >
+			<div id="grailsLogo" role="banner" style="display:inline-block">
+				<a href="${createLink(uri: '/')}"><img width="250" src="${resource(dir: 'images', file: 'logo.StackOverflow.png')}" alt="logo"/></a>
+			</div>
+			<div id="menus" style="display:inline-block">
+				<ul >
+					<li><a href="${createLink(uri: '/questions')}">Questions</a></li>
+					<li><a href="${createLink(uri: '/tags')}">Tags</a></li>
+					<li><a href="${createLink(uri: '/users')}">Users</a></li>
+					<li><a href="${createLink(uri: '/')}"> Badges</a></li>
+					<li><a href="${createLink(uri: '/unanswered')}">Unanswered</a></li>
+				</ul>
+			</div>
+		</div>	      
 
 		<g:layoutBody/>
 		
