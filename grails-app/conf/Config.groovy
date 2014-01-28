@@ -97,9 +97,9 @@ log4j = {
 
 // ckeditor configuration
 ckeditor {
-    config = "/js/myckconfig.js"
+    config = "/js/my_ck_config.js"
     skipAllowedItemsCheck = false
-   // defaultFileBrowser = "ofm"
+    defaultFileBrowser = "ofm"
     upload {
         basedir = "/uploads/"
         overwrite = false

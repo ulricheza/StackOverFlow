@@ -12,7 +12,6 @@
 		<!-- autoCompletion script -->
 		<script>
 			$(function() {
-
 				var url = "${createLink(uri: '/tag/searchAJAX')}"
 
 				function split( val ) {

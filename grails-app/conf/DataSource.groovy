@@ -1,4 +1,4 @@
-dataSource {
+cdataSource {
     pooled = true
     driverClassName = "org.h2.Driver"
     username = "sa"
