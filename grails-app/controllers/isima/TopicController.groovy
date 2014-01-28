@@ -10,6 +10,7 @@ class TopicController {
 
     def springSecurityService
     def tagService
+    def topicService
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
@@ -22,7 +23,7 @@ class TopicController {
 
         def messageHeaders = []
         Topic.list(params).each {
-        	messageHeaders.add(it.replies[0].content)
+        	messageHeaders.add(it.replies[0].content.take(250) + ' ...')
         }
         
         [topicInstanceList:Topic.list(params) , messageHeaders:messageHeaders, topicInstanceTotal: Topic.count()]
