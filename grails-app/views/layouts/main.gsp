@@ -27,7 +27,9 @@
 					<li><a href="${createLink(uri: '/questions')}">Questions</a></li>
 					<li><a href="${createLink(uri: '/tags')}">Tags</a></li>
 					<li><a href="${createLink(uri: '/users')}">Users</a></li>
-					<li><a href="${createLink(uri: '/')}"> Badges</a></li>
+					<sec:ifLoggedIn>
+						<li><a href="${createLink(uri: '/badges')}"> Badges</a></li>
+					</sec:ifLoggedIn>
 					<li><a href="${createLink(uri: '/unanswered')}">Unanswered</a></li>
 				</ul>
 			</div>

@@ -57,8 +57,6 @@ class TopicController {
         user.addToAnswers(topicInstanceMessage)
         user.addToQuestions(topicInstance)
 
-       // println params.content
-
         // Saving
         if (!topicInstance.save(flush: true)) {
             render(view: "create", model: [topicInstance:topicInstance, 

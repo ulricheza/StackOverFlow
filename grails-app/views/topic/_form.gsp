@@ -10,7 +10,7 @@
 <div class="fieldcontain ${hasErrors(bean: topicInstanceMessage, field: 'content', 'error')}">	
 
 	<ckeditor:editor name="content">	
-		${topicInstanceMessage?.content}
+		${topicInstance?.replies?.get(0)?.content}
 	</ckeditor:editor>
 
 </div>

@@ -4,6 +4,7 @@ class Message {
 
 	String 	content;
 	Date	replyDate;
+	int 	mark;
 
 	static constraints = {
 		content blank: false, validator: { 

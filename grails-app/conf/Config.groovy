@@ -73,6 +73,7 @@ environments {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'isima.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'isima.UserRole'
 grails.plugins.springsecurity.authority.className = 'isima.Role'
+//grails.plugins.springsecurity.rejectIfNoRule = true
 
 // log4j configuration
 log4j = {

@@ -8,6 +8,7 @@ class User {
 	String  aboutMe // User's description of himself
 	String 	realName
 	byte[]	profileImage // user's profile picture
+    int     reputation
     List    questions
     List    answers
 	
@@ -21,7 +22,7 @@ class User {
     boolean passwordExpired
     // end
 
-    static hasMany = [questions:Topic, answers:Message]
+    static hasMany = [questions:Topic, answers:Message, badges:Badge]
 
 	static constraints = {
         username(blank:false, unique:true, maxSize:30)
