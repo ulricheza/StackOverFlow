@@ -8,18 +8,43 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#list-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
 		<div id="list-user" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<div id="title"><h1><g:message code="default.list.label" args="[entityName]" /></h1></div><br/>
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+				<div class="message" role="status">${flash.message}</div>
 			</g:if>
+
+			<table>
+			<g:each var="currentUser" status="currentUserId" in="${userInstanceList}">
+				<g:if test="${currentUserId%5==0}">
+				<tr>
+				</g:if>
+					<td>
+						<div style="width:150px; border:1px solid black">
+							<div style="float:left"><img width="32" height="32" src="data:image/png;base64,${currentUser.profileImage}" /></div>
+							<div style="float:right">					
+								<g:link action="show" id="${currentUser.id}">${currentUser.username}</g:link><br/>
+								${currentUser.location}
+							</div>
+						</div>
+					</td>
+				<g:if test="${currentUserId%5==0}">
+				</tr>
+				</g:if>
+			</g:each>	
+			</table>
+
+
+					<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+
+
+
+
+
+
+
 			<table>
 				<thead>
 					<tr>
@@ -42,7 +67,7 @@
 				<g:each in="${userInstanceList}" status="i" var="userInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${userInstance.id}"><img src="data:image/png;base64,${userInstance.profileImage.encodeBase64().toString()}" alt="Image profile" /></g:link></td>
+						<td><g:link action="show" id="${userInstance.id}"><img width="32" height="32" src="data:image/png;base64,${userInstance.profileImage.encodeBase64().toString()}" alt="Image profile" /></g:link></td>
 					
 						<td><g:formatDate type="date" date="${userInstance.birthDate}" /></td>
 					

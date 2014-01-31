@@ -74,7 +74,7 @@
 					
 				</li>
 				</g:if>
-			
+				<%--
 				<g:if test="${userInstance?.userMessages}">
 				<li class="fieldcontain">
 					<span id="userMessages-label" class="property-label"><g:message code="user.userMessages.label" default="User Answers" /></span>
@@ -95,7 +95,7 @@
 						</g:each>
 					
 				</li>
-				</g:if>
+				</g:if> --%>
 			
 			</ol>
 			<g:form>

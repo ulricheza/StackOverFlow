@@ -22,12 +22,14 @@ class Message {
 			int size = it.size()
     		if (size < 30) return ['minSize.notmet',size]
     	}
-	}
 
     static mapping = {
     	replyDate type:'date'
     	content type:'materialized_clob'
     }
 
-    static belongsTo = [author:User, topic:Topic]
+    static belongsTo = [
+    	author : User, 
+    	topic : Topic
+    ]
 }

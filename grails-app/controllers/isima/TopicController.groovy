@@ -19,7 +19,7 @@ class TopicController {
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 10, 100) 
 
         def messageHeaders = []
         Topic.list(params).each {
@@ -43,7 +43,7 @@ class TopicController {
     	params.resolved = false
         def topicInstance = new Topic(params)
 
-        // Topic message
+        // Topic's message
         params.replyDate = new Date()
         params.topic = topicInstance
         def topicInstanceMessage = new Message(params)
@@ -69,7 +69,9 @@ class TopicController {
         redirect(action: "show", id: topicInstance.id)
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(Long id) {
+        params.max = 10
         def topicInstance = Topic.get(id)
         if (!topicInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'topic.label', default: 'Topic'), id])
@@ -77,7 +79,9 @@ class TopicController {
             return
         }
 
-        [topicInstance: topicInstance]
+        // logged user
+        def user = springSecurityService.currentUser 
+        [topicInstance: topicInstance, loggedUser: user, nbmessages: Message.count()]
     }
 
     def edit(Long id) {

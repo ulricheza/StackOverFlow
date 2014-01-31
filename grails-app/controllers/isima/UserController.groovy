@@ -16,7 +16,8 @@ class UserController {
     }
 
     def create() {
-        [userInstance: new User(params)]
+        def user = new User(params)
+        [userInstance: user]
     }
 
     def save() {

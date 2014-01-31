@@ -4,7 +4,8 @@ class TagService {
 
     // The names are separated by ", "
     def findOrCreateTags(String tagNames) {
-    	def uniqueTags = [] as Set
+
+        def uniqueTags = [] as Set
     	def result = [] as Set
 
     	// Get Unique names

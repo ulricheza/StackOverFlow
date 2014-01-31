@@ -74,10 +74,8 @@ a:hover, a:active {
 }
 
 h1 {
-	color: #48802c;
-	font-weight: normal;
+	/*color: #48802c;*/
 	font-size: 1.25em;
-	margin: 0.8em 0 0.3em 0;
 }
 
 ul {
@@ -92,7 +90,6 @@ img {
 
 #grailsLogo a {
 	display: inline-block;
-	margin: 1em;
 }
 
 .content {
@@ -100,8 +97,6 @@ img {
 
 .content h1 {
 	border-bottom: 1px solid #CCCCCC;
-	margin: 0.8em 1em 0.3em;
-	padding: 0 0.25em;
 }
 
 .scaffold-list h1 {
@@ -604,6 +599,10 @@ a.skip {
 	text-decoration:none
 }
 
+#menus {
+	display:inline-block
+}
+
 #menus ul {
 	padding:0;
 	margin:0;
@@ -617,19 +616,17 @@ a.skip {
 
  #menus ul li a {
  	display:block;
- 	margin-left:10px; 
- 	margin-bottom:10px;
 	float:left;   
-	width:100px;
+	/*width:100px;*/
 	color:white; 
 	text-decoration: none; 
 	font-size:17px;		
 	text-align:center;
 	padding:5px;
 	border:2px solid;
-	background:gray;
+	/*background:gray;*/
 	/*pour avoir un effet "outset" avec IE :*/
-	border-color:#DCDCDC #696969 #696969 #DCDCDC;
+	/*border-color:#DCDCDC #696969 #696969 #DCDCDC;*/
  }
 
 #menus ul li a:hover {
@@ -772,4 +769,93 @@ a.skip {
     width: 10px;
     height: 10px;
     display:inline-block; 
+	background: #FF9900;
+}
+
+.youarehere {
+	background: #FF9900;
+}
+
+.youarenotthere {
+	background: gray;
+}
+
+#pagecontent {
+	margin-left:20px; 
+	margin-right:20px;
+}
+
+#title {
+	border-bottom:1px solid #cccccc;
+	font-weight:bold;
+	color: black;
+}
+
+#question-summary {
+	display:block;
+	margin-bottom: 20px;
+	height:100px;
+}
+
+#votes-counter {
+	width: 80px;
+	float:left;
+	text-align: center;
+	background:#EEEEEE;
+	margin-right: 15px;
+	height:100px;
+}
+
+#summary a {
+	color: #0077cc;
+	text-decoration: none;
+}
+
+#summary h3 {
+	margin-bottom: 7px;
+}
+
+#question-description {
+	font-size:14px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	height:50px;
+}
+
+#question-tags {
+	display: inline-block; 
+	background-color:rgb(224,234,241);
+	padding:2px;
+}
+
+#votes-counter .nbvotes {
+	font-weight:normal; 
+	font-size:24px; 
+	color:#555555;
+}
+
+#votes-counter .nbvotes-label {
+	color:#555555;
+	font-size: 12px;
+}
+
+#votes-counter .nbanswers {
+	font-weight:bold; 
+	font-size:18px; 
+	color:#9A4444;
+}
+
+#votes-counter .nbanswers-label {
+	color:#9A4444;
+	font-size: 12px;
+}
+
+.question-author {
+	float:right;
+	font-size: 13px;
+}
+
+#message-content {
+	font-size:14px;
 }

@@ -8,44 +8,46 @@
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#list-topic" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
 		<div id="list-topic" class="content scaffold-list" role="main">
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<div id="title"><h1><g:message code="isima.topic.newestquestions.title" /></h1></div><br/><br/>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-				<thead>
-					<tr>							
-						<g:sortableColumn property="title" title="${message(code: 'topic.title.label', default: 'Title')}" />					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${topicInstanceList}" status="i" var="topicInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-										
-						<td><strong><a class="home" href="${createLink(uri: '/topic/show/')}${fieldValue(bean: topicInstance, field: "id")}">${fieldValue(bean: topicInstance, field: "title")}</a></strong> <br /> ${messageHeaders[i]}
 
+			<g:each in="${topicInstanceList}" status="i" var="topicInstance">
+				<div id="question-summary">
+					<div id="votes-counter">
+						<span class="nbvotes">0</span> <br/>
+						<span class="nbvotes-label"><g:message code="isima.topic.newestquestions.votes" /></span><br/>
+						<span class="nbanswers">0</span> <br/>
+						<span class="nbanswers-label"><g:message code="isima.topic.newestquestions.answers" /></span>
+					</div>
+					<div id="summary">
+						<h3>
+							<a class="home" href="${createLink(uri: '/topic/show/')}${fieldValue(bean: topicInstance, field: "id")}">
+							${fieldValue(bean: topicInstance, field: "title")}</a>
+						</h3>
+						<div id="question-description">
+							${messageHeaders[i]}
+						</div>
+
+						<div>
 							<g:each in="${topicInstance.tags}" var="tag">
-								<div style="display: inline-block; background-color:rgb(224,234,241);">
-									<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</div>
-									</a>
+								<div id="question-tags">
+									<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</a>
+								</div>
 							</g:each>
-						</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
+							<div class="question-author">Asked by <g:link action="show" id="${topicInstance.author.id}">${topicInstance.author.username}</g:link></div>
+						</div>
+					</div>
+				</div>
+			</g:each>
+
+			<g:if test="${topicInstanceTotal > params.max}">
 			<div class="pagination">
 				<g:paginate total="${topicInstanceTotal}" />
 			</div>
+			</g:if>
 		</div>
 	</body>
 </html>

@@ -6,76 +6,77 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'topic.label', default: 'Topic')}" />
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<ckeditor:resources/>
 	</head>
 	<body>
-		<a href="#show-topic" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="show-topic" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+		<div id="list-topic" class="content scaffold-list" role="main">
+			<div id="title"><h3><g:fieldValue bean="${topicInstance}" field="title"/></h3></div><br/><br/>
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list topic">
-			
-				<g:if test="${topicInstance?.author}">
-				<li class="fieldcontain">
-					<span id="author-label" class="property-label"><g:message code="topic.author.label" default="Author" /></span>
+
+			<g:each in="${topicInstance.replies}" status="messageId" var="message">
+				<div id="question-summary">
+					<div id="votes-counter">
+						<span class="nbvotes">0</span> <br/>
+						<span class="nbvotes-label"><g:message code="isima.topic.newestquestions.votes" /></span><br/>
+						<span class="nbanswers">0</span> <br/>
+						<span class="nbanswers-label"><g:message code="isima.topic.newestquestions.answers" /></span>
+					</div>
+					<div id="summary">
+						<div id="message-content">
+							${message.content}
+						</div><br/>
+
+						<g:if test="messageId==0">
+							<div>
+								<g:each in="${topicInstance.tags}" var="tag">
+									<div id="question-tags">
+										<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</a>
+									</div>
+								</g:each>
+								<div class="question-author">
+									<g:if test="${messageId==0}">Asked by </g:if>
+									<g:if test="${messageId!=0}">Answered by </g:if>
+									<g:link action="show" id="${topicInstance.author.id}">${topicInstance.author.username}</g:link></div>
+							</div>
+						</g:if>
+					</div>
+				</div>
+			</g:each>
+
+			<g:if test="${nbmessages > params.max}">
+			<div class="pagination">
+				<g:paginate total="${topicInstanceTotal}" />
+			</div>
+			</g:if>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<g:form method="post" url="[action:'save',controller:'message']">
+				<strong>Your Answer</strong>
+				<div class="fieldcontain ${hasErrors(bean: topicInstanceMessage, field: 'content', 'error')}">
+					<ckeditor:config removePlugins = 'save'  resize_dir = 'vertical' skin = 'v2' />    
 					
-						<span class="property-value" aria-labelledby="author-label"><g:link controller="user" action="show" id="${topicInstance?.author?.id}">${topicInstance?.author?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${topicInstance?.creationDate}">
-				<li class="fieldcontain">
-					<span id="creationDate-label" class="property-label"><g:message code="topic.creationDate.label" default="Creation Date" /></span>
-					
-						<span class="property-value" aria-labelledby="creationDate-label"><g:formatDate type="date" date="${topicInstance?.creationDate}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${topicInstance?.resolved}">
-				<li class="fieldcontain">
-					<span id="resolved-label" class="property-label"><g:message code="topic.resolved.label" default="Resolved" /></span>
-					
-						<span class="property-value" aria-labelledby="resolved-label"><g:formatBoolean boolean="${topicInstance?.resolved}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${topicInstance?.title}">
-				<li class="fieldcontain">
-					<span id="title-label" class="property-label"><g:message code="topic.title.label" default="Title" /></span>
-					
-						<span class="property-value" aria-labelledby="title-label"><g:fieldValue bean="${topicInstance}" field="title"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${topicInstance?.replies}">
-				<li class="fieldcontain">
-					<span id="replies-label" class="property-label"><g:message code="topic.replies.label" default="Topic Replies" /></span>
-					
-						<g:each in="${topicInstance.replies}" var="t">
-						<span class="property-value" aria-labelledby="replies-label"><g:link controller="message" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-			</ol>
-			<g:form>
+					<ckeditor:editor id="ckeditorTextarea" name="content">testtestetesteststest</ckeditor:editor>
+					<input type="hidden" name="topic_id" id="topic_id" value="${topicInstance.id}" />
+				</div>
+
+
 				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${topicInstance?.id}" />
-					<g:link class="edit" action="edit" id="${topicInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<input type="submit" name="PostAnswer" value="Post Your Answer" />
 				</fieldset>
 			</g:form>
 		</div>

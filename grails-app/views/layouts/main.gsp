@@ -22,20 +22,22 @@
 			<div id="grailsLogo" role="banner" style="display:inline-block">
 				<a href="${createLink(uri: '/')}"><img width="250" src="${resource(dir: 'images', file: 'logo.StackOverflow.png')}" alt="logo"/></a>
 			</div>
-			<div id="menus" style="display:inline-block">
-				<ul >
-					<li><a href="${createLink(uri: '/questions')}">Questions</a></li>
-					<li><a href="${createLink(uri: '/tags')}">Tags</a></li>
-					<li><a href="${createLink(uri: '/users')}">Users</a></li>
-					<sec:ifLoggedIn>
-						<li><a href="${createLink(uri: '/badges')}"> Badges</a></li>
-					</sec:ifLoggedIn>
-					<li><a href="${createLink(uri: '/unanswered')}">Unanswered</a></li>
+			<div id="menus">
+				<ul>
+					<li <g:if test="1==1">class="youarehere"</g:if>><a href="${createLink(uri: '/questions')}"><g:message code="isima.header.tags.questions" /></a></li>
+					<li class="youarenotthere"><g:link url="${createLink(uri: '/tags')}"><g:message code="isima.header.tags.tags" /></g:link></li>
+					<li class="youarenotthere"><g:link url="${createLink(uri: '/users')}"><g:message code="isima.header.tags.users" /></g:link></li>
+					<li class="youarenotthere"><g:link url="${createLink(uri: '/')}"><g:message code="isima.header.tags.badges" /></g:link></li>
+					<li class="youarenotthere"><g:link url="${createLink(uri: '/unanswered')}"><g:message code="isima.header.tags.unanswered" /></g:link></li>
+					<li class="youarenotthere"><g:link action="create" controller="topic"><g:message code="isima.header.tags.askquestion" /></g:link></li>
 				</ul>
 			</div>
-		</div>	      
+			<br/><br/><br/>
+		</div>	    
 
-		<g:layoutBody/>
+		<div id="pagecontent">
+			<g:layoutBody/>
+		</div>
 		
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>

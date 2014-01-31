@@ -1,10 +1,16 @@
 package isima
 
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.security.access.annotation.Secured
 
+@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class MessageController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+
+    def springSecurityService
+
 
     def index() {
         redirect(action: "list", params: params)
@@ -20,6 +26,20 @@ class MessageController {
     }
 
     def save() {
+
+        // logged user
+        def user = springSecurityService.currentUser 
+        params.author = user
+        /*if(params.author_username != null){
+            params.author = User.findByUsername(params.author_username)
+        }*/
+        params.topic = Topic.findById(params.topic_id)
+        /*if(params.topic_id != null){
+            params.topic = Topic.findByTitle('Fast algorithm to access tiles in a circle in a tiled map based game')
+        }*/
+        if(params.replyDate == null) params.replyDate = new Date()
+
+
         def messageInstance = new Message(params)
         if (!messageInstance.save(flush: true)) {
             render(view: "create", model: [messageInstance: messageInstance])

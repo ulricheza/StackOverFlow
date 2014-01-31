@@ -3,14 +3,15 @@ package isima
 class User {
 
 	String 	username  // not userName because of spring security
+    String  email
 	String 	location  // Country
 	Date	birthDate
 	String  aboutMe // User's description of himself
 	String 	realName
 	byte[]	profileImage // user's profile picture
     int     reputation
-    List    questions
-    List    answers
+    /*List    questions
+    List    answers*/
 	
     // Security fields
     transient springSecurityService
@@ -22,15 +23,23 @@ class User {
     boolean passwordExpired
     // end
 
-    static hasMany = [questions:Topic, answers:Message, badges:Badge]
+    static hasMany = [
+        questions : Topic, 
+        answers : Message,
+        badges : Badge
+    ]
 
 	static constraints = {
         username(blank:false, unique:true, maxSize:30)
+        password(blank:false)
         birthDate validator: {val, obj ->
             return val <= new Date()
         }
-       	profileImage maxSize:16*1024
-        password blank: false
+        email(email:true, unique:true, blank:false)
+        profileImage(maxSize:16*1024, nullable:true)
+        aboutMe(nullable:true)
+        location(nullable:true)
+        realName(nullable:true)
     } 
 
     static mapping = {
