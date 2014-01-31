@@ -9,10 +9,12 @@
 	<ckeditor:editor name="content">	
 		${topicInstance?.replies?.get(0)?.content}
 	</ckeditor:editor>
+
+	<!-- <g:textArea name="content" value="" rows="5" cols="100"/>  -->
+	 
 </div>
 
-<div class="fieldcontain">
+<div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'tags', 'error')}">
 	<strong><g:message code="topic.tagNames.label" default="Tags" /></strong>
-	<input style="width:30%;" type="text" id="tagNames" name="tagNames" value="${topicInstanceTags}" 
-		 placeholder="At least one tag, max 5 tags.">
+	<input type="text" id="tagNames" name="tagNames" value="${topicInstanceTags}" size="25" placeholder="at least one tag, max 5 tags">
 </div>

@@ -13,7 +13,6 @@ class MessageController {
         model.selectedTab = "questions"
     }
 
-
     def index() {
         redirect(action: "list", params: params)
     }
@@ -38,6 +37,7 @@ class MessageController {
         params.author = user
         params.topic = topic
         params.replyDate = new Date()
+        
         def messageInstance = new Message(params)
 
         user.addToAnswers(messageInstance)

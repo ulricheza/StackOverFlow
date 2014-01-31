@@ -8,96 +8,64 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-user" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
+		<div class="page-title"><h1>${userInstance.username}</h1></div>
 		<div id="show-user" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+			<div>
+				<div id="profile-imagecontainer-div">
+					<div id="profile-image-div"><img border="0" width="128" height="128" src="img.jpg" /></div>
+					<center>
+						<strong>${userInstance.reputation}</strong><br/>
+						réputation
+					</center>
+				</div>
+				<div id="profile-description-div">
+					<table style="width:100%">
+						<tr>
+							<td class="profile-italic-description"><g:message code="isima.profile.bio.title" /></td>
+							<td class="profile-description"><g:message code="isima.profile.location.title" /></td>
+							<td class="profile-description">${userInstance.location}</td>
+							<td></td>
+						</tr>			
+						<tr>
+							<td class="profile-italic-description"></td>
+							<td class="profile-description"><g:message code="isima.profile.realname.title" /></td>
+							<td class="profile-description">${userInstance.realName}</td>
+							<td></td>
+						</tr>		
+						<tr>
+							<td class="profile-italic-description"></td>
+							<td class="profile-description"><g:message code="isima.profile.birthdate.title" /></td>
+							<td class="profile-description"><g:formatDate type="date" date="${userInstance?.birthDate}" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				<div id="profile-aboutme-div">
+					<div><g:message code="isima.profile.aboutme.title" /></div>
+					<div class="profile-aboutme">${userInstance.aboutMe}</div>
+				</div>
+			</div>
+
+			<div style="clear: both">
+			<div style="display:inline-block; width:49%">
+				<div class="page-title"><h1>${userInstance.questions.size()} <g:message code="isima.profile.questions.label" /></h1></div>
+				<g:each var="curTopic" in="${userInstance?.questions}">
+    				<br/><span style="background:green; color:white">${curTopic.replies.size()<2?0:curTopic.replies.size()-1}</span> <g:link>${curTopic.title}</g:link>
+  				</g:each>
+			</div>
+			<div style="display:inline-block; width:50%">
+				<div class="page-title"><h1>${userInstance.answers.size()} <g:message code="isima.profile.answers.label" /></h1></div>
+				<g:each var="curAnswer" in="${userInstance?.answers}">
+    				<br/><span style="background:green; color:white">${curAnswer.topic.replies.size()<2?0:curAnswer.topic.replies.size()-1}</span> <g:link>${curAnswer.topic.title}</g:link>
+  				</g:each>
+			</div>
+			</div>
+			<br/>
+			<br/>
+
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list user">
-			
-				<g:if test="${userInstance?.profileImage}">
-				<li class="fieldcontain">
-					<span id="profileImage-label" class="property-label"><g:message code="user.profileImage.label" default="Profile Image" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.birthDate}">
-				<li class="fieldcontain">
-					<span id="birthDate-label" class="property-label"><g:message code="user.birthDate.label" default="Birth Date" /></span>
-					
-						<span class="property-value" aria-labelledby="birthDate-label"><g:formatDate type="date" date="${userInstance?.birthDate}" /></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.aboutMe}">
-				<li class="fieldcontain">
-					<span id="aboutMe-label" class="property-label"><g:message code="user.aboutMe.label" default="About Me" /></span>
-					
-						<span class="property-value" aria-labelledby="aboutMe-label"><g:fieldValue bean="${userInstance}" field="aboutMe"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.location}">
-				<li class="fieldcontain">
-					<span id="location-label" class="property-label"><g:message code="user.location.label" default="Location" /></span>
-					
-						<span class="property-value" aria-labelledby="location-label"><g:fieldValue bean="${userInstance}" field="location"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.username}">
-				<li class="fieldcontain">
-					<span id="username-label" class="property-label"><g:message code="user.username.label" default="User Name" /></span>
-					
-						<span class="property-value" aria-labelledby="username-label"><g:fieldValue bean="${userInstance}" field="username"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.realName}">
-				<li class="fieldcontain">
-					<span id="realName-label" class="property-label"><g:message code="user.realName.label" default="Real Name" /></span>
-					
-						<span class="property-value" aria-labelledby="realName-label"><g:fieldValue bean="${userInstance}" field="realName"/></span>
-					
-				</li>
-				</g:if>
-				<%--
-				<g:if test="${userInstance?.userMessages}">
-				<li class="fieldcontain">
-					<span id="userMessages-label" class="property-label"><g:message code="user.userMessages.label" default="User Answers" /></span>
-					
-						<g:each in="${userInstance.userMessages}" var="u">
-						<span class="property-value" aria-labelledby="userMessages-label"><g:link controller="message" action="show" id="${u.id}">${u?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${userInstance?.userQuestions}">
-				<li class="fieldcontain">
-					<span id="userQuestions-label" class="property-label"><g:message code="user.userQuestions.label" default="User Questions" /></span>
-					
-						<g:each in="${userInstance.userQuestions}" var="u">
-						<span class="property-value" aria-labelledby="userQuestions-label"><g:link controller="topic" action="show" id="${u.id}">${u?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if> --%>
-			
-			</ol>
 			<g:form>
 				<fieldset class="buttons">
 					<g:hiddenField name="id" value="${userInstance?.id}" />

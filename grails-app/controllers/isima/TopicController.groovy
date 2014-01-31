@@ -137,6 +137,7 @@ class TopicController {
         }
 
         [topicInstance: topicInstance,topicReplies:topicReplies,topicInstanceTotal:topicInstanceTotal]
+        
     }
 
     def edit(Long id) {

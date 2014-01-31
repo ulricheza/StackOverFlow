@@ -62,7 +62,7 @@ class BootStrap {
         def userRole = Role.findByAuthority('ROLE_USER')?:new Role(authority: 'ROLE_USER').save(flush: true)
         def adminUser = User.findByUsername('admin')?:new User(
             username: 'admin', enabled: true, password: 'admin', email:'admin@gmail.com',
-            location:'',birthDate:new Date(),aboutMe:'',realName:'',profileImage:new byte[0]
+            location:'I live in Clermont-Ferrand, France',birthDate:new Date(),aboutMe:'This is me, this is my life.',realName:'Administrator',profileImage:new byte[0]
         ).addToBadges(Badge.findByTitle('Teacher')).save(flush: true)
 
         if (!adminUser.authorities.contains(adminRole)) 
