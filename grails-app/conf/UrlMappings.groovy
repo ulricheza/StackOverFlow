@@ -20,7 +20,7 @@ class UrlMappings {
 		}
 
 		"/"(controller:"topic", action:"list")
-		"/questions"(controller:"topic", action:"list")
+		"/questions"(controller:"topic", action:"list"){}
 		"/users"(controller:"user", action:"list")
 		"/unanswered"(controller:"message",action:"list")
 		"/tags"(controller:"tag",action:"list")

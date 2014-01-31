@@ -5,6 +5,9 @@ import org.springframework.dao.DataIntegrityViolationException
 class BadgeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def afterInterceptor = { model ->
+        model.selectedTab = 'badges'
+    }
 
     def badgeService
 

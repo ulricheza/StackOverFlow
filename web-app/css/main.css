@@ -600,7 +600,8 @@ a.skip {
 }
 
 #menus {
-	display:inline-block
+	display:inline-block;
+	width:70%;
 }
 
 #menus ul {
@@ -611,27 +612,37 @@ a.skip {
 
 #menus li {
 	margin-left:2px;
-	float:left; /*pour IE*/
+	float:left; 
  }
 
- #menus ul li a {
+#menus ul li a {
  	display:block;
 	float:left;   
-	/*width:100px;*/
 	color:white; 
 	text-decoration: none; 
 	font-size:17px;		
 	text-align:center;
 	padding:5px;
 	border:2px solid;
-	/*background:gray;*/
-	/*pour avoir un effet "outset" avec IE :*/
-	/*border-color:#DCDCDC #696969 #696969 #DCDCDC;*/
- }
+	background:gray;
+	border-color:#DCDCDC #696969 #696969 #DCDCDC;
+}
 
 #menus ul li a:hover {
-	
+	background:#FF9900;	
 } 
+
+#menus ul li a.youarehere {
+	background:#FF9900;
+}
+
+#menus .last-link {
+	float: right;
+}
+
+#header {
+	margin-bottom:3em;
+}
 
 .subHeader {
 	border-bottom: 1px solid rgb(204, 204, 204);
@@ -675,6 +686,10 @@ a.skip {
     margin: 9px 8px 0px 0px;
     padding: 0px 11px;
     text-decoration: none;
+}
+
+.tabs a:hover {
+	border-color: rgb(204, 204, 204) rgb(204, 204, 204) rgb(255, 255, 255);
 }
 
 .tabs a.currentTab {
@@ -782,14 +797,6 @@ a.skip {
     height: 10px;
     display:inline-block; 
 	background: #FF9900;
-}
-
-.youarehere {
-	background: #FF9900;
-}
-
-.youarenotthere {
-	background: gray;
 }
 
 #pagecontent {

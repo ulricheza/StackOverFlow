@@ -5,6 +5,9 @@ import org.springframework.dao.DataIntegrityViolationException
 class UserController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def afterInterceptor = { model ->
+        model.selectedTab = 'users'
+    }
 
     def index() {
         redirect(action: "list", params: params)

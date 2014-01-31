@@ -12,6 +12,13 @@ class TopicController {
     def tagService
     def topicService
 
+    def afterInterceptor = { model, modelAndView ->
+        if ("${modelAndView.viewName}" == "/topic/create")
+            model.selectedTab = "askQuestion"
+        else
+            model.selectedTab = "questions"
+    }
+
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
         redirect(action: "list", params: params)
@@ -25,7 +32,7 @@ class TopicController {
         Topic.list(params).each {
         	messageHeaders.add(it.replies[0].content.take(250) + ' ...')
         }
-        
+
         [topicInstanceList:Topic.list(params) , messageHeaders:messageHeaders, topicInstanceTotal: Topic.count()]
     }
 

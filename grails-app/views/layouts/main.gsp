@@ -30,21 +30,38 @@
 				</sec:ifLoggedIn>
 			</div>
 		</div>
-		<div id="header" >
-			<div id="grailsLogo" role="banner" style="display:inline-block">
+		<div id="header">
+			<div id="grailsLogo" role="banner">
 				<a href="${createLink(uri: '/')}"><img width="250" src="${resource(dir: 'images', file: 'logo.StackOverflow.png')}" alt="logo"/></a>
 			</div>
 			<div id="menus">
 				<ul>
-					<li <g:if test="1==1">class="youarehere"</g:if>><a href="${createLink(uri: '/questions')}"><g:message code="isima.header.tags.questions" /></a></li>
-					<li class="youarenotthere"><g:link url="${createLink(uri: '/tags')}"><g:message code="isima.header.tags.tags" /></g:link></li>
-					<li class="youarenotthere"><g:link url="${createLink(uri: '/users')}"><g:message code="isima.header.tags.users" /></g:link></li>
-					<li class="youarenotthere"><g:link url="${createLink(uri: '/')}"><g:message code="isima.header.tags.badges" /></g:link></li>
-					<li class="youarenotthere"><g:link url="${createLink(uri: '/unanswered')}"><g:message code="isima.header.tags.unanswered" /></g:link></li>
-					<li class="youarenotthere"><g:link action="create" controller="topic"><g:message code="isima.header.tags.askquestion" /></g:link></li>
+					<li>
+						<g:link class="${(selectedTab == 'questions')? 'youarehere' : ''}" 
+							url="${createLink(uri:'/questions')}"><g:message code="isima.header.tags.questions"/></g:link>
+					</li>
+					<li>
+						<g:link class="${(selectedTab == 'tags')? 'youarehere' : ''}" 
+							url="${createLink(uri:'/tags')}"><g:message code="isima.header.tags.tags" /></g:link>
+					</li>
+					<li>
+						<g:link class="${(selectedTab == 'users')? 'youarehere' : ''}" 
+							url="${createLink(uri:'/users')}"><g:message code="isima.header.tags.users" /></g:link>
+					</li>
+					<li>
+						<g:link class="${(selectedTab == 'badges')? 'youarehere' : ''}" 
+							url="${createLink(uri: '/badges')}"><g:message code="isima.header.tags.badges" /></g:link>
+					</li>
+					<li>
+						<g:link class="${(selectedTab == 'unanswered')? 'youarehere' : ''}" 
+							url="${createLink(uri: '/unanswered')}"><g:message code="isima.header.tags.unanswered" /></g:link>
+					</li>
+					<li class="last-link">
+						<g:link class="${(selectedTab == 'askQuestion')? 'youarehere' : ''}"
+							controller="topic" action="create"><g:message code="isima.header.tags.askquestion" /></g:link>
+					</li>
 				</ul>
 			</div>
-			<br/><br/><br/>
 		</div>	    
 
 		<div id="pagecontent">

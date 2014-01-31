@@ -6,6 +6,9 @@ import grails.converters.JSON
 class TagController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    def afterInterceptor = { model ->
+        model.selectedTab = 'tags'
+    }
 
     def searchAJAX () {
         def tags = Tag.findAllByTagNameLike("%${params.term}%")
