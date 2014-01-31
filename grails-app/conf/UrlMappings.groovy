@@ -27,6 +27,6 @@ class UrlMappings {
 		//"/"(view:'/index')
 		//"403"(view: "errors/forbidden") ; TODO
    		"404"(view: "errors/notFound")
-		"500"(view:'errors/serverError')
+		"500"(view:"errors/serverError")
 	}
 }

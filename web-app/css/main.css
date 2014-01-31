@@ -761,6 +761,18 @@ a.skip {
     display:inline-block; 
 }
 
+#topbar {
+	height:30px;
+	background-color:black;
+	padding-right:30px
+}
+
+.topbar-link {
+	color:white;
+	float:right;
+	margin:3px 5px;
+	text-decoration:none;
+}
 .badge-gold {
 	background-color: rgb(213,213,0);
 	-webkit-border-radius: 25px;

@@ -18,6 +18,18 @@
 		<r:layoutResources />
 	</head>
 	<body>
+		<div id="topbar">
+			<div>
+				<sec:ifNotLoggedIn>
+					<g:link class="topbar-link" controller="login">log in</g:link>
+					<span class="topbar-link">sign up</span>
+				</sec:ifNotLoggedIn>
+				<sec:ifLoggedIn>
+					<g:link class="topbar-link" controller="logout">log out</g:link>
+					<span class="topbar-link">afficher le nombre de badges</span>
+				</sec:ifLoggedIn>
+			</div>
+		</div>
 		<div id="header" >
 			<div id="grailsLogo" role="banner" style="display:inline-block">
 				<a href="${createLink(uri: '/')}"><img width="250" src="${resource(dir: 'images', file: 'logo.StackOverflow.png')}" alt="logo"/></a>
