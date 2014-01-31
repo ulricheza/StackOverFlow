@@ -22,6 +22,7 @@ class Message {
 			int size = it.size()
     		if (size < 30) return ['minSize.notmet',size]
     	}
+    }
 
     static mapping = {
     	replyDate type:'date'

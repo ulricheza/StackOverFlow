@@ -12,22 +12,11 @@
 	<ckeditor:editor name="content">	
 		${topicInstance?.replies?.get(0)?.content}
 	</ckeditor:editor>
-<<<<<<< HEAD
 
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'tags', 'error')}">
-	<label for="tagNames">
-		<g:message code="topic.tagNames.label" default="Tags" />		
-	</label>
-	<input type="text" id="tagNames" name="tagNames" value="${topicInstanceTags}" size="25">
-=======
 	<!-- <g:textArea name="content" value="" rows="5" cols="100"/>  -->
-	 
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'tags', 'error')}">
 	<strong><g:message code="topic.tagNames.label" default="Tags" /></strong>
 	<input type="text" id="tagNames" name="tagNames" value="${topicInstanceTags}" size="25" placeholder="at least one tag, max 5 tags">
->>>>>>> Affichage de la liste des topics, d'un topic et ses messages, amélioration du design
 </div>
