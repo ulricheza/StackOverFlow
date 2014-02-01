@@ -20,24 +20,28 @@ class BadgeService {
             case 'all':
             	return fillMaps(Badge.list())            	
             case 'earned':
-            	def user = springSecurityService.currentUser
-            	return fillMaps(user.badges)
+                if (springSecurityService.isLoggedIn())
+                    return fillMaps(springSecurityService.currentUser.badges)
+                break;
             case 'unearned':
-            	def badges = Badge.list()
-            	def user = springSecurityService.currentUser
-            	user.badges.each {
-            		badges.remove(it)            		
-            	}
-            	return fillMaps(badges)
+                if (springSecurityService.isLoggedIn()){
+                    def badges = Badge.list()
+                    def user = springSecurityService.currentUser
+                    user.badges.each {
+                        badges.remove(it)                   
+                    }
+                    return fillMaps(badges)
+                }
+                break;            	
             case 'gold':
             	return fillMaps(Badge.findAllByRank(GOLD))
             case 'silver':
             	return fillMaps(Badge.findAllByRank(SILVER))
             case 'bronze':
-            	return fillMaps(Badge.findAllByRank(BRONZE))
-            default:
-                return [:]       
-        }        
+            	return fillMaps(Badge.findAllByRank(BRONZE))    
+        }
+
+        [:]        
     }
 
     def fillMaps (Collection badges){

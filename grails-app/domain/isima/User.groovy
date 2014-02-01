@@ -10,8 +10,8 @@ class User {
 	String 	realName
 	byte[]	profileImage // user's profile picture
     int     reputation
-    /*List    questions
-    List    answers*/
+    List    questions
+    List    answers
 	
     // Security fields
     transient springSecurityService

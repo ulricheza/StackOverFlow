@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div id="list-tag" class="content scaffold-list" role="main">
-			<div id="title"><h1><g:message code="isima.tags.list.title" /></h1></div><br/><br/>
+			<div class="page-title"><h1><g:message code="isima.tags.list.title" /></h1></div><br/><br/>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

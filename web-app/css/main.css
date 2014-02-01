@@ -96,7 +96,7 @@ img {
 }
 
 .content h1 {
-	border-bottom: 1px solid #CCCCCC;
+	/*border-bottom: 1px solid #CCCCCC;*/
 }
 
 .scaffold-list h1 {
@@ -394,7 +394,7 @@ input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
 
 /* TABLES */
 
-table {
+/*table {
 	border-top: 1px solid #DFDFDF;
 	border-collapse: collapse;
 	width: 100%;
@@ -473,7 +473,7 @@ th.desc a {
 
 th:hover, tr:hover {
 	background: #E1F2B6;
-}
+}*/
 
 /* PAGINATION */
 
@@ -593,12 +593,6 @@ a.skip {
 
 /* Added */
 
-.post-tag {
-	padding: 2px 2px;
-	color:rgb(62,109,142);
-	text-decoration:none
-}
-
 #menus {
 	display:inline-block;
 	width:70%;
@@ -623,9 +617,10 @@ a.skip {
 	font-size:17px;		
 	text-align:center;
 	padding:5px;
+	margin-left:5px;
 	border:2px solid;
-	background:gray;
 	border-color:#DCDCDC #696969 #696969 #DCDCDC;
+	background:gray;	
 }
 
 #menus ul li a:hover {
@@ -651,15 +646,31 @@ a.skip {
 	margin-bottom: 15px;
 }
 
+.page-title {
+	border-bottom:1px solid #cccccc;
+	color: black;
+	height:34px;
+	margin-bottom: 15px;
+}
+
+.page-title h1 {
+	font-weight:bold;
+	margin-top: 0px;
+    margin-bottom: 0px;
+	padding-left: 1.25em;
+    padding-right: 1.25em;
+    vertical-align: baseline;
+}
+
 .subHeader h1 {
+	color: black;
     float: left;
-    font-size: 18px;
-    line-height: 34px;
+    font-weight:bold;
+    margin-top: 0px;
     margin-bottom: 0px;
     padding-left: 1.25em;
     padding-right: 1.25em;
     vertical-align: baseline;
-    margin: 0px;
 }
 
 .tabs {
@@ -804,12 +815,6 @@ a.skip {
 	margin-right:20px;
 }
 
-#title {
-	border-bottom:1px solid #cccccc;
-	font-weight:bold;
-	color: black;
-}
-
 #question-summary {
 	display:block;
 	margin-bottom: 20px;
@@ -877,4 +882,127 @@ a.skip {
 
 #message-content {
 	font-size:14px;
+}
+
+/* Topic list */
+.question {
+    clear: both;
+    width: 80%;
+    margin-bottom: 3em;
+}
+
+.question table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    width: 100%;
+}
+
+.question .vote-cell {
+    width: 10%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.post-cell {
+	width: 70%;
+}
+
+.post-text {
+	word-wrap: break-word;
+	width: 100%;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+.post-tags-list {
+	margin-top:1em;
+    margin-bottom: 10px;
+    clear: both;
+}
+
+.post-tag {
+	padding: 2px 2px;
+	color: rgb(0, 119, 204);
+	background-color: rgb(224, 234, 241);
+	text-decoration:none
+}
+
+.owner {
+    background-color: rgb(224, 234, 241);
+}
+.post-signature {
+    padding-left: 5px;
+    padding-top: 2px;
+    text-align: left;
+    vertical-align: top;
+    width: 175px;
+    height: 58px;
+}
+
+.message-footer {
+	vertical-align: top;
+}
+
+.post-menu {
+	padding-top:2px;
+}
+
+.post-menu a, span {
+    padding: 0px 3px 2px;
+    color: rgb(136, 136, 136);
+    text-decoration: none;
+}
+
+.post-comment {
+	color: rgb(136, 136, 136);
+    text-decoration: none;
+}
+
+.user-avatar {
+	float: left;
+	width: 32px;
+	height: 32px;
+}
+
+.user-details {
+	float: left;
+    margin-left: 5px;
+    width: 70%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.user-details a {
+	color: rgb(0, 119, 204);
+    text-decoration: none;
+}
+
+.vote {
+	text-align:center;
+}
+
+.vote-up {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;	
+	border-bottom: 15px solid black;
+}
+
+.vote-down {
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;	
+	border-top: 15px solid black;
+}
+
+.yourAnswer {
+	padding-top:10px;
+	border-top:1px solid #cccccc;
+}
+
+.yourAnswer input {
+	color:white; 
+	text-decoration: none; 
+	background-color:rgb(26,26,26);
+	margin-top:10px;
+	border-color:#DCDCDC #696969 #696969 #DCDCDC;
+	cursor:pointer;
 }

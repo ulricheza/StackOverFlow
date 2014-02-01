@@ -13,7 +13,7 @@ class TopicController {
     def topicService
 
     def afterInterceptor = { model, modelAndView ->
-        if ("${modelAndView.viewName}" == "/topic/create")
+        if ("${modelAndView?.viewName}" == "/topic/create")
             model.selectedTab = "askQuestion"
         else
             model.selectedTab = "questions"
@@ -74,6 +74,32 @@ class TopicController {
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'topic.label', default: 'Topic'), topicInstance.id])
         redirect(action: "show", id: topicInstance.id)
+    }
+
+    def addReply() {
+
+        // logged user
+        def user = springSecurityService.currentUser 
+
+        // topic associated
+        def topic = Topic.findById(params.topic_id)
+       
+        params.author = user
+        params.topic = topic
+        params.replyDate = new Date()
+        def messageInstance = new Message(params)
+
+        user.addToAnswers(messageInstance)
+        topic.addToReplies(messageInstance)
+
+        // saving
+        if(!messageInstance.save(flush: true)){
+            topic.removeFromReplies(messageInstance)
+            render(view: "show", model: [topicInstance:topic,topicAnswer:messageInstance])
+            return
+        }
+
+        render(view: "show", model: [topicInstance:topic])
     }
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])

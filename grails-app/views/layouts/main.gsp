@@ -48,10 +48,12 @@
 						<g:link class="${(selectedTab == 'users')? 'youarehere' : ''}" 
 							url="${createLink(uri:'/users')}"><g:message code="isima.header.tags.users" /></g:link>
 					</li>
-					<li>
-						<g:link class="${(selectedTab == 'badges')? 'youarehere' : ''}" 
-							url="${createLink(uri: '/badges')}"><g:message code="isima.header.tags.badges" /></g:link>
-					</li>
+					<sec:ifLoggedIn>
+						<li>
+							<g:link class="${(selectedTab == 'badges')? 'youarehere' : ''}" 
+								url="${createLink(uri: '/badges')}"><g:message code="isima.header.tags.badges" /></g:link>
+						</li>
+					</sec:ifLoggedIn>
 					<li>
 						<g:link class="${(selectedTab == 'unanswered')? 'youarehere' : ''}" 
 							url="${createLink(uri: '/unanswered')}"><g:message code="isima.header.tags.unanswered" /></g:link>

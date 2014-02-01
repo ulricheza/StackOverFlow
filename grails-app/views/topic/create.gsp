@@ -8,6 +8,7 @@
 		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<ckeditor:resources/>
+		<r:require module="jquery-ui" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 		<!-- autoCompletion script -->
 		<script>
@@ -56,7 +57,7 @@
 	</head>
 	<body>
 		<div id="create-topic" class="content scaffold-create" role="main">
-			<div id="title"><h1><g:message code="isima.topic.create.label" args="[entityName]" /></h1></div>
+			<div class="page-title"><h1><g:message code="isima.topic.create.label" args="[entityName]" /></h1></div>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>

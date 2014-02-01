@@ -29,25 +29,26 @@ class MessageController {
 
         // logged user
         def user = springSecurityService.currentUser 
+
+        // topic associated
+        def topic = Topic.findById(params.topic_id)
+       
         params.author = user
-        /*if(params.author_username != null){
-            params.author = User.findByUsername(params.author_username)
-        }*/
-        params.topic = Topic.findById(params.topic_id)
-        /*if(params.topic_id != null){
-            params.topic = Topic.findByTitle('Fast algorithm to access tiles in a circle in a tiled map based game')
-        }*/
-        if(params.replyDate == null) params.replyDate = new Date()
-
-
+        params.topic = topic
+        params.replyDate = new Date()
         def messageInstance = new Message(params)
+
+        user.addToAnswers(messageInstance)
+        topic.addToReplies(messageInstance)
+
         if (!messageInstance.save(flush: true)) {
-            render(view: "create", model: [messageInstance: messageInstance])
+            redirect(controller:"topic", action: "show", id: topic.id, 
+                    params:[topicInstance:topic,topicAnswer:messageInstance])
             return
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
-        redirect(action: "show", id: messageInstance.id)
+        redirect(controller:"topic", action: "show", id: topic.id)
     }
 
     def show(Long id) {
