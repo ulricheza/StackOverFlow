@@ -3,7 +3,8 @@ package isima
 class Tag {
 
 	String tagName
-	int tagCount
+	int    tagCount
+    String description
 
     static constraints = {
     	tagName unique:true

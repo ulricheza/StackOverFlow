@@ -13,31 +13,40 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<table>
-				<thead>
-					<tr>
-					
-						<g:sortableColumn property="tagName" title="${message(code: 'tag.tagName.label', default: 'Tag Name')}" />
-					
-						<g:sortableColumn property="tagCount" title="${message(code: 'tag.tagCount.label', default: 'Tag Count')}" />
-					
-					</tr>
-				</thead>
-				<tbody>
-				<g:each in="${tagInstanceList}" status="i" var="tagInstance">
-					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
-					
-						<td><g:link action="show" id="${tagInstance.id}">${fieldValue(bean: tagInstance, field: "tagName")}</g:link></td>
-					
-						<td>${fieldValue(bean: tagInstance, field: "tagCount")}</td>
-					
-					</tr>
-				</g:each>
-				</tbody>
-			</table>
-			<div class="pagination">
-				<g:paginate total="${tagInstanceTotal}" />
+
+			<div class="shortdescription">
+				<g:message code="isima.tags.list.paragraph" />
+				<br/><br/>
+				<label for="tagName"><g:message code="isima.tags.list.search.label" default="Tag Name" /></label>
+				<g:textField name="tagName" value=" to do " />
+				<br/><br/>
 			</div>
+
+
+			<table>
+				<g:each in="${tagInstanceList}" status="tagInstanceId" var="tagInstance">
+
+					<g:if test="${tagInstanceId%4==0}">
+					<tr>
+					</g:if>
+						<td class="tag-cell">
+							<a class="post-tag" href="${createLink(uri: '/tag/show/')}${tagInstance.id}">${tagInstance.tagName}</a><br/>
+							<div class="tag-short-description">${tagInstance.description}</div>
+						</td>
+					<g:if test="${(tagInstanceId+1)%4==0}">
+					</tr>
+					</g:if>
+				</g:each>
+			</table>
+
+
+
+
+			<g:if test="${tagInstanceTotal>params.max}">
+				<div class="pagination">
+					<g:paginate total="${tagInstanceTotal}" />
+				</div>
+			</g:if>
 		</div>
 	</body>
 </html>

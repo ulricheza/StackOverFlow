@@ -72,7 +72,7 @@ class BootStrap {
 
 
 
-        def javaTag = Tag.findByTagName('Java')?:new Tag(tagName:'Java', tagCount:0).save(flush: true)
+        def javaTag = Tag.findByTagName('Java')?:new Tag(tagName:'Java', tagCount:0, description:'this is the tag for the c++ gurus').save(flush: true)
         def messageExampleTopic = new Message(content:'This is the message of the example topic. It has to be at least 30 caracters long.', replyDate:new Date())
         def exampleTopic = new Topic(title:'Example topic', author:adminUser, creationDate:new Date(), resolved:false)
         exampleTopic.addToReplies(messageExampleTopic)

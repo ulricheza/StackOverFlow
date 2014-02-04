@@ -10,6 +10,14 @@
 	<g:textField name="tagName" value="${tagInstance?.tagName}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: tagInstance, field: 'description', 'error')} ">
+	<label for="description">
+		<g:message code="tag.description.label" default="Description" />
+		
+	</label>
+	<g:textField name="description" value="${tagInstance?.description}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: tagInstance, field: 'tagCount', 'error')} required">
 	<label for="tagCount">
 		<g:message code="tag.tagCount.label" default="Tag Count" />

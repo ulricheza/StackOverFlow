@@ -23,6 +23,7 @@
 				<tmpl:/shared/subHeader title="${topicInstanceTotal} ${nbAnswersSuffix}" filters="['active','oldest']" 
 						controller="topic" action="show" id="${topicInstance?.id}"  />
 			</g:if>
+<<<<<<< HEAD
 			<g:else>
 				<div style="border-bottom: 1px solid rgb(204, 204, 204);"></div>
 				<br/>
@@ -32,6 +33,34 @@
 				<div id="answer_${i}">
 					<tmpl:postTmpl msg="${answer}" label="answered" />
 					<div style="border-bottom: 1px solid rgb(204, 204, 204);"></div>
+=======
+
+			<g:each in="${topicInstance.replies}" status="messageId" var="message">
+				<div id="question-summary">
+					<div id="votes-counter">
+						<span class="nbvotes">0</span> <br/>
+						<span class="nbvotes-label"><g:message code="isima.topic.newestquestions.votes" /></span><br/>
+						<span class="nbanswers">0</span> <br/>
+						<span class="nbanswers-label"><g:message code="isima.topic.newestquestions.answers" /></span>
+					</div>
+					<div id="summary">
+						<div id="message-content">
+							${message.content}
+						</div><br/>
+
+						<g:if test="messageId==0">
+							<div>
+								<g:each in="${topicInstance.tags}" var="tag">
+									<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</a>
+								</g:each>
+								<div class="question-author">
+									<g:if test="${messageId==0}">Asked by </g:if>
+									<g:if test="${messageId!=0}">Answered by </g:if>
+									<g:link action="show" id="${topicInstance.author.id}">${topicInstance.author.username}</g:link></div>
+							</div>
+						</g:if>
+					</div>
+>>>>>>> Adding users/tags pages.
 				</div>
 			</g:each>
 

@@ -18,7 +18,7 @@ class MessageController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 12, 100) 
         [messageInstanceList: Message.list(params), messageInstanceTotal: Message.count()]
     }
 

@@ -394,8 +394,13 @@ input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
 
 /* TABLES */
 
+<<<<<<< HEAD
 /*table {
 	border-top: 1px solid #DFDFDF;
+=======
+table {
+	/*border-top: 1px solid #DFDFDF;*/
+>>>>>>> Adding users/tags pages.
 	border-collapse: collapse;
 	width: 100%;
 	margin-bottom: 1em;
@@ -406,16 +411,16 @@ tr {
 }
 
 tr>td:first-child, tr>th:first-child {
-	padding-left: 1.25em;
+	/*padding-left: 1.25em;*/
 }
 
 tr>td:last-child, tr>th:last-child {
-	padding-right: 1.25em;
+	/*padding-right: 1.25em;*/
 }
 
 td, th {
 	line-height: 1.5em;
-	padding: 0.5em 0.6em;
+	/*padding: 0.5em 0.6em;*/
 	text-align: left;
 	vertical-align: top;
 }
@@ -472,8 +477,13 @@ th.desc a {
 }
 
 th:hover, tr:hover {
+<<<<<<< HEAD
 	background: #E1F2B6;
 }*/
+=======
+	/*background: #E1F2B6;*/
+}
+>>>>>>> Adding users/tags pages.
 
 /* PAGINATION */
 
@@ -593,10 +603,14 @@ a.skip {
 
 /* Added */
 
+<<<<<<< HEAD
 #menus {
 	display:inline-block;
 	width:70%;
 }
+=======
+
+>>>>>>> Adding users/tags pages.
 
 #menus {
 	display:inline-block
@@ -865,12 +879,6 @@ a.skip {
 	height:50px;
 }
 
-#question-tags {
-	display: inline-block; 
-	background-color:rgb(224,234,241);
-	padding:2px;
-}
-
 #votes-counter .nbvotes {
 	font-weight:normal; 
 	font-size:24px; 
@@ -902,6 +910,7 @@ a.skip {
 	font-size:14px;
 }
 
+<<<<<<< HEAD
 /* Topic list */
 .question {
     clear: both;
@@ -1064,4 +1073,42 @@ a.skip {
 	background:#F8F8F8;
 	font-size:14px;
 	padding:5px;
+=======
+.shortdescription {
+	font-size:14px;
+}
+
+.tag-cell {
+	width: 230px;
+}
+
+
+.post-tag {
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	color:rgb(62,109,142);
+	text-decoration:none;
+	background-color:rgb(224,234,241);
+}
+
+.tag-short-description {
+	color:gray;
+	font-size:12px;
+	line-height:14px; 
+	width: 210px;
+	text-align: justify;
+	margin-bottom: 20px;
+}
+
+.username-link {
+	color:#0077cc;
+	font-size:12px;
+	text-decoration: none;
+}
+
+.user-description-container {
+	margin-left:15px;
+>>>>>>> Adding users/tags pages.
 }

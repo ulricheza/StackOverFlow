@@ -33,9 +33,7 @@
 
 						<div>
 							<g:each in="${topicInstance.tags}" var="tag">
-								<div id="question-tags">
-									<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</a>
-								</div>
+								<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</a>
 							</g:each>
 							<div class="question-author">Asked by <g:link action="show" id="${topicInstance.author.id}">${topicInstance.author.username}</g:link></div>
 						</div>
