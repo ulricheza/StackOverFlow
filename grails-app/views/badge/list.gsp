@@ -7,7 +7,7 @@
 		<g:set var="entityName" value="${message(code: 'badge.label', default: 'Badge')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
-		<div class="subHeader">
+		<div id="subHeader">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<div class="tabs">
 			

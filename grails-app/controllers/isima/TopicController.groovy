@@ -76,7 +76,11 @@ class TopicController {
         redirect(action: "show", id: topicInstance.id)
     }
 
-    def addReply() {
+    def getTime = {
+        render "The current time is : ${new Date()}"
+    }
+
+    /*def reply() {
 
         // logged user
         def user = springSecurityService.currentUser 
@@ -95,16 +99,25 @@ class TopicController {
         // saving
         if(!messageInstance.save(flush: true)){
             topic.removeFromReplies(messageInstance)
-            render(view: "show", model: [topicInstance:topic,topicAnswer:messageInstance])
+            //render(view: "show", model: [topicInstance:topic,topicAnswer:messageInstance])
+            render(template:"postAnswer", model:[topicInstance:topic,
+                                                messageInstance:messageInstance,
+                                                topicInstanceTotal:topic.replies.size()], layout:"ajax")
             return
         }
 
-        render(view: "show", model: [topicInstance:topic])
-    }
-
+        //render(template:"postAnswer", model:[topicInstance:topic,messageInstance:messageInstance], layout:"ajax")
+        //redirect(action:"show", id:topic.id)
+        render(template:"postAnswer", model:[topicInstance:topic,
+                                             messageInstance:messageInstance,
+                                             message:"ajax.succes",
+                                             topicInstanceTotal:topic.replies.size()], layout:"ajax")
+    }*/
+    
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(Long id) {
-        params.max = 10
+        params.max = 2
+
         def topicInstance = Topic.get(id)
         if (!topicInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'topic.label', default: 'Topic'), id])
@@ -112,9 +125,18 @@ class TopicController {
             return
         }
 
-        // logged user
-        def user = springSecurityService.currentUser 
-        [topicInstance: topicInstance, loggedUser: user, nbmessages: Message.count()]
+        def topicReplies = topicInstance.replies - topicInstance.replies[0]
+        int topicInstanceTotal = topicReplies.size()
+        if (topicReplies.size() > 0) {
+            int offset = params.offset ?Integer.parseInt(params.offset):0   
+            
+            int max = offset + params.max - 1               
+            if (max >= topicReplies.size()) max = -1
+
+            topicReplies=topicReplies[offset..max]          
+        }
+
+        [topicInstance: topicInstance,topicReplies:topicReplies,topicInstanceTotal:topicInstanceTotal]
     }
 
     def edit(Long id) {

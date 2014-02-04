@@ -8,8 +8,10 @@ class MessageController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
-
     def springSecurityService
+    def afterInterceptor = { model ->
+        model.selectedTab = "questions"
+    }
 
 
     def index() {
@@ -22,7 +24,7 @@ class MessageController {
     }
 
     def create() {
-        [messageInstance: new Message(params)]
+        [messageInstance: new Message(params),topicInstance:Topic.get(params.topic_id)]
     }
 
     def save() {
@@ -42,13 +44,18 @@ class MessageController {
         topic.addToReplies(messageInstance)
 
         if (!messageInstance.save(flush: true)) {
-            redirect(controller:"topic", action: "show", id: topic.id, 
-                    params:[topicInstance:topic,topicAnswer:messageInstance])
+            topic.removeFromReplies(messageInstance)
+            user.removeFromAnswers(messageInstance)
+            render(view: "create", model: [messageInstance:messageInstance,topicInstance:topic])
             return
         }
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
-        redirect(controller:"topic", action: "show", id: topic.id)
+        
+        int max = 2
+        int offset = Math.floor((topic.replies.size()-2)/max)*max
+        
+        redirect(controller:"topic", action: "show", id: topic.id, params:[offset:offset])
     }
 
     def show(Long id) {
