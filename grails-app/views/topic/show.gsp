@@ -10,8 +10,7 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 		<r:require module="scriptaculous" />
 		<g:javascript library="prototype" />
-		<g:setProvider library="scriptaculous" />
-		
+		<g:setProvider library="scriptaculous" />		
 	</head>
 	<body>
 		<div id="list-topic" class="content scaffold-list" role="main">

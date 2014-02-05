@@ -1,5 +1,9 @@
 <g:javascript library="prototype" />
 
+<r:script>
+	$('addComment${messageInstance?.id}').hide()
+</r:script>
+
 <g:formRemote name="postComment${messageInstance?.id}"
 			  url="[controller:'comment', action:'save']"
 			  update="commentForm${messageInstance?.id}"

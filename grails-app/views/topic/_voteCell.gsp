@@ -1,7 +1,17 @@
+<g:javascript library="prototype" />
+
 <td class="vote-cell">
 	<div class="vote">
-		<div><a class="vote-up" href="#"></a></div><br/>
+		<div>
+			<g:remoteLink class="vote-up" controller="message" action="voteUp" id="${msg_id}" update="vote-error-${msg_id}">
+			</g:remoteLink>
+		</div>
+		<br/>
 		<div>${mark}</div><br/>	
-		<div><a class="vote-down" href="#"></a></div>				
+		<div>
+			<g:remoteLink class="vote-down" controller="message" action="voteDown" id="${msg_id}" update="vote-error-${msg_id}">
+			</g:remoteLink>
+		</div>			
 	</div>
 </td>
+<div id="vote-error-${msg_id}"></div>

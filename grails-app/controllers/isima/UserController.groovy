@@ -1,6 +1,8 @@
 package isima
 
 import org.springframework.dao.DataIntegrityViolationException
+import java.awt.image.BufferedImage
+import javax.imageio.ImageIO
 
 class UserController {
 
@@ -26,6 +28,18 @@ class UserController {
     def save() {
         params.reputation = 1
         def userInstance = new User(params)
+
+        // Assigns a default profile image.
+        /*println ""
+        println ""
+        println grailsApplication.config.images.location.toString() 
+        BufferedImage originalImage = ImageIO.read(new File(grailsApplication.config.images.location.toString() +"/defaultProfileImage.png"));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write( originalImage, "png", baos );
+        baos.flush();
+        byte[] imageInByte = baos.toByteArray();
+        baos.close();
+        userInstance.profileImage = imageInByte;*/
 
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])

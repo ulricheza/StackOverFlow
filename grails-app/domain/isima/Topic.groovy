@@ -14,10 +14,6 @@ class Topic {
         tags nullable: false, size: 1..5
     }
 
-    static mapping = {
-    	creationDate type:'date'
-    }
-
     static belongsTo = [ author : User ]
     static hasMany = [
         replies : Message,

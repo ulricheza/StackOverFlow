@@ -9,6 +9,8 @@ class MessageController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def springSecurityService
+    def privilegeService
+
     def afterInterceptor = { model ->
         model.selectedTab = "questions"
     }
@@ -58,13 +60,44 @@ class MessageController {
         redirect(controller:"topic", action: "show", id: topic.id, params:[offset:offset])
     }
 
-    def addComment () {
+    def addComment (Long id) {
 
-        def messageInstance = Message.get(params.msg_id)
+        def user = springSecurityService.currentUser
+        def messageInstance = Message.get(id)
+
+        def model = privilegeService.canComment(user,messageInstance)
+        if (model.result=='false'){
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'addCom'], layout:'ajax')
+            return
+        }
         
-        render(template:'/shared/submitComment',model:[messageInstance:messageInstance], layout:'ajax');
+        render(template:'/shared/submitComment',model:[messageInstance:messageInstance], layout:'ajax')
+    }
 
-        //render(template:'/shared/errorMessage', model:[msg_id:params.msg_id,errorMsg:"You must have 50 reputation to comment"], layout:'ajax')
+    def voteUp (Long id) {
+
+        def user = springSecurityService.currentUser
+        def messageInstance = Message.get(id)
+
+        def model = privilegeService.canVoteUp(user,messageInstance)
+        if (model.result=='false'){
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'voteUp'], layout:'ajax')
+            return
+        }
+    }
+
+    def voteDown (Long id) {
+
+        def user = springSecurityService.currentUser
+        def messageInstance = Message.get(id)
+        
+        def model = privilegeService.canVoteDown(user,messageInstance)
+        if (model.result=='false'){
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'voteDown'], layout:'ajax')
+            return
+        }
+
+        println model
     }
 
     def show(Long id) {

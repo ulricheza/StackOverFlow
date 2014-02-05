@@ -2,13 +2,9 @@
 	<table>
 		<tbody>
 			<tr>
-				<tmpl:voteCell mark="${msg?.mark}" />
+				<tmpl:voteCell mark="${msg?.mark}" msg_id="${msg?.id}" />
 				<tmpl:postCell tags="${tags}" label="${label}" msg="${msg}" />
 			</tr>
-			<!-- <tr>
-				<td class="vote-cell"></td>
-				<td><a class="post-cell post-comment" href="#">add comment</a></td>
-			</tr> -->
 			<tr>
 				<td class="vote-cell"></td>
 				<td><tmpl:postComments comments="${msg?.comments}" msg="${msg}" /></td>
