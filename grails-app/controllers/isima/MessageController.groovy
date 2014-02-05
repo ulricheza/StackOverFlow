@@ -58,6 +58,15 @@ class MessageController {
         redirect(controller:"topic", action: "show", id: topic.id, params:[offset:offset])
     }
 
+    def addComment () {
+
+        def messageInstance = Message.get(params.msg_id)
+        
+        render(template:'/shared/postComment',model:[messageInstance:messageInstance], layout:'ajax');
+
+        //render(template:'/shared/errorMessage', model:[msg_id:params.msg_id,errorMsg:"You must have 50 reputation to comment"], layout:'ajax')
+    }
+
     def show(Long id) {
         def messageInstance = Message.get(id)
         if (!messageInstance) {

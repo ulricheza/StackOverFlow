@@ -18,7 +18,7 @@
 			    		<span>|</span>
 			   			<a href="#">delete</a>
 			    	</div>
-					</td>
+				</td>
 				<td class="post-signature owner">
 				    <div>
 				   		<div class="post-creationDate" style="margin-top: 2px;margin-bottom: 4px;">

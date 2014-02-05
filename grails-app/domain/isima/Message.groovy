@@ -2,9 +2,10 @@ package isima
 
 class Message {
 
-	String 	content;
-	Date	replyDate;
-	int 	mark;
+	String 	content
+	Date	replyDate
+	int 	mark
+	List    comments
 
 	static constraints = {
 		content blank: false, validator: { 
@@ -29,6 +30,7 @@ class Message {
     	content type:'materialized_clob'
     }
 
+    static hasMany = [comments:Comment]
     static belongsTo = [
     	author : User, 
     	topic : Topic
