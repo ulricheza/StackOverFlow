@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div id="list-topic" class="content scaffold-list" role="main">
-			<div class="page-title"><h1><g:message code="isima.topic.newestquestions.title" /></h1></div><br/><br/>
+			<div class="page-title"><h1><g:message code="isima.topic.newestquestions.title" /></h1></div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

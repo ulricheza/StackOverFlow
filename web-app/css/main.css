@@ -394,13 +394,8 @@ input:invalid:focus, select:invalid:focus, textarea:invalid:focus {
 
 /* TABLES */
 
-<<<<<<< HEAD
 /*table {
 	border-top: 1px solid #DFDFDF;
-=======
-table {
-	/*border-top: 1px solid #DFDFDF;*/
->>>>>>> Adding users/tags pages.
 	border-collapse: collapse;
 	width: 100%;
 	margin-bottom: 1em;
@@ -411,16 +406,16 @@ tr {
 }
 
 tr>td:first-child, tr>th:first-child {
-	/*padding-left: 1.25em;*/
+	padding-left: 1.25em;
 }
 
 tr>td:last-child, tr>th:last-child {
-	/*padding-right: 1.25em;*/
+	padding-right: 1.25em;
 }
 
 td, th {
 	line-height: 1.5em;
-	/*padding: 0.5em 0.6em;*/
+	padding: 0.5em 0.6em;
 	text-align: left;
 	vertical-align: top;
 }
@@ -477,13 +472,8 @@ th.desc a {
 }
 
 th:hover, tr:hover {
-<<<<<<< HEAD
 	background: #E1F2B6;
 }*/
-=======
-	/*background: #E1F2B6;*/
-}
->>>>>>> Adding users/tags pages.
 
 /* PAGINATION */
 
@@ -603,17 +593,9 @@ a.skip {
 
 /* Added */
 
-<<<<<<< HEAD
 #menus {
 	display:inline-block;
 	width:70%;
-}
-=======
-
->>>>>>> Adding users/tags pages.
-
-#menus {
-	display:inline-block
 }
 
 #menus ul {
@@ -910,7 +892,6 @@ a.skip {
 	font-size:14px;
 }
 
-<<<<<<< HEAD
 /* Topic list */
 .question {
     clear: both;
@@ -1114,7 +1095,8 @@ a.comment-user {
 	background:#F8F8F8;
 	font-size:14px;
 	padding:5px;
-=======
+}
+
 .shortdescription {
 	font-size:14px;
 }
@@ -1151,5 +1133,4 @@ a.comment-user {
 
 .user-description-container {
 	margin-left:15px;
->>>>>>> Adding users/tags pages.
 }
