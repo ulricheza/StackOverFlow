@@ -1031,6 +1031,47 @@ a.skip {
 	cursor:pointer;
 }
 
+.post-comments-list {
+    width: 100%;
+    border-top: 1px dotted rgb(170, 170, 170);
+    margin-top: 10px;
+    padding-bottom: 10px;
+    line-height: 135%;
+    color: rgb(68, 68, 68);
+}
+
+tr.comment > td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted rgb(221, 221, 221);
+}
+
+.comment-text {
+    vertical-align: text-top;
+    padding: 0px 6px 0px 7px;
+}
+
+.comment-content {
+	width: 100%;
+	word-wrap: break-word;
+	font-size: 14px;
+	color: black;
+}
+
+.comment-author {
+	text-decoration: none;
+	color: rgb(0,119,204);
+}
+
+a.comment-user {
+    white-space: nowrap;
+    padding: 0px;
+}
+
+.comment-date, .comment-date > a {
+    border-bottom: medium none;
+    color: rgb(153, 153, 153);
+}
 .profile-italic-description {
 	font-style:italic;
 	color:rgb(160,160,160);

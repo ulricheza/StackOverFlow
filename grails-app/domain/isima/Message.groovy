@@ -21,12 +21,11 @@ class Message {
 
 			// check that the size of the content is at least 30
 			int size = it.size()
-    		if (size < 30) return ['minSize.notmet',size]
+    		if (size < 30) return ['minSize.notmet',30,size]
     	}
     }
 
     static mapping = {
-    	replyDate type:'date'
     	content type:'materialized_clob'
     }
 

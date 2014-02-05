@@ -11,6 +11,10 @@
 			</tr> -->
 			<tr>
 				<td class="vote-cell"></td>
+				<td><tmpl:postComments comments="${msg?.comments}" msg="${msg}" /></td>
+			</tr>
+			<tr>
+				<td class="vote-cell"></td>
 				<td><tmpl:/shared/addComment messageInstance="${msg}" /></td>
 			</tr>
 			<tr>

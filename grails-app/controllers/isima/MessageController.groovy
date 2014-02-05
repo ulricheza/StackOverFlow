@@ -62,7 +62,7 @@ class MessageController {
 
         def messageInstance = Message.get(params.msg_id)
         
-        render(template:'/shared/postComment',model:[messageInstance:messageInstance], layout:'ajax');
+        render(template:'/shared/submitComment',model:[messageInstance:messageInstance], layout:'ajax');
 
         //render(template:'/shared/errorMessage', model:[msg_id:params.msg_id,errorMsg:"You must have 50 reputation to comment"], layout:'ajax')
     }

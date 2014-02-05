@@ -22,7 +22,7 @@
 				<td class="post-signature owner">
 				    <div>
 				   		<div class="post-creationDate" style="margin-top: 2px;margin-bottom: 4px;">
-				   			${label} ${msg?.replyDate}
+				   			${label} <g:formatDate date="${msg?.replyDate}" type="datetime" style="MEDIUM" timeStyle="SHORT" />
 				   		</div>
 				   		<div class="user-avatar">
 					   		<img width="32" height="35" alt="" 

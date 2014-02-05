@@ -23,17 +23,18 @@ class CommentController {
         def messageInstance = Message.get(params.msg_id)
 
         params.relatedMsg = messageInstance
+        params.replyDate = new Date()
         def commentInstance = new Comment(params)
 
         messageInstance.addToComments(commentInstance)
-        
+
         if (!commentInstance.save(flush: true)) {
             messageInstance.removeFromComments(commentInstance)
-            render(template:'/shared/postComment', model:[commentInstance:commentInstance, messageInstance:messageInstance, status:'failure'], layout:'ajax')
+            render(template:'/shared/submitComment', model:[commentInstance:commentInstance, messageInstance:messageInstance, status:'failure'], layout:'ajax')
             return
         }
 
-        render(template:'/shared/postComment', model:[commentInstance:commentInstance, messageInstance:messageInstance, status:'success'], layout:'ajax')
+        render(template:'/shared/submitComment', model:[commentInstance:commentInstance, messageInstance:messageInstance, status:'success'], layout:'ajax')
     }
 
     def show(Long id) {
