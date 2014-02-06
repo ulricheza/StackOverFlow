@@ -26,7 +26,6 @@ class User {
     static hasMany = [
         questions : Topic, 
         answers : Message,
-        badges : Badge
     ]
 
 	static constraints = {
@@ -48,6 +47,10 @@ class User {
 
     def String toString(){
     	username
+    }
+
+    Set<Badge> getBadges() {
+        UserBadge.findAllByUser(this).collect { it.badge } as Set
     }
 
     // Security methods

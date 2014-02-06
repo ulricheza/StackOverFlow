@@ -5,12 +5,13 @@ class Badge {
 	String title
 	String description
 	String category
-	String rank
+	String level
 	
-	static hasMany = [awarded:User]
-	static belongsTo = User
-
-    static constraints = {
+	static constraints = {
     	title unique: true
+    }
+
+    int getCount() {
+    	UserBadge.countByBadge(this)
     }
 }

@@ -7,7 +7,7 @@
 			</g:remoteLink>
 		</div>
 		<br/>
-		<div>${mark}</div><br/>	
+		<div id="score-${msg_id}">${score}</div><br/>	
 		<div>
 			<g:remoteLink class="vote-down" controller="message" action="voteDown" id="${msg_id}" update="vote-error-${msg_id}">
 			</g:remoteLink>

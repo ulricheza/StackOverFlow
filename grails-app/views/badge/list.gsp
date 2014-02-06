@@ -35,89 +35,14 @@
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
 
-			<h1>Question Badges</h1>			
-			<g:each in="${questionBadges}" var="questionBadge">
-				<div class="badge-row">
-					<div class="badge-title">
-						<div class="badge">
-							<div class="badge-${questionBadge.rank.toLowerCase()}"></div>
-							${fieldValue(bean: questionBadge, field: "title")}
-						</div> 
-					</div>
-					<div class="badge-description">${fieldValue(bean: questionBadge, field: "description")}</div>	
-					<div class="badge-count">${questionBadge.awarded.size()} awarded</div>				
-				</div>
-			</g:each>
+			<h1>Question Badges</h1>	
+			<tmpl:display badgesList="${questionBadges}" />		
 
 			<h1>Answer Badges</h1>
-			<g:each in="${answerBadges}" var="answerBadge">
-				<div class="badge-row">
-					<div class="badge-title">
-						<div class="badge">
-							<div class="badge-${answerBadge.rank.toLowerCase()}"></div>
-							${fieldValue(bean: answerBadge, field: "title")}
-						</div> 
-					</div>
-					<div class="badge-description">${fieldValue(bean: answerBadge, field: "description")}</div>	
-					<div class="badge-count">${answerBadge.awarded.size()} awarded</div>				
-				</div>
-			</g:each>
-
-			<h1>Participation Badges</h1>
-			<g:each in="${participationBadges}" var="participationBadge">
-				<div class="badge-row">
-					<div class="badge-title">
-						<div class="badge">
-							<div class="badge-${participationBadge.rank.toLowerCase()}"></div>
-							${fieldValue(bean: participationBadge, field: "title")}
-						</div> 
-					</div>
-					<div class="badge-description">${fieldValue(bean: participationBadge, field: "description")}</div>	
-					<div class="badge-count">${participationBadge.awarded.size()} awarded</div>				
-				</div>
-			</g:each>
-
-			<h1>Tag Badges</h1>
-			<g:each in="${tagBadges}" var="tagBadge">
-				<div class="badge-row">
-					<div class="badge-title">
-						<div class="badge">
-							<div class="badge-${tagBadge.rank.toLowerCase()}"></div>
-							${fieldValue(bean: tagBadge, field: "title")}
-						</div> 
-					</div>
-					<div class="badge-description">${fieldValue(bean: tagBadge, field: "description")}</div>	
-					<div class="badge-count">${tagBadge.awarded.size()} awarded</div>				
-				</div>
-			</g:each>
-
-    		<h1>Moderation Badges</h1>
-    		<g:each in="${moderationBadges}" var="moderationBadge">
-				<div class="badge-row">
-					<div class="badge-title">
-						<div class="badge">
-							<div class="badge-${moderationBadge.rank.toLowerCase()}"></div>
-							${fieldValue(bean: moderationBadge, field: "title")}
-						</div> 
-					</div>
-					<div class="badge-description">${fieldValue(bean: moderationBadge, field: "description")}</div>	
-					<div class="badge-count">${moderationBadge.awarded.size()} awarded</div>				
-				</div>
-			</g:each>
-
-    		<h1>Other Badges</h1>
-    		<g:each in="${othersBadge}" var="othersBadge">
-				<div class="badge-row">
-					<div class="badge-title">
-						<div class="badge">
-							<div class="badge-${othersBadge.rank.toLowerCase()}"></div>
-							${fieldValue(bean: othersBadge, field: "title")}
-						</div> 
-					</div>
-					<div class="badge-description">${fieldValue(bean: othersBadge, field: "description")}</div>	
-					<div class="badge-count">${othersBadge.awarded.size()} awarded</div>				
-				</div>
-			</g:each>
+			<tmpl:display badgesList="${answerBadges}" />	
+			
+			<h1>Moderation Badges</h1>
+			<tmpl:display badgesList="${moderationBadges}" />		
 		</div>
 	</body>
 </html>

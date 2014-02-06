@@ -2,7 +2,7 @@
 	<table>
 		<tbody>
 			<tr>
-				<tmpl:voteCell mark="${msg?.mark}" msg_id="${msg?.id}" />
+				<tmpl:voteCell score="${msg?.score}" msg_id="${msg?.id}" />
 				<tmpl:postCell tags="${tags}" label="${label}" msg="${msg}" />
 			</tr>
 			<tr>

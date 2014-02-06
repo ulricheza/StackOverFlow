@@ -10,6 +10,7 @@ class MessageController {
 
     def springSecurityService
     def privilegeService
+    def badgeService
 
     def afterInterceptor = { model ->
         model.selectedTab = "questions"
@@ -80,10 +81,16 @@ class MessageController {
         def messageInstance = Message.get(id)
 
         def model = privilegeService.canVoteUp(user,messageInstance)
-        if (model.result=='false'){
+        if (model.result=='false'){           
+
             render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'voteUp'], layout:'ajax')
             return
         }
+
+        messageInstance.score +=1
+        badgeService.addModerationBadge(user,BadgeService.SUPPORTER)
+        
+        render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }
 
     def voteDown (Long id) {
@@ -93,11 +100,15 @@ class MessageController {
         
         def model = privilegeService.canVoteDown(user,messageInstance)
         if (model.result=='false'){
+
             render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'voteDown'], layout:'ajax')
             return
         }
 
-        println model
+        messageInstance.score -=1
+        badgeService.addModerationBadge(user,BadgeService.CRITIC)
+
+        render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }
 
     def show(Long id) {

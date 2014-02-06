@@ -4,7 +4,7 @@ class Message {
 
 	String 	content
 	Date	replyDate
-	int 	mark
+	int 	score
 	List    comments
 
 	static constraints = {

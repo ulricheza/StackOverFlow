@@ -9,7 +9,7 @@ class PrivilegeService {
 	def canVoteDown (User voter, Message msg) {
 		
 		if (voter == msg.author)
-			[result:'false',errorMsg:'You cannot vote down this message'];
+			[result:'false',errorMsg:'You cannot vote down your own message'];
 		else 
 			checkReputation(voter.reputation,VOTE_DOWN_REPUTATION)		
 	}
@@ -25,7 +25,7 @@ class PrivilegeService {
 	def canVoteUp (User voter, Message msg) {
 		
 		if (voter == msg.author)
-			[result:'false',errorMsg:'You cannot vote up this message']
+			[result:'false',errorMsg:'You cannot vote up your own message']
 		else
 			checkReputation(voter.reputation,VOTE_UP_REPUTATION)	
 	}
