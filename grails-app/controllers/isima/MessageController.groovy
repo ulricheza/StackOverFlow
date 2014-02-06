@@ -11,7 +11,7 @@ class MessageController {
     def springSecurityService
     def privilegeService
     def badgeService
-
+    
     def afterInterceptor = { model ->
         model.selectedTab = "questions"
     }
@@ -71,7 +71,7 @@ class MessageController {
             render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'addCom'], layout:'ajax')
             return
         }
-        
+
         render(template:'/shared/submitComment',model:[messageInstance:messageInstance], layout:'ajax')
     }
 
@@ -88,7 +88,12 @@ class MessageController {
         }
 
         messageInstance.score +=1
+
         badgeService.addModerationBadge(user,BadgeService.SUPPORTER)
+        if (messageInstance.isQuestion())
+            badgeService.updateQuestionBadges(messageInstance)
+        else
+            badgeService.updateAnswerBadges(messageInstance)
         
         render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }
@@ -106,7 +111,12 @@ class MessageController {
         }
 
         messageInstance.score -=1
+
         badgeService.addModerationBadge(user,BadgeService.CRITIC)
+        if (messageInstance.isQuestion())
+            badgeService.updateQuestionBadges(messageInstance)
+        else
+            badgeService.updateAnswerBadges(messageInstance)
 
         render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }

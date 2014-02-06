@@ -15,14 +15,10 @@ class BootStrap {
             location:'I live in Clermont-Ferrand, France',birthDate:new Date(),aboutMe:'This is me, this is my life.',realName:'Administrator',profileImage:new byte[0]
         ).save(flush: true)
 
-        UserBadge.create adminUser, Badge.findByTitle(BadgeService.NICE_QUESTION), true
-
         if (!adminUser.authorities.contains(adminRole)) 
             UserRole.create adminUser, adminRole, true
         if (!adminUser.authorities.contains(userRole)) 
             UserRole.create adminUser, userRole, true
-
-
 
         def javaTag = Tag.findByTagName('Java')?:new Tag(tagName:'Java', tagCount:0, description:'this is the tag for the c++ gurus').save(flush: true)
         def messageExampleTopic = new Message(content:'This is the message of the example topic. It has to be at least 30 caracters long.', replyDate:new Date())

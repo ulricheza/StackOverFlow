@@ -7,8 +7,8 @@ class BadgeService {
     static final String MODERATION = "Moderation"
 
     static final String BRONZE = "Bronze"
-    static final String GOLD   = "Gold"
     static final String SILVER = "Silver"
+    static final String GOLD   = "Gold"
 
     static final String NICE_QUESTION = "Nice Question";
     static final String GOOD_QUESTION = "Good Question";
@@ -132,9 +132,9 @@ class BadgeService {
 
     def updateAnswerBadges (Message answer){
 
-        if (answer.score >= NICE_SCORE)  addBadge(question.author,Badge.findByTitle(NICE_ANSWER))
-        if (answer.score >= GOOD_SCORE)  addBadge(question.author,Badge.findByTitle(GOOD_ANSWER))
-        if (answer.score >= GREAT_SCORE) addBadge(question.author,Badge.findByTitle(GREAT_ANSWER))
+        if (answer.score >= NICE_SCORE)  addBadge(answer.author,Badge.findByTitle(NICE_ANSWER))
+        if (answer.score >= GOOD_SCORE)  addBadge(answer.author,Badge.findByTitle(GOOD_ANSWER))
+        if (answer.score >= GREAT_SCORE) addBadge(answer.author,Badge.findByTitle(GREAT_ANSWER))
     }
 
     def addModerationBadge (User user, String badgeTitle){

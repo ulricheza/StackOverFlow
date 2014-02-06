@@ -7,6 +7,10 @@ class Message {
 	int 	score
 	List    comments
 
+	boolean isQuestion() {
+    	return (this == topic.replies[0])
+    }
+
 	static constraints = {
 		content blank: false, validator: { 
 			// delete all html tags
