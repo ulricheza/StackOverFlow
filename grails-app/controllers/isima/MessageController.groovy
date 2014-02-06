@@ -55,6 +55,7 @@ class MessageController {
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
         
+        // computing in order to redirect to the last page of the topic.show() page
         int max = 2
         int offset = Math.floor((topic.replies.size()-2)/max)*max
         
@@ -118,6 +119,8 @@ class MessageController {
         else
             badgeService.updateAnswerBadges(messageInstance)
 
+           // render(text:"<script>location.href=</script>", contentType:"js",encoding: "UTF-8")
+
         render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }
 
@@ -133,14 +136,101 @@ class MessageController {
     }
 
     def edit(Long id) {
+        def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
+
         if (!messageInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), id])
-            redirect(action: "list")
+            flash.message = message(code:'default.not.found.message', args:[message(code: 'message.label', default:'Message')])
+            redirect(controller:"topic", action:"list")
             return
         }
 
-        [messageInstance: messageInstance]
+        def model = privilegeService.canEdit(user,messageInstance)
+        if (model.result=='false'){
+            if(request.xhr) { 
+                render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'edit'], layout:'ajax')
+                return
+            }
+            else {
+                flash.message = model.errorMsg
+                redirect(controller:"topic", action:"list")
+                return
+            }
+        }
+        
+        if(request.xhr) { 
+            render(template:'goToEdit', model:[msg_id:id], layout:'ajax')
+            return
+        }
+
+        [messageInstance:messageInstance]
+    }
+
+    def canDelete(Long id) {
+        def user = springSecurityService.currentUser
+        def messageInstance = Message.get(id)
+
+        if (!messageInstance) {
+            flash.message = message(code:'default.not.found.message', args:[message(code: 'message.label', default:'Message')])
+            redirect(controller:"topic", action:"list")
+            return
+        }
+
+        def model = privilegeService.canDelete(user,messageInstance)
+        if (model.result=='false'){
+            if(request.xhr) { 
+                render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'edit'], layout:'ajax')
+                return
+            }
+            else {
+                flash.message = model.errorMsg
+                redirect(controller:"topic", action:"list")
+                return
+            }
+        }
+
+        render(template:'/shared/confirmation', model:[controller:'message',action:'delete',id:id], layout:'ajax')
+    }
+
+    def delete(Long id) {
+
+        def user = springSecurityService.currentUser
+        def messageInstance = Message.get(id)
+        def topic = messageInstance?.topic
+        def author = messageInstance?.author
+
+        if (!messageInstance) {
+            flash.message = message(code:'default.not.found.message', args:[message(code: 'message.label', default:'Message')])
+            redirect(controller:"topic", action:"list")
+            return
+        }     
+
+        def model = privilegeService.canDelete(user,messageInstance)
+        if (model.result=='false'){
+            flash.message = model.errorMsg
+            redirect(controller:"topic", action:"list")
+            return 
+        }
+
+        try {
+            if (messageInstance.isQuestion()) {
+                topic.delete(flush:true)
+                flash.message = message(code:'default.deleted.message', args:[message(code:'topic.label', default:'Topic')])
+                redirect(uri: "/")
+                return
+            }
+            
+            author.removeFromAnswers(messageInstance)
+            topic.removeFromReplies(messageInstance)
+            messageInstance.delete(flush:true)
+
+            flash.message = message(code:'default.deleted.message', args:[message(code:'message.label', default:'Message'), id])
+            redirect(controller:"topic",action: "show",id:topic.id)
+        }
+        catch (DataIntegrityViolationException e) {
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'message.label', default: 'Message'), id])
+            redirect(action: "show", id: id)
+        }
     }
 
     def update(Long id, Long version) {
@@ -170,24 +260,5 @@ class MessageController {
 
         flash.message = message(code: 'default.updated.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
         redirect(action: "show", id: messageInstance.id)
-    }
-
-    def delete(Long id) {
-        def messageInstance = Message.get(id)
-        if (!messageInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), id])
-            redirect(action: "list")
-            return
-        }
-
-        try {
-            messageInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'message.label', default: 'Message'), id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'message.label', default: 'Message'), id])
-            redirect(action: "show", id: id)
-        }
     }
 }

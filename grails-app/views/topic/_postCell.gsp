@@ -14,10 +14,15 @@
 			<tr>
 			    <td class="message-footer">
 			    	<div class="post-menu">
-			    		<a href="#">edit</a>
+			    		<g:remoteLink controller="message" action="edit" id="${msg?.id}" update="edit-delete-error-${msg?.id}">
+			    			edit
+						</g:remoteLink>
 			    		<span>|</span>
-			   			<a href="#">delete</a>
+			    		<g:remoteLink controller="message" action="canDelete" id="${msg?.id}" update="edit-delete-error-${msg?.id}">
+			    			delete
+						</g:remoteLink>
 			    	</div>
+			    	<div id="edit-delete-error-${msg?.id}"></div>
 				</td>
 				<td class="post-signature owner">
 				    <div>

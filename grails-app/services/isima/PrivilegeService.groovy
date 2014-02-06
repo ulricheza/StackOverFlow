@@ -29,6 +29,22 @@ class PrivilegeService {
 		else
 			checkReputation(voter.reputation,VOTE_UP_REPUTATION)	
 	}
+
+	def canEdit (User user, Message msg) {
+		
+		if (msg.author == user)
+			[result:'true']
+		else
+			[result:'false',errorMsg:'You are not allowed to edit this message']
+	}
+
+	def canDelete (User user, Message msg) {
+		
+		if (msg.author == user)
+			[result:'true']
+		else
+			[result:'false',errorMsg:'You are not allowed to delete this message']
+	}
 	
 	private def checkReputation (int voterReputation, int requiredReputation) {
 		if (voterReputation >= requiredReputation)
