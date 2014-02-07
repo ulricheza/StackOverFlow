@@ -45,6 +45,17 @@ class PrivilegeService {
 		else
 			[result:'false',errorMsg:'You are not allowed to delete this message']
 	}
+
+	def canToggleAnswerStatus(User user,Topic topic,Message msg) {
+		if (topic.author == user){
+			if (msg.isQuestion())
+				[result:'false',errorMsg:"This message is not an answer"]
+			else
+				[result:'true']			
+		}			
+		else 
+			[result:'false',errorMsg:'You are not allowed to accept an answer of this topic']
+	}
 	
 	private def checkReputation (int voterReputation, int requiredReputation) {
 		if (voterReputation >= requiredReputation)

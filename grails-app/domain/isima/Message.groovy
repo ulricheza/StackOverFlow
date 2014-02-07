@@ -6,6 +6,7 @@ class Message {
 	Date	replyDate
 	int 	score
 	List    comments
+	boolean accepted = false
 
 	boolean isQuestion() {
     	return (this == topic.replies[0])

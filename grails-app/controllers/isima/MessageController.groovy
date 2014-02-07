@@ -67,6 +67,16 @@ class MessageController {
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
+        if (!messageInstance) {
+            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
+            redirect(controller:"topic", action: "list")
+            return
+        }  
+        if (!request.xhr) {
+            redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
+            return
+        }  
+
         def model = privilegeService.canComment(user,messageInstance)
         if (model.result=='false'){
             render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'addCom'], layout:'ajax')
@@ -80,6 +90,16 @@ class MessageController {
 
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
+
+        if (!messageInstance) {
+            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
+            redirect(controller:"topic", action: "list")
+            return
+        }  
+        if (!request.xhr) {
+            redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
+            return
+        }  
 
         def model = privilegeService.canVoteUp(user,messageInstance)
         if (model.result=='false'){           
@@ -103,6 +123,16 @@ class MessageController {
 
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
+
+        if (!messageInstance) {
+            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
+            redirect(controller:"topic", action: "list")
+            return
+        } 
+        if (!request.xhr) {
+            redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
+            return
+        }  
         
         def model = privilegeService.canVoteDown(user,messageInstance)
         if (model.result=='false'){
@@ -118,8 +148,6 @@ class MessageController {
             badgeService.updateQuestionBadges(messageInstance)
         else
             badgeService.updateAnswerBadges(messageInstance)
-
-           // render(text:"<script>location.href=</script>", contentType:"js",encoding: "UTF-8")
 
         render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }
@@ -171,22 +199,20 @@ class MessageController {
         def messageInstance = Message.get(id)
 
         if (!messageInstance) {
-            flash.message = message(code:'default.not.found.message', args:[message(code: 'message.label', default:'Message')])
-            redirect(controller:"topic", action:"list")
+            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
+            redirect(controller:"topic", action: "list")
             return
-        }
+        } 
+        if (!request.xhr) {
+            redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
+            return
+        } 
 
         def model = privilegeService.canDelete(user,messageInstance)
         if (model.result=='false'){
-            if(request.xhr) { 
-                render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'edit'], layout:'ajax')
-                return
-            }
-            else {
-                flash.message = model.errorMsg
-                redirect(controller:"topic", action:"list")
-                return
-            }
+
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'edit'], layout:'ajax')
+            return
         }
 
         render(template:'/shared/confirmation', model:[controller:'message',action:'delete',id:id], layout:'ajax')

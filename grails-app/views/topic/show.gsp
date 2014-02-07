@@ -15,6 +15,9 @@
 	<body>
 		<div id="list-topic" class="content scaffold-list" role="main">
 			<div class="page-title"><h1><g:fieldValue bean="${topicInstance}" field="title"/></h1></div>
+			<g:if test="${flash.message}">
+			<div class="message" role="status">${flash.message}</div>
+			</g:if>
 			
 			<tmpl:postTmpl msg="${topicQuestion}" tags="${topicInstance?.tags}" label="asked" />					    
 			

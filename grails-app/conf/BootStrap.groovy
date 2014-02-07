@@ -11,7 +11,7 @@ class BootStrap {
         def adminRole = Role.findByAuthority('ROLE_ADMIN')?:new Role(authority: 'ROLE_ADMIN').save(flush: true)
         def userRole = Role.findByAuthority('ROLE_USER')?:new Role(authority: 'ROLE_USER').save(flush: true)
         def adminUser = User.findByUsername('admin')?:new User(
-            username: 'admin', enabled: true, password: 'admin', email:'admin@gmail.com',
+            username: 'admin', enabled: true, password: 'admin', email:'admin@gmail.com', reputation:49,
             location:'I live in Clermont-Ferrand, France',birthDate:new Date(),aboutMe:'This is me, this is my life.',realName:'Administrator',profileImage:new byte[0]
         ).save(flush: true)
 

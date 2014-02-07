@@ -11,6 +11,7 @@ class TopicController {
     def springSecurityService
     def tagService
     def topicService
+    def privilegeService
 
     def afterInterceptor = { model, modelAndView ->
         if ("${modelAndView?.viewName}" == "/topic/create")
@@ -75,45 +76,38 @@ class TopicController {
         flash.message = message(code: 'default.created.message', args: [message(code: 'topic.label', default: 'Topic'), topicInstance.id])
         redirect(action: "show", id: topicInstance.id)
     }
+    
+    def toggleAnswerStatus (Long id) {
 
-    def getTime = {
-        render "The current time is : ${new Date()}"
-    }
-
-    /*def reply() {
-
-        // logged user
         def user = springSecurityService.currentUser 
+        def messageInstance = Message.get(id)
+        def topicInstance = messageInstance?.topic 
 
-        // topic associated
-        def topic = Topic.findById(params.topic_id)
-       
-        params.author = user
-        params.topic = topic
-        params.replyDate = new Date()
-        def messageInstance = new Message(params)
+        if (!messageInstance) {
+            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
+            redirect(controller:"topic", action: "list")
+            return
+        }  
 
-        user.addToAnswers(messageInstance)
-        topic.addToReplies(messageInstance)
+        if (!request.xhr) {
+            redirect(controller:"topic", action:"show", id:topicInstance.id)
+            return
+        }   
 
-        // saving
-        if(!messageInstance.save(flush: true)){
-            topic.removeFromReplies(messageInstance)
-            //render(view: "show", model: [topicInstance:topic,topicAnswer:messageInstance])
-            render(template:"postAnswer", model:[topicInstance:topic,
-                                                messageInstance:messageInstance,
-                                                topicInstanceTotal:topic.replies.size()], layout:"ajax")
+        def model = privilegeService.canToggleAnswerStatus(user,topicInstance,messageInstance)
+        if (model.result=='false'){
+            render(template:'/shared/errorMessage', model:[msg_id:messageInstance.id,errorMsg:model.errorMsg,suffix:'toggle'], layout:'ajax')
             return
         }
 
-        //render(template:"postAnswer", model:[topicInstance:topic,messageInstance:messageInstance], layout:"ajax")
-        //redirect(action:"show", id:topic.id)
-        render(template:"postAnswer", model:[topicInstance:topic,
-                                             messageInstance:messageInstance,
-                                             message:"ajax.succes",
-                                             topicInstanceTotal:topic.replies.size()], layout:"ajax")
-    }*/
-    
+        topicInstance.revokeAnswersExcept(messageInstance)
+        messageInstance.accepted = !messageInstance.accepted
+        topicInstance.resolved = messageInstance.accepted
+
+        render(template:'updateAcceptedAnswer', model:[msg_id:id,accepted:messageInstance.accepted], layout:'ajax')
+        return
+    }
+
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(Long id) {
         params.max = 2
