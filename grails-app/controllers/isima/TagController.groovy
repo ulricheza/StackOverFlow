@@ -60,14 +60,27 @@ class TagController {
     }
 
     def show(Long id) {
-        def tagInstance = Tag.get(id)
+
+        def topicsList = Tag.get(id).taggedTopics
+        params.max = Math.min(topicsList.size() ?: 16, 100)
+
+        def messageHeaders = []
+        topicsList.each {
+            messageHeaders.add(it.replies[0].content.take(250) + ' ...')
+        }
+
+        [topicInstanceList:topicsList , messageHeaders:messageHeaders, topicInstanceTotal: topicsList.size(), tagName: Tag.get(id).tagName]    
+
+
+
+        /*def tagInstance = Tag.get(id)
         if (!tagInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tag.label', default: 'Tag'), id])
             redirect(action: "list")
             return
         }
 
-        [tagInstance: tagInstance]
+        [tagInstance: tagInstance]*/
     }
 
     def edit(Long id) {

@@ -4,62 +4,48 @@
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'tag.label', default: 'Tag')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<g:set var="entityName" value="${message(code: 'topic.label', default: 'Topic')}" />
+		<title><g:message code="default.list.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-tag" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div class="nav" role="navigation">
-			<ul>
-				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-				<li><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			</ul>
-		</div>
-		<div id="show-tag" class="content scaffold-show" role="main">
-			<h1><g:message code="default.show.label" args="[entityName]" /></h1>
+		<div id="list-topic" class="content scaffold-list" role="main">
+			<div class="page-title"><h1><g:message code="isima.tags.title.label" /> ${tagName}</h1></div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<ol class="property-list tag">
-			
-				<g:if test="${tagInstance?.tagName}">
-				<li class="fieldcontain">
-					<span id="tagName-label" class="property-label"><g:message code="tag.tagName.label" default="Tag Name" /></span>
-					
-						<span class="property-value" aria-labelledby="tagName-label"><g:fieldValue bean="${tagInstance}" field="tagName"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${tagInstance?.tagCount}">
-				<li class="fieldcontain">
-					<span id="tagCount-label" class="property-label"><g:message code="tag.tagCount.label" default="Tag Count" /></span>
-					
-						<span class="property-value" aria-labelledby="tagCount-label"><g:fieldValue bean="${tagInstance}" field="tagCount"/></span>
-					
-				</li>
-				</g:if>
-			
-				<g:if test="${tagInstance?.taggedTopics}">
-				<li class="fieldcontain">
-					<span id="taggedTopics-label" class="property-label"><g:message code="tag.taggedTopics.label" default="Tagged Topics" /></span>
-					
-						<g:each in="${tagInstance.taggedTopics}" var="t">
-						<span class="property-value" aria-labelledby="taggedTopics-label"><g:link controller="topic" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${tagInstance?.id}" />
-					<g:link class="edit" action="edit" id="${tagInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
+
+			<g:each in="${topicInstanceList}" status="i" var="topicInstance">
+				<div id="question-summary">
+					<div id="votes-counter">
+						<span class="nbvotes">0</span> <br/>
+						<span class="nbvotes-label"><g:message code="isima.topic.newestquestions.votes" /></span><br/>
+						<span class="nbanswers">0</span> <br/>
+						<span class="nbanswers-label"><g:message code="isima.topic.newestquestions.answers" /></span>
+					</div>
+					<div id="summary">
+						<h3>
+							<a class="home" href="${createLink(uri: '/topic/show/')}${fieldValue(bean: topicInstance, field: "id")}">
+							${fieldValue(bean: topicInstance, field: "title")}</a>
+						</h3>
+						<div id="question-description">
+							${messageHeaders[i]}
+						</div>
+
+						<div>
+							<g:each in="${topicInstance.tags}" var="tag">
+								<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</a>
+							</g:each>
+							<div class="question-author">Asked by <g:link action="show" id="${topicInstance.author.id}">${topicInstance.author.username}</g:link></div>
+						</div>
+					</div>
+				</div>
+			</g:each>
+
+			<g:if test="${topicInstanceTotal > params.max}">
+			<div class="pagination">
+				<g:paginate total="${topicInstanceTotal}" />
+			</div>
+			</g:if>
 		</div>
 	</body>
 </html>
