@@ -2,6 +2,7 @@ package isima
 
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.security.access.annotation.Secured
+import grails.converters.JSON
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class UserController {
@@ -14,6 +15,22 @@ class UserController {
     def afterInterceptor = { model ->
         model.selectedTab = 'users'
     }
+
+
+    //  Used in user/list
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
+    def findUsersAjax () {
+        def users = User.findAllByUsernameLike("%${params.term}%")
+
+        def toRender = users.collect { user->
+            ["username": user.username, "location":(user.location==null)?"":user.location, "id":user.id, "img":user.profileImage.encodeBase64().toString()] 
+        }
+
+        def result = ["users" : toRender]
+        render result as JSON
+    }
+
+
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
