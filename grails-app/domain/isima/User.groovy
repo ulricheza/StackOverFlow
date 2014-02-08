@@ -29,13 +29,13 @@ class User {
     ]
 
 	static constraints = {
-        username(blank:false, unique:true, maxSize:30)
+        username(blank:false)//unique:true, maxSize:30)
         password(blank:false)
-        birthDate validator: {val, obj ->
+        birthDate nullable:true, validator: {val, obj ->
             return val <= new Date()
         }
-        email(email:true, unique:true, blank:false)
-        profileImage(maxSize:16*1024, nullable:true)
+        email(email:true)// unique:true, blank:false)
+        profileImage(maxSize:100*1024, nullable:true)
         aboutMe(nullable:true)
         location(nullable:true)
         realName(nullable:true)
@@ -51,6 +51,18 @@ class User {
 
     Set<Badge> getBadges() {
         UserBadge.findAllByUser(this).collect { it.badge } as Set
+    }
+
+    int getNbBronzeBadges() {
+        badges.count { it.level == BadgeService.BRONZE }
+    }
+
+    int getNbSilverBadges() {
+        badges.count { it.level == BadgeService.SILVER }
+    }
+
+    int getNbGoldBadges() {
+        badges.count { it.level == BadgeService.GOLD }
     }
 
     // Security methods

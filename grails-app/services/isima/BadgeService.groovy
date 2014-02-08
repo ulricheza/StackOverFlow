@@ -28,7 +28,7 @@ class BadgeService {
 
     def springSecurityService    
 
-    static void createBadges () {
+    def createBadges () {
 
         // if one exists, we don't have to continue since one cannot be deleted by user
         if (Badge.count() == 0) {

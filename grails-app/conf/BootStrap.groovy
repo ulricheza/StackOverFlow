@@ -2,17 +2,20 @@ import isima.*
 
 class BootStrap {
 
+    def userService
+    def badgeService
+
     def init = {
 
         // defining Badges
-        BadgeService.createBadges()
+        badgeService.createBadges()
 
         // defining Roles and admin User
         def adminRole = Role.findByAuthority('ROLE_ADMIN')?:new Role(authority: 'ROLE_ADMIN').save(flush: true)
         def userRole = Role.findByAuthority('ROLE_USER')?:new Role(authority: 'ROLE_USER').save(flush: true)
         def adminUser = User.findByUsername('admin')?:new User(
             username: 'admin', enabled: true, password: 'admin', email:'admin@gmail.com', reputation:49,
-            location:'I live in Clermont-Ferrand, France',birthDate:new Date(),aboutMe:'This is me, this is my life.',realName:'Administrator',profileImage:new byte[0]
+            location:'I live in Clermont-Ferrand, France',birthDate:new Date(),aboutMe:'This is me, this is my life.',realName:'Administrator',profileImage:userService.loadDefaultProfileImage()
         ).save(flush: true)
 
         if (!adminUser.authorities.contains(adminRole)) 

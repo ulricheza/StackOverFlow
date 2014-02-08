@@ -14,6 +14,8 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+		<g:set var="loggedUser_id"><sec:loggedInUserInfo field="id"/></g:set>
+		<g:set var="loggedUser_img"><sec:loggedInUserInfo field="profileImage"/></g:set>
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
@@ -26,7 +28,11 @@
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
 					<g:link class="topbar-link" controller="logout">log out</g:link>
-					<span class="topbar-link">afficher le nombre de badges</span>
+					<g:link controller="user" action="show" id="${loggedUser_id}" >
+						<img class="topbar-link" width="25" height="25" alt="user-profile-picture" title="go to your profile page"
+							src="data:image/png;base64,${loggedUser_img}" />
+						</img>
+					</g:link>					
 				</sec:ifLoggedIn>
 			</div>
 		</div>

@@ -12,7 +12,10 @@
 		<div id="show-user" class="content scaffold-show" role="main">
 			<div>
 				<div id="profile-imagecontainer-div">
-					<div id="profile-image-div"><img border="0" width="128" height="128" src="img.jpg" /></div>
+					<div id="profile-image-div">
+						<img border="0" width="128" height="128" 
+							src="data:image/png;base64,${userInstance.profileImage.encodeBase64().toString()}" />
+					</div>
 					<center>
 						<strong>${userInstance.reputation}</strong><br/>
 						réputation

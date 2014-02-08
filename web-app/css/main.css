@@ -639,6 +639,7 @@ a.skip {
 
 #header {
 	margin-bottom:3em;
+	margin-top: 1px;
 }
 
 #subHeader {
@@ -790,7 +791,7 @@ a.skip {
 }
 
 #topbar {
-	height:30px;
+	height:31px;
 	background-color:black;
 	padding-right:30px
 }
@@ -800,6 +801,7 @@ a.skip {
 	float:right;
 	margin:3px 5px;
 	text-decoration:none;
+	line-height: 1.5;
 }
 .badge-gold {
 	background-color: rgb(213,213,0);
@@ -976,7 +978,7 @@ a.skip {
 	height: 32px;
 }
 
-.user-details {
+.user-info {
 	float: left;
     margin-left: 5px;
     width: 70%;
@@ -984,7 +986,7 @@ a.skip {
     white-space: nowrap;
 }
 
-.user-details a {
+.user-info a {
 	color: rgb(0, 119, 204);
     text-decoration: none;
 }

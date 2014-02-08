@@ -26,21 +26,10 @@
 				</td>
 				<td class="post-signature owner">
 				    <div>
-				   		<div class="post-creationDate" style="margin-top: 2px;margin-bottom: 4px;">
-				   			${label} <g:formatDate date="${msg?.replyDate}" type="datetime" style="MEDIUM" timeStyle="SHORT" />
-				   		</div>
-				   		<div class="user-avatar">
-					   		<img width="32" height="35" alt="" 
-					   			src="https://www.gravatar.com/avatar/f2ae1b3ade1a9d83d5dd5f6a7ef56d68?s=32&d=identicon&r=PG">
-					   		</img>
-				   		</div>
-				   		<div class="user-details">
-							<g:link controller="user" action="show" id="${msg?.author?.id}">
-								${msg?.author?.username}
-							</g:link>
-							<br/>
-							${msg?.author?.reputation}
-				   		</div>
+				    	<div class="post-creationDate" style="margin-top: 2px;margin-bottom: 4px;">
+							${label} <g:formatDate date="${msg?.replyDate}" type="datetime" style="MEDIUM" timeStyle="SHORT" />
+						</div>
+				    	<tmpl:userDetails user="${msg?.author}" />
 				   	</div>
 				</td>
 			</tr>
