@@ -33,8 +33,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'location', 'error')} ">
 	<label for="location">
-		<g:message code="user.location.label" default="Location" />
-		
+		<g:message code="user.location.label" default="Location" />		
 	</label>
 	<g:textField name="location" value="${userInstance?.location}"/>
 </div>
@@ -48,8 +47,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'birthDate', 'error')} ">
 	<label for="birthDate">
-		<g:message code="user.birthDate.label" default="Birth Date" />
-		
+		<g:message code="user.birthDate.label" default="Birth Date" />		
 	</label>
 	<g:datePicker name="birthDate" precision="day" value="${userInstance?.birthDate}" default="none" noSelection="['': '']" />
 </div>
@@ -57,7 +55,6 @@
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'aboutMe', 'error')} ">
 	<label for="aboutMe">
 		<g:message code="user.aboutMe.label" default="About Me" />		
-	</label>
-	
+	</label>	
 	<g:textArea style="resize:none;" name="aboutMe" value="${userInstance?.aboutMe}" />
 </div>

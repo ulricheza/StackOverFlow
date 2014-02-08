@@ -38,10 +38,13 @@
 				<input type='text' class='text_' name='j_username' id='username' placeholder="name@example.com" />
 				<input type='password' class='text_' name='j_password' id='password' placeholder="Password"/><br/><br/>
 
+				<label>
 					<input type='checkbox' class='chk' name='${rememberMeParameter}' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-					<label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label><br/><br/>
+					<g:message code="springSecurity.login.remember.me.label"/>
+				</label>
+				<br/><br/>
 
-					<input type='submit' value='${message(code: "springSecurity.login.button")}'/>
+				<input type='submit' value='${message(code: "springSecurity.login.button")}'/>
 			</form>
 		</div>
 	</div>

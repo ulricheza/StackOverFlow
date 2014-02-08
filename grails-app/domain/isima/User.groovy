@@ -4,15 +4,13 @@ class User {
 
 	String 	username  // not userName because of spring security
     String  email
-	String 	location  // Country
+	String 	location 
 	Date	birthDate
-	String  aboutMe // User's description of himself
+	String  aboutMe 
 	String 	realName
-	byte[]	profileImage // user's profile picture
+	byte[]	profileImage 
     int     reputation
-    /*List    questions
-    List    answers*/
-	
+   	
     // Security fields
     transient springSecurityService
 
@@ -29,16 +27,16 @@ class User {
     ]
 
 	static constraints = {
-        username(blank:false)//unique:true, maxSize:30)
-        password(blank:false)
+        username(blank:false, unique:true, maxSize:15)
+        password(blank:false, minSize:5)
         birthDate nullable:true, validator: {val, obj ->
             return val <= new Date()
         }
-        email(email:true)// unique:true, blank:false)
+        email(blank:false, unique:true,email:true)
         profileImage(maxSize:100*1024, nullable:true)
-        aboutMe(nullable:true)
-        location(nullable:true)
-        realName(nullable:true)
+        aboutMe(nullable:true, maxSize:600)
+        location(nullable:true, maxSize:30)
+        realName(nullable:true, maxSize:30)
     } 
 
     static mapping = {

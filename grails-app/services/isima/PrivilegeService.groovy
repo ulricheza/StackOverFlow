@@ -14,12 +14,12 @@ class PrivilegeService {
 			checkReputation(voter.reputation,VOTE_DOWN_REPUTATION)		
 	}
 	
-	def canComment (User voter, Message msg) {
+	def canComment (User commenter, Message msg) {
 		
-		if (voter == msg.author)
+		if (commenter == msg.topic.author)
 			[result:'true']
 		else 
-			checkReputation(voter.reputation,LEAVE_COMMENTS_REPUTATION)			
+			checkReputation(commenter.reputation,LEAVE_COMMENTS_REPUTATION)			
 	}
 	
 	def canVoteUp (User voter, Message msg) {
@@ -38,9 +38,9 @@ class PrivilegeService {
 			[result:'false',errorMsg:'You are not allowed to edit this message']
 	}
 
-	def canDelete (User user, Message msg) {
+	def canDelete (User deleter, Message msg) {
 		
-		if (msg.author == user)
+		if (msg.author == deleter || msg.topic.author == deleter)
 			[result:'true']
 		else
 			[result:'false',errorMsg:'You are not allowed to delete this message']
@@ -61,6 +61,6 @@ class PrivilegeService {
 		if (voterReputation >= requiredReputation)
 			[result:'true']
 		else
-			[result:'false',errorMsg:'You must have at least '+requiredReputation+' reputation']	
+			[result:'false',errorMsg:'You must have at least '+requiredReputation+' reputation to comment']	
 	}
 }

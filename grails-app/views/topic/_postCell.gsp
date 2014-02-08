@@ -18,7 +18,7 @@
 			    			edit
 						</g:remoteLink>
 			    		<span>|</span>
-			    		<g:remoteLink controller="message" action="canDelete" id="${msg?.id}" update="edit-delete-error-${msg?.id}">
+			    		<g:remoteLink controller="message" action="canDelete" id="${msg?.id}" update="edit-delete-error-${msg?.id}" params="${[offset:params.offset]}">
 			    			delete
 						</g:remoteLink>
 			    	</div>

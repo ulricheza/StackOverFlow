@@ -24,7 +24,7 @@
 			<div>
 				<sec:ifNotLoggedIn>
 					<g:link class="topbar-link" controller="login">log in</g:link>
-					<span class="topbar-link">sign up</span>
+					<g:link class="topbar-link" controller="user" action="create">sign up</g:link>
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
 					<g:link class="topbar-link" controller="logout">log out</g:link>

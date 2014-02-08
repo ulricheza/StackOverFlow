@@ -52,8 +52,6 @@ class MessageController {
             render(view: "create", model: [messageInstance:messageInstance,topicInstance:topic])
             return
         }
-
-        flash.message = message(code: 'default.created.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
         
         // computing in order to redirect to the last page of the topic.show() page
         int max = 2
@@ -67,15 +65,14 @@ class MessageController {
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
-        if (!messageInstance) {
-            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
-            redirect(controller:"topic", action: "list")
-            return
-        }  
         if (!request.xhr) {
             redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
             return
         }  
+        if (!messageInstance) {
+            render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
+            return
+        }          
 
         def model = privilegeService.canComment(user,messageInstance)
         if (model.result=='false'){
@@ -91,13 +88,12 @@ class MessageController {
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
-        if (!messageInstance) {
-            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
-            redirect(controller:"topic", action: "list")
-            return
-        }  
         if (!request.xhr) {
-            redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
+            redirect(controller:"topic", action:"list")
+            return
+        } 
+        if (!messageInstance) {
+            render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
             return
         }  
 
@@ -124,15 +120,14 @@ class MessageController {
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
-        if (!messageInstance) {
-            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
-            redirect(controller:"topic", action: "list")
-            return
-        } 
         if (!request.xhr) {
             redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
             return
-        }  
+        } 
+        if (!messageInstance) {
+            render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
+            return
+        } 
         
         def model = privilegeService.canVoteDown(user,messageInstance)
         if (model.result=='false'){
@@ -198,16 +193,20 @@ class MessageController {
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
-        if (!messageInstance) {
-            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
-            redirect(controller:"topic", action: "list")
-            return
-        } 
+        // probably a bug of the grails version : each param of a remoteLink
+        // got transformed into a list with the value duplicated
+        def list = params.offset as List
+        params.offset = list? list.get(0) : 0
+        
         if (!request.xhr) {
-            redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
+            redirect(controller:"topic", action:"list")
             return
         } 
-
+        if (!messageInstance) {
+            render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
+            return
+        } 
+        
         def model = privilegeService.canDelete(user,messageInstance)
         if (model.result=='false'){
 
@@ -215,7 +214,7 @@ class MessageController {
             return
         }
 
-        render(template:'/shared/confirmation', model:[controller:'message',action:'delete',id:id], layout:'ajax')
+        render(template:'/shared/confirmation', model:[controller:'message',action:'delete',id:id,offset:params.offset], layout:'ajax')
     }
 
     def delete(Long id) {
@@ -250,12 +249,11 @@ class MessageController {
             topic.removeFromReplies(messageInstance)
             messageInstance.delete(flush:true)
 
-            flash.message = message(code:'default.deleted.message', args:[message(code:'message.label', default:'Message'), id])
-            redirect(controller:"topic",action: "show",id:topic.id)
+            redirect(controller:"topic",action:"show",id:topic.id,params:[offset:params.offset])
         }
         catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'message.label', default: 'Message'), id])
-            redirect(action: "show", id: id)
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'message.label', default: 'Message')])
+            redirect(controller:"topic",action:"show",id:topic.id,params:params)
         }
     }
 

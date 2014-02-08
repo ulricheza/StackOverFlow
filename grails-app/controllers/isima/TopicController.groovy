@@ -83,16 +83,14 @@ class TopicController {
         def messageInstance = Message.get(id)
         def topicInstance = messageInstance?.topic 
 
-        if (!messageInstance) {
-            flash.message = message(code:'default.not.found.message', args:[message(code:'topic.label', default:'Message'), id])
-            redirect(controller:"topic", action: "list")
+        if (!request.xhr) {
+            redirect(controller:"topic", action:"list")
             return
         }  
-
-        if (!request.xhr) {
-            redirect(controller:"topic", action:"show", id:topicInstance.id)
+        if (!messageInstance) {
+            render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
             return
-        }   
+        }         
 
         def model = privilegeService.canToggleAnswerStatus(user,topicInstance,messageInstance)
         if (model.result=='false'){
@@ -123,15 +121,16 @@ class TopicController {
         int topicInstanceTotal = topicReplies.size()
         if (topicReplies.size() > 0) {
             int offset = params.offset ?Integer.parseInt(params.offset):0   
+            if (offset >= topicReplies.size()) offset = 0
+            params.offset = offset 
             
             int max = offset + params.max - 1               
             if (max >= topicReplies.size()) max = -1
 
-            topicReplies=topicReplies[offset..max]          
+            topicReplies=topicReplies[offset..max]         
         }
 
-        [topicInstance: topicInstance,topicReplies:topicReplies,topicInstanceTotal:topicInstanceTotal]
-        
+        [topicInstance: topicInstance,topicReplies:topicReplies,topicInstanceTotal:topicInstanceTotal]        
     }
 
     def edit(Long id) {

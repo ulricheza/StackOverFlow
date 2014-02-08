@@ -1,7 +1,7 @@
 <div>
 	<div class="user-avatar">
 		<img width="32" height="35" alt="user-profile-picture" 
-			src="https://www.gravatar.com/avatar/f2ae1b3ade1a9d83d5dd5f6a7ef56d68?s=32&d=identicon&r=PG">
+			src="data:image/png;base64,${user.profileImage.encodeBase64().toString()}">
 		</img>
 	</div>
 	

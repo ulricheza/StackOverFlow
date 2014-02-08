@@ -1,32 +1,43 @@
 package isima
 
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.security.access.annotation.Secured
 
+@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class UserController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
     static final int INITIAL_REPUTATION = 49
 
     def userService
+    def springSecurityService
 
     def afterInterceptor = { model ->
         model.selectedTab = 'users'
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
         redirect(action: "list", params: params)
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         [userInstanceList: User.list(params), userInstanceTotal: User.count()]
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def create() {
-        def user = new User(params)
-        [userInstance: user]
+        if (springSecurityService.isLoggedIn()) {
+            flash.message = 'logout first'
+            redirect(action: "list")            
+        }
+
+        [userInstance: new User(params)]
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def save() {
 
         params.reputation = INITIAL_REPUTATION
@@ -43,10 +54,13 @@ class UserController {
         def userRole = Role.findByAuthority('ROLE_USER')
         UserRole.create userInstance, userRole, true
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
+        // authentificate the user right away
+        springSecurityService.reauthenticate userInstance.username
+
         redirect(action: "show", id: userInstance.id)
     }
 
+    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(Long id) {
         def userInstance = User.get(id)
         if (!userInstance) {
