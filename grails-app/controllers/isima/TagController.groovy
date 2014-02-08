@@ -10,6 +10,7 @@ class TagController {
         model.selectedTab = 'tags'
     }
 
+    // Autocompletion used in topic/create
     def searchAJAX () {
         def tags = Tag.findAllByTagNameLike("%${params.term}%")
 
@@ -20,6 +21,18 @@ class TagController {
         }
  
         render response as JSON
+    }
+
+    // Autocompletion used in tag/list
+    def findTagsAjax () {
+        def tags = Tag.findAllByTagNameLike("%${params.term}%")
+
+        def toRender = tags.collect { tag->
+            ["tagName": tag.tagName, "description":tag.description, "id":tag.id] 
+        }
+
+        def result = ["tags" : toRender]
+        render result as JSON
     }
 
     def index() {

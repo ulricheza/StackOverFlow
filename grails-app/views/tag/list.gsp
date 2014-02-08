@@ -6,8 +6,79 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'tag.label', default: 'Tag')}" />
 		<title><g:message code="default.list.label" args="[entityName]" /></title>
+
+
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+		<r:require module="jquery-ui" />
+		<!-- autoCompletion script -->
+		<script>
+			$(function() {
+				var url = "${createLink(uri: '/tag/findTagsAjax')}"
+
+				function split( val ) {
+					return val.split( /,\s*/ );
+				}
+
+				function extractLast( term ) {
+					return split( term ).pop();
+				}
+
+				$( "#tagSearch" )
+					// don't navigate away from the field on tab when selecting an item
+					.bind( "keydown", function( event ) {
+						if ( event.keyCode === $.ui.keyCode.TAB && $( this ).data( "ui-autocomplete" ).menu.active ) {
+							event.preventDefault();
+						}
+					})
+					.autocomplete({
+
+						minLength: 0,
+						source: function( request, response ) {
+							// delegate back to autocomplete, but extract the last term
+							$.getJSON(url, { term: extractLast(request.term) }, function(te){
+
+								// Clean the table from the previous results.
+								$('#tagListContent tbody').remove();
+								$('#tagListContent td').remove();
+								$('#tagListContent tr').remove();
+
+								// Populates the table with the new results.
+								var i;
+								for(i=0; i<te["tags"].length; ++i)
+								{
+									if(i%4==0) $("#tagListContent").append("<tr>");
+									
+									$("#tagListContent tbody tr").last().append(
+										"<td class=\"tag-cell\">" +
+											"<a class=\"post-tag\" href=\"./tag/show/"+te["tags"][i]["id"]+"\">"+te["tags"][i]["tagName"]+"</a><br/>" +
+											"<div class=\"tag-short-description\">"+te["tags"][i]["description"]+"</div>" +
+										"</td>"
+									);
+
+									if((i+1)%4==0) $("#tagListContent").append("</tr>");
+								}
+							});
+
+						},
+						focus: function() {
+							// prevent value inserted on focus
+							return false;
+						},
+						select: function( event, ui ) {
+							return false;
+						}
+
+					});
+			});
+		</script>	
+
 	</head>
 	<body>
+
+		
+
 		<div id="list-tag" class="content scaffold-list" role="main">
 			<div class="page-title"><h1><g:message code="isima.tags.list.title" /></h1></div><br/><br/>
 			<g:if test="${flash.message}">
@@ -18,12 +89,12 @@
 				<g:message code="isima.tags.list.paragraph" />
 				<br/><br/>
 				<label for="tagName"><g:message code="isima.tags.list.search.label" default="Tag Name" /></label>
-				<g:textField name="tagName" value=" to do " />
+				<g:textField name="tagSearch" id="tagSearch" placeholder="Tag" value="" />
 				<br/><br/>
 			</div>
 
 
-			<table>
+			<table id="tagListContent" name="tagListContent">
 				<g:each in="${tagInstanceList}" status="tagInstanceId" var="tagInstance">
 
 					<g:if test="${tagInstanceId%4==0}">

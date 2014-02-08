@@ -53,13 +53,13 @@
 			<div style="display:inline-block; width:49%">
 				<div class="page-title"><h1>${userInstance.questions.size()} <g:message code="isima.profile.questions.label" /></h1></div>
 				<g:each var="curTopic" in="${userInstance?.questions}">
-    				<br/><span style="background:green; color:white">${curTopic.replies.size()<2?0:curTopic.replies.size()-1}</span> <g:link>${curTopic.title}</g:link>
+    				<br/><span style="background:green; color:white">${curTopic.replies.size()<2?0:curTopic.replies.size()-1}</span> <a href="${createLink(uri: '/topic/show/')}${fieldValue(bean: curTopic, field: "id")}">${curTopic.title}</a>
   				</g:each>
 			</div>
 			<div style="display:inline-block; width:50%">
 				<div class="page-title"><h1>${userInstance.answers.size()} <g:message code="isima.profile.answers.label" /></h1></div>
 				<g:each var="curAnswer" in="${userInstance?.answers}">
-    				<br/><span style="background:green; color:white">${curAnswer.topic.replies.size()<2?0:curAnswer.topic.replies.size()-1}</span> <g:link>${curAnswer.topic.title}</g:link>
+    				<br/><span style="background:green; color:white">${curAnswer.topic.replies.size()<2?0:curAnswer.topic.replies.size()-1}</span> <a href="${createLink(uri: '/topic/show/')}${fieldValue(bean: curAnswer.topic, field: "id")}">curTopic${curAnswer.topic.title}</a>
   				</g:each>
 			</div>
 			</div>
@@ -67,15 +67,8 @@
 			<br/>
 
 			<g:if test="${flash.message}">
-			<div class="message" role="status">${flash.message}</div>
+				<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${userInstance?.id}" />
-					<g:link class="edit" action="edit" id="${userInstance?.id}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
 		</div>
 	</body>
 </html>
