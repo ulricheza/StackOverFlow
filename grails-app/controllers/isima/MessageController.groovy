@@ -11,6 +11,7 @@ class MessageController {
     def springSecurityService
     def privilegeService
     def badgeService
+    def reputationService
     
     def afterInterceptor = { model ->
         model.selectedTab = "questions"
@@ -107,17 +108,21 @@ class MessageController {
         messageInstance.score +=1
 
         badgeService.addModerationBadge(user,BadgeService.SUPPORTER)
-        if (messageInstance.isQuestion())
+        if (messageInstance.isQuestion()) {
             badgeService.updateQuestionBadges(messageInstance)
-        else
+            reputationService.voteUpQuestion(messageInstance.author)
+        }
+        else {
             badgeService.updateAnswerBadges(messageInstance)
+            reputationService.voteUpAnswer(messageInstance.author)
+        }
         
         render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }
 
     def voteDown (Long id) {
 
-        def user = springSecurityService.currentUser
+        def voter = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
         if (!request.xhr) {
@@ -129,7 +134,7 @@ class MessageController {
             return
         } 
         
-        def model = privilegeService.canVoteDown(user,messageInstance)
+        def model = privilegeService.canVoteDown(voter,messageInstance)
         if (model.result=='false'){
 
             render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'voteDown'], layout:'ajax')
@@ -138,11 +143,15 @@ class MessageController {
 
         messageInstance.score -=1
 
-        badgeService.addModerationBadge(user,BadgeService.CRITIC)
-        if (messageInstance.isQuestion())
+        badgeService.addModerationBadge(voter,BadgeService.CRITIC)
+        if (messageInstance.isQuestion()) {
             badgeService.updateQuestionBadges(messageInstance)
-        else
+            reputationService.voteDownQuestion(messageInstance.author)
+        }
+        else {
             badgeService.updateAnswerBadges(messageInstance)
+            reputationService.voteDownAnswer(voter,messageInstance.author)
+        }
 
         render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
     }
@@ -163,9 +172,15 @@ class MessageController {
         def messageInstance = Message.get(id)
 
         if (!messageInstance) {
-            flash.message = message(code:'default.not.found.message', args:[message(code: 'message.label', default:'Message')])
-            redirect(controller:"topic", action:"list")
-            return
+            if(request.xhr) {
+                render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
+                return
+            }
+            else {
+                flash.message = message(code:'default.not.found.message', args:[message(code: 'message.label', default:'Message')])
+                redirect(controller:"topic", action:"list")
+                return
+            }
         }
 
         def model = privilegeService.canEdit(user,messageInstance)
@@ -238,6 +253,7 @@ class MessageController {
         }
 
         try {
+            
             if (messageInstance.isQuestion()) {
                 topic.delete(flush:true)
                 flash.message = message(code:'default.deleted.message', args:[message(code:'topic.label', default:'Topic')])
@@ -245,6 +261,12 @@ class MessageController {
                 return
             }
             
+            if (messageInstance.accepted){
+                messageInstance.accepted = false
+                topic.resolved = false
+                reputationService.acceptAnswer(topic.author,messageInstance,messageInstance)    
+            }
+
             author.removeFromAnswers(messageInstance)
             topic.removeFromReplies(messageInstance)
             messageInstance.delete(flush:true)

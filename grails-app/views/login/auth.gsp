@@ -43,7 +43,7 @@
 					<g:message code="springSecurity.login.remember.me.label"/>
 				</label>
 				<br/><br/>
-
+				
 				<input type='submit' value='${message(code: "springSecurity.login.button")}'/>
 			</form>
 		</div>

@@ -8,6 +8,8 @@ class Message {
 	List    comments
 	boolean accepted = false
 
+	transient reputationService
+
 	boolean isQuestion() {
     	return (this == topic.replies[0])
     }

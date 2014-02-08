@@ -5,7 +5,7 @@ class Topic {
 	String 	title
 	User 	author
 	Date	creationDate
-	boolean resolved // If the author has accepted an answer.
+	boolean resolved 
 	List    replies
     Set     tags
 
@@ -25,8 +25,14 @@ class Topic {
     }
 
     def revokeAnswersExcept(Message answer) {
+        def prevAnswer = null
+
         (replies-answer).each {
+            if (it.accepted) prevAnswer = it
             it.accepted = false
         }
+        if (!prevAnswer && answer.accepted) prevAnswer = answer
+
+        return prevAnswer
     }
 }

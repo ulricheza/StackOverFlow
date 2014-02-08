@@ -24,7 +24,7 @@
 				<div style="border-bottom: 1px solid rgb(204, 204, 204);margin-top:17px;"></div>
 
 				<div id="form-buttons">
-					<input type="hidden" name="topic_id" id="topic_id" value="${topicInstance.id}" />
+					<input type="hidden" name="topic_id" id="topic_id" value="${topicInstance?.id}" />
 					<g:submitButton name="postAnswer" value="${message(code: 'default.postAnswer.label', default: 'Post your answer')}" />
 				</div>
 			</g:form>

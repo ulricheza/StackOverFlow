@@ -7,7 +7,6 @@ import org.springframework.security.access.annotation.Secured
 class UserController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
-    static final int INITIAL_REPUTATION = 49
 
     def userService
     def springSecurityService
@@ -40,7 +39,7 @@ class UserController {
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def save() {
 
-        params.reputation = INITIAL_REPUTATION
+        params.reputation = ReputationService.INITIAL_REPUTATION
         def userInstance = new User(params)  
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])

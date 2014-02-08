@@ -2,9 +2,9 @@ package isima
 
 class PrivilegeService {
 
-	private static final int VOTE_DOWN_REPUTATION = 15
+	private static final int VOTE_DOWN_REPUTATION = 25
 	private static final int LEAVE_COMMENTS_REPUTATION = 50
-	private static final int VOTE_UP_REPUTATION = 125
+	private static final int VOTE_UP_REPUTATION = 75
 	
 	def canVoteDown (User voter, Message msg) {
 		
@@ -61,6 +61,6 @@ class PrivilegeService {
 		if (voterReputation >= requiredReputation)
 			[result:'true']
 		else
-			[result:'false',errorMsg:'You must have at least '+requiredReputation+' reputation to comment']	
+			[result:'false',errorMsg:'You must have at least '+requiredReputation+' reputation']	
 	}
 }

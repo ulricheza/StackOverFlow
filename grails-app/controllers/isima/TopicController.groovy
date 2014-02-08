@@ -12,6 +12,7 @@ class TopicController {
     def tagService
     def topicService
     def privilegeService
+    def reputationService
 
     def afterInterceptor = { model, modelAndView ->
         if ("${modelAndView?.viewName}" == "/topic/create")
@@ -79,30 +80,32 @@ class TopicController {
     
     def toggleAnswerStatus (Long id) {
 
-        def user = springSecurityService.currentUser 
-        def messageInstance = Message.get(id)
-        def topicInstance = messageInstance?.topic 
+        def acceptor = springSecurityService.currentUser 
+        def newAnswer = Message.get(id)
+        def topicInstance = newAnswer?.topic 
 
         if (!request.xhr) {
             redirect(controller:"topic", action:"list")
             return
         }  
-        if (!messageInstance) {
+        if (!newAnswer) {
             render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
             return
         }         
 
-        def model = privilegeService.canToggleAnswerStatus(user,topicInstance,messageInstance)
+        def model = privilegeService.canToggleAnswerStatus(acceptor,topicInstance,newAnswer)
         if (model.result=='false'){
-            render(template:'/shared/errorMessage', model:[msg_id:messageInstance.id,errorMsg:model.errorMsg,suffix:'toggle'], layout:'ajax')
+            render(template:'/shared/errorMessage', model:[msg_id:newAnswer.id,errorMsg:model.errorMsg,suffix:'toggle'], layout:'ajax')
             return
         }
 
-        topicInstance.revokeAnswersExcept(messageInstance)
-        messageInstance.accepted = !messageInstance.accepted
-        topicInstance.resolved = messageInstance.accepted
+        def prevAnswer = topicInstance.revokeAnswersExcept(newAnswer)
+        newAnswer.accepted = !newAnswer.accepted
+        topicInstance.resolved = newAnswer.accepted
 
-        render(template:'updateAcceptedAnswer', model:[msg_id:id,accepted:messageInstance.accepted], layout:'ajax')
+        reputationService.acceptAnswer(acceptor,prevAnswer,newAnswer)       
+
+        render(template:'updateAcceptedAnswer', model:[msg_id:id,accepted:newAnswer.accepted], layout:'ajax')
         return
     }
 

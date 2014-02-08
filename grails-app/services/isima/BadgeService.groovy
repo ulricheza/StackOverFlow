@@ -22,9 +22,9 @@ class BadgeService {
     static final String EDITOR = "Editor";
     static final String SUPPORTER = "Supporter";
 
-    static final int NICE_SCORE = 10
-    static final int GOOD_SCORE = 25
-    static final int GREAT_SCORE = 100
+    static final int NICE_SCORE = 5
+    static final int GOOD_SCORE = 10
+    static final int GREAT_SCORE = 15
 
     def springSecurityService    
 
