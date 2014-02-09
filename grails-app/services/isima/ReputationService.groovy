@@ -47,20 +47,5 @@ class ReputationService {
 			newAnswerAuthor.reputation += 15
 			acceptor.reputation += 2
 		}
-
-
-		/*if (!prevAnswerAuthor) {
-			acceptor.reputation += 2
-			newAnswerAuthor.reputation += 15
-		}
-		else {
-			if (prevAnswerAuthor != newAnswerAuthor) {
-				prevAnswerAuthor -= 15
-				newAnswerAuthor.reputation += 15
-			}
-			else {
-
-			}			
-		}*/
 	}
 }

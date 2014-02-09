@@ -8,7 +8,7 @@ class Badge {
 	String level
 	
 	static constraints = {
-    	title unique: true
+    	title unique:true
     }
 
     int getCount() {

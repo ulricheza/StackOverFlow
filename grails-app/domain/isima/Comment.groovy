@@ -9,7 +9,7 @@ class Comment {
 	static belongsTo = Message
 
     static constraints = {
-    	content blank: false, validator: {
+    	content blank:false, validator: {
     		int minSize = 15
     		int maxSize = 600
 

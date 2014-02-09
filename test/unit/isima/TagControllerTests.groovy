@@ -1,7 +1,5 @@
 package isima
 
-
-
 import org.junit.*
 import grails.test.mixin.*
 
@@ -11,8 +9,28 @@ class TagControllerTests {
 
     def populateValidParams(params) {
         assert params != null
-        // TODO: Populate valid properties like...
-        //params["name"] = 'someValidName'
+
+        params.tagName = "Sample"
+        params.description = ""
+    }
+
+    void testSearchAJAX() {
+        request.method = "POST"
+        request.makeAjaxRequest()
+
+        controller.searchAJAX()
+
+        assert '[]' == response.text
+    }
+
+    void testFindTagsAjax() {
+        request.method = "POST"
+        request.makeAjaxRequest()
+
+        controller.findTagsAjax()
+
+        assert '{"tags":[]}' == response.text
+        assert [] == response.json.tags
     }
 
     void testIndex() {
@@ -50,24 +68,6 @@ class TagControllerTests {
         assert Tag.count() == 1
     }
 
-    void testShow() {
-        controller.show()
-
-        assert flash.message != null
-        assert response.redirectedUrl == '/tag/list'
-
-        populateValidParams(params)
-        def tag = new Tag(params)
-
-        assert tag.save() != null
-
-        params.id = tag.id
-
-        def model = controller.show()
-
-        assert model.tagInstance == tag
-    }
-
     void testEdit() {
         controller.edit()
 
@@ -101,7 +101,7 @@ class TagControllerTests {
 
         // test invalid parameters in update
         params.id = tag.id
-        //TODO: add invalid values to params object
+        params.description = new Date()
 
         controller.update()
 

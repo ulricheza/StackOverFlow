@@ -8,6 +8,7 @@ class Tag {
 
     static constraints = {
     	tagName unique:true
+        description nullable:true
     }
 
     static hasMany = [taggedTopics:Topic]

@@ -1,5 +1,0 @@
-package isima
-
-class TopicService {
-
-}

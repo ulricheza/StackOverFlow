@@ -15,7 +15,7 @@ class User {
     transient springSecurityService
 
     String password
-    boolean enabled
+    boolean enabled = true
     boolean accountExpired
     boolean accountLocked
     boolean passwordExpired
@@ -28,7 +28,7 @@ class User {
 
 	static constraints = {
         username(blank:false, unique:true, maxSize:15)
-        password(blank:false, minSize:5)
+        password blank:false, minSize:5
         birthDate nullable:true, validator: {val, obj ->
             return val <= new Date()
         }
