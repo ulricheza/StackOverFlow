@@ -12,8 +12,7 @@
 
 <div class="fieldcontain ${hasErrors(bean: badgeInstance, field: 'awarded', 'error')} ">
 	<label for="awarded">
-		<g:message code="badge.awarded.label" default="Awarded" />
-		
+		<g:message code="badge.awarded.label" default="Awarded" />		
 	</label>
 	
 </div>

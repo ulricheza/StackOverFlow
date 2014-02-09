@@ -7,6 +7,6 @@
 			</div> 
 		</div>
 		<div class="badge-description">${fieldValue(bean: badge, field: "description")}</div>	
-		<div class="badge-count">${badge.count} awarded</div>
+		<div class="badge-count">${badge.count} <g:message code="badge.awarded.label" /></div>
 	</div>
 </g:each>

@@ -93,7 +93,7 @@
 
 			<div class="shortdescription">
 				<label for="tagName"><g:message code="isima.user.list.search.label" default="Tag Name" /></label>
-				<g:textField name="userSearch" id="userSearch" placeholder="User" value="" />
+				<g:textField name="userSearch" id="userSearch" placeholder="${message(code:"form.placeholder.user")}" value="" />
 				<br/><br/>
 			</div>
 

@@ -35,8 +35,8 @@
 		</g:if>
 		<div id="fields">
 			<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
-				<input type='text' class='text_' name='j_username' id='username' placeholder="name@example.com" />
-				<input type='password' class='text_' name='j_password' id='password' placeholder="Password"/><br/><br/>
+				<input type='text' class='text_' name='j_username' id='username' placeholder="${message(code:"form.placeholder.email")}" />
+				<input type='password' class='text_' name='j_password' id='password' placeholder="${message(code:"form.placeholder.password")}"/><br/><br/>
 
 				<label>
 					<input type='checkbox' class='chk' name='${rememberMeParameter}' <g:if test='${hasCookie}'>checked='checked'</g:if>/>

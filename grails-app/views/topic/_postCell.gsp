@@ -15,11 +15,11 @@
 			    <td class="message-footer">
 			    	<div class="post-menu">
 			    		<g:remoteLink controller="message" action="edit" id="${msg?.id}" update="edit-delete-error-${msg?.id}">
-			    			edit
+			    			<g:message code="topic.message.edit" />
 						</g:remoteLink>
 			    		<span>|</span>
 			    		<g:remoteLink controller="message" action="canDelete" id="${msg?.id}" update="edit-delete-error-${msg?.id}" params="${[offset:params.offset]}">
-			    			delete
+			    			<g:message code="topic.message.delete" />
 						</g:remoteLink>
 			    	</div>
 			    	<div id="edit-delete-error-${msg?.id}"></div>

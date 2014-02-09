@@ -24,11 +24,11 @@
 		<div id="topbar">
 			<div>
 				<sec:ifNotLoggedIn>
-					<g:link class="topbar-link" controller="login">log in</g:link>
-					<g:link class="topbar-link" controller="user" action="create">sign up</g:link>
+					<g:link class="topbar-link" controller="login"><g:message code="identification.login.text" /></g:link>
+					<g:link class="topbar-link" controller="user" action="create"><g:message code="identification.signup.text" /></g:link>
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
-					<g:link class="topbar-link" controller="logout">log out</g:link>
+					<g:link class="topbar-link" controller="logout"><g:message code="identification.logout.text" /></g:link>
 					<g:link controller="user" action="show" id="${loggedUser_id}" >
 						<img class="topbar-link" width="25" height="25" alt="user-profile-picture" title="go to your profile page"
 							src="data:image/png;base64,${loggedUser_img}" />

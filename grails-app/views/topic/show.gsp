@@ -64,7 +64,7 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			
-			<tmpl:postTmpl msg="${topicQuestion}" tags="${topicInstance?.tags}" label="asked" />					    
+			<tmpl:postTmpl msg="${topicQuestion}" tags="${topicInstance?.tags}" label="${message(code:"topic.askedon.text")}" />					    
 			
 			<g:if test="${topicInstanceTotal > 0}">
 				<tmpl:/shared/subHeader title="${topicInstanceTotal} ${nbAnswersSuffix}" filters="['active','oldest']" 
@@ -93,7 +93,7 @@
 			<g:form url="[controller:'message',action:'create']" >
 				<div id="form-buttons">
 					<input type="hidden" name="topic_id" id="topic_id" value="${topicInstance.id}" />
-					<g:submitButton name="answerQuestion" value="${message(code: 'default.answerQuestion.label', default: 'Answer this Question')}" />
+					<g:submitButton name="answerQuestion" value="${message(code: 'topic.answerthisquestion.text', default: 'Answer this Question')}" />
 				</div>
 			</g:form>
 		</sec:ifLoggedIn>

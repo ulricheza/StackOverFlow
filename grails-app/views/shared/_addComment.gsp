@@ -12,5 +12,5 @@
 			  update="commentForm${messageInstance?.id}"
 			  style="color:rgb(136,136,136);border:0px none;padding:0px;text-indent:-4px;cursor:pointer;text-decoration:none;">
 
-	add comment
+	<g:message code="topic.addcomment.text" />
 </g:remoteLink>

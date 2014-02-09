@@ -18,7 +18,7 @@
 					</div>
 					<center>
 						<strong>${userInstance.reputation}</strong><br/>
-						réputation
+						<g:message code="user.profile.reputation.text" />
 					</center>
 				</div>
 				<div id="profile-description-div">

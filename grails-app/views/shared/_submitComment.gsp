@@ -22,7 +22,7 @@
 		<input type="hidden" name="msg_id" value="${messageInstance?.id}" />
 		<input type="hidden" id="status${messageInstance?.id}" value="${status}" />
 		<div id="form-buttons">
-			<input style="padding:0 0;margin-left:5px;" type="submit" name="post-comment-button" value="Add comment" />
+			<input style="padding:0 0;margin-left:5px;" type="submit" name="post-comment-button" value="${message(code:"topic.addthecomment.text")}" />
 		</div>
 	</div>
 </g:formRemote>
