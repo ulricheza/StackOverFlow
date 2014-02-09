@@ -4,11 +4,11 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-		<title><g:message code="default.edit.label" args="[entityName]" /></title>
+		<title><g:message code="isima.user.edit.title" /></title>
 	</head>
 	<body>
 		<div id="edit-user" class="content scaffold-edit" role="main">
-			<div class="page-title"><h1><g:message code="default.edit.label" args="[entityName]" /></h1></div>
+			<div class="page-title"><h1><g:message code="isima.user.edit.title"/></h1></div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>

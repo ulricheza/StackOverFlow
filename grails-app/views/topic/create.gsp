@@ -9,7 +9,7 @@
 		<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 		<ckeditor:resources/>
 		<r:require module="jquery-ui" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title><g:message code="isima.topic.create.label" args="[entityName]" /></title>
 		<!-- autoCompletion script -->
 		<script>
 			$(function() {

@@ -5,7 +5,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'badge.label', default: 'Badge')}" />
-		<title><g:message code="default.list.label" args="[entityName]" /></title>
+		<title><g:message code="badges.page.h1.text" /></title>
 	</head>
 		<div id="subHeader">
 			<h1><g:message code="badges.page.h1.text" /></h1>

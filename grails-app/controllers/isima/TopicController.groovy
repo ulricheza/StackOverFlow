@@ -151,6 +151,13 @@ class TopicController {
             return
         }
 
+        def user = springSecurityService.currentUser 
+        if (user != topicInstance.author){
+            flash.message = message(code:'default.not.allowed.message')
+            redirect(action: "list")
+            return
+        }
+
         [topicInstance: topicInstance]
     }
 

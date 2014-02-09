@@ -20,11 +20,6 @@ class MessageController {
         redirect(action: "list", params: params)
     }
 
-    def list(Integer max) {
-        params.max = Math.min(max ?: 12, 100) 
-        [messageInstanceList: Message.list(params), messageInstanceTotal: Message.count()]
-    }
-
     def create() {
         [messageInstance: new Message(params),topicInstance:Topic.get(params.topic_id)]
     }
@@ -186,17 +181,6 @@ class MessageController {
         }
 
         render(template:'/shared/newMsgScore', model:[msg_id:id,score:messageInstance.score], layout:'ajax')
-    }
-
-    def show(Long id) {
-        def messageInstance = Message.get(id)
-        if (!messageInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'message.label', default: 'Message'), id])
-            redirect(action: "list")
-            return
-        }
-
-        [messageInstance: messageInstance]
     }
 
     def edit(Long id) {

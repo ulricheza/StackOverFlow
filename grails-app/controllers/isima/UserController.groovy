@@ -97,6 +97,13 @@ class UserController {
             return
         }
 
+        def user = springSecurityService.currentUser 
+        if (user != userInstance){
+            flash.message = message(code:'default.not.allowed.message')
+            redirect(action: "list")
+            return
+        }
+
         [userInstance: userInstance]
     }
 

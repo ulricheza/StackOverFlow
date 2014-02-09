@@ -59,10 +59,6 @@
 						<g:link class="${(selectedTab == 'badges')? 'youarehere' : ''}" 
 							url="${createLink(uri: '/badges')}"><g:message code="isima.header.tags.badges" /></g:link>
 					</li>
-					<li>
-						<g:link class="${(selectedTab == 'unanswered')? 'youarehere' : ''}" 
-							url="${createLink(uri: '/unanswered')}"><g:message code="isima.header.tags.unanswered" /></g:link>
-					</li>
 					<li class="last-link">
 						<g:link class="${(selectedTab == 'askQuestion')? 'youarehere' : ''}"
 							controller="topic" action="create"><g:message code="isima.header.tags.askquestion" /></g:link>
