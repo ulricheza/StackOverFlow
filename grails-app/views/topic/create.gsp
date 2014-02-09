@@ -1,7 +1,7 @@
 <%@ page import="isima.Topic" %>
 <!DOCTYPE html>
 <html>
-	<head>
+	<head> 
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'topic.label', default: 'Topic')}" />
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">

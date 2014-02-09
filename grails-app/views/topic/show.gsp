@@ -10,7 +10,52 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 		<r:require module="scriptaculous" />
 		<g:javascript library="prototype" />
-		<g:setProvider library="scriptaculous" />		
+		<g:setProvider library="scriptaculous" />	
+		<!-- ajax login page script -->
+		<script type='text/javascript'>
+
+			// center the form
+			function showLogin() {
+				var ajaxLogin = $('ajaxLogin');
+				$('ajaxLogin').style.left = ((screen.width - ajaxLogin.getDimensions().width) / 2) + 'px';
+				$('ajaxLogin').style.top = ((document.body.getDimensions().height -
+                                ajaxLogin.getDimensions().height) / 2) + 'px';
+				$('ajaxLogin').style.display = 'block';
+  			}
+
+		   	function cancelLogin() { 
+				Form.enable(document.ajaxLoginForm); 
+		      	Element.hide('ajaxLogin'); 
+		  	}
+
+   			function authAjax() {
+		    	Form.enable(document.ajaxLoginForm); 
+		      	Element.update('loginMessage', 'Sending request ...');
+		      	Element.show('loginMessage');
+
+		      	var form = document.ajaxLoginForm; 
+		      	var params = Form.serialize(form); 
+		      	Form.disable(form); 
+		      	new Ajax.Request(form.action, { 
+		      		method: 'POST',
+		        	postBody: params, 
+		         	onSuccess: function(response) { 
+		            	Form.enable(document.ajaxLoginForm); 
+		            	var responseText = response.responseText || '[]'; 
+		            	var json = responseText.evalJSON(); 
+		            	if (json.success) { 
+		               		location.reload('true');
+		            	}
+		            	else if (json.error) { 
+		               		Element.update('loginMessage', "<span class='errorMessage'>" + json.error + '</error>');
+		            	} 
+		            	else { 
+		               		Element.update('loginMessage', responseText);
+		            	}
+		         	}
+		     	});
+  			}
+		</script>	
 	</head>
 	<body>
 		<div id="list-topic" class="content scaffold-list" role="main">
@@ -44,11 +89,24 @@
 			</g:if>
 		</div>
 
-		<g:form url="[controller:'message',action:'create']" >
+		<sec:ifLoggedIn>
+			<g:form url="[controller:'message',action:'create']" >
+				<div id="form-buttons">
+					<input type="hidden" name="topic_id" id="topic_id" value="${topicInstance.id}" />
+					<g:submitButton name="answerQuestion" value="${message(code: 'default.answerQuestion.label', default: 'Answer this Question')}" />
+				</div>
+			</g:form>
+		</sec:ifLoggedIn>
+		<sec:ifNotLoggedIn>			
 			<div id="form-buttons">
-				<input type="hidden" name="topic_id" id="topic_id" value="${topicInstance.id}" />
-				<g:submitButton name="answerQuestion" value="${message(code: 'default.answerQuestion.label', default: 'Answer this Question')}" />
+				<g:link controller="user" action="create" style="text-decoration:none;">
+					<input type="button" value="Sign up to post an answer" />
+				</g:link>
 			</div>
-		</g:form>
+		</sec:ifNotLoggedIn>
+
+		<g:javascript library='prototype' />
+		<g:javascript src='prototype/scriptaculous.js' />
+		<g:render template='/shared/ajaxLogin'/>
 	</body>
 </html>

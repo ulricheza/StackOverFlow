@@ -20,13 +20,13 @@ class UrlMappings {
 		}
 
 		"/"(controller:"topic", action:"list")
-		"/questions"(controller:"topic", action:"list"){}
+		"/questions"(controller:"topic", action:"list")
 		"/users"(controller:"user", action:"list")
 		"/unanswered"(controller:"message",action:"list")
 		"/tags"(controller:"tag",action:"list")
 		//"/"(view:'/index')
-		//"403"(view: "errors/forbidden") ; TODO
    		"404"(view: "errors/notFound")
+   		"405"(view: "errors/notAllowed")
 		"500"(view:"errors/serverError")
 	}
 }

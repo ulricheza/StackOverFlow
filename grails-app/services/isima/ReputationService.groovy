@@ -33,6 +33,8 @@ class ReputationService {
 		User prevAnswerAuthor = prevAnswer?.author
 		User newAnswerAuthor = newAnswer.author
 
+		if (newAnswerAuthor == acceptor) return
+
 		if (prevAnswerAuthor){
 			prevAnswerAuthor.reputation -= 15
 			acceptor.reputation -= 2

@@ -3,7 +3,6 @@ package isima
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.security.access.annotation.Secured
 
-@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class TopicController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -21,12 +20,10 @@ class TopicController {
             model.selectedTab = "questions"
     }
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
         redirect(action: "list", params: params)
     }
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def list(Integer max) {
         params.max = Math.min(max ?: 10, 100) 
 
@@ -80,6 +77,17 @@ class TopicController {
     
     def toggleAnswerStatus (Long id) {
 
+        if (!springSecurityService.isLoggedIn()){
+            if (request.xhr) {
+                render(text:"<script>showLogin();</script>", contentType: "js", encoding: "UTF-8")
+                return
+            }
+            else{
+                redirect(controller:"login")
+                return
+            }
+        }
+
         def acceptor = springSecurityService.currentUser 
         def newAnswer = Message.get(id)
         def topicInstance = newAnswer?.topic 
@@ -109,7 +117,6 @@ class TopicController {
         return
     }
 
-    @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def show(Long id) {
         params.max = 2
 

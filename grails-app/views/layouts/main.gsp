@@ -14,6 +14,7 @@
 		<link rel="apple-touch-icon" sizes="114x114" href="${resource(dir: 'images', file: 'apple-touch-icon-retina.png')}">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'main.css')}" type="text/css">
 		<link rel="stylesheet" href="${resource(dir: 'css', file: 'mobile.css')}" type="text/css">
+		<link rel="stylesheet" href="${resource(dir: 'css', file: 'loginAjax.css')}" type="text/css">
 		<g:set var="loggedUser_id"><sec:loggedInUserInfo field="id"/></g:set>
 		<g:set var="loggedUser_img"><sec:loggedInUserInfo field="profileImage"/></g:set>
 		<g:layoutHead/>
@@ -54,12 +55,10 @@
 						<g:link class="${(selectedTab == 'users')? 'youarehere' : ''}" 
 							url="${createLink(uri:'/users')}"><g:message code="isima.header.tags.users" /></g:link>
 					</li>
-					<sec:ifLoggedIn>
-						<li>
-							<g:link class="${(selectedTab == 'badges')? 'youarehere' : ''}" 
-								url="${createLink(uri: '/badges')}"><g:message code="isima.header.tags.badges" /></g:link>
-						</li>
-					</sec:ifLoggedIn>
+					<li>
+						<g:link class="${(selectedTab == 'badges')? 'youarehere' : ''}" 
+							url="${createLink(uri: '/badges')}"><g:message code="isima.header.tags.badges" /></g:link>
+					</li>
 					<li>
 						<g:link class="${(selectedTab == 'unanswered')? 'youarehere' : ''}" 
 							url="${createLink(uri: '/unanswered')}"><g:message code="isima.header.tags.unanswered" /></g:link>
@@ -78,7 +77,7 @@
 		
 		<div class="footer" role="contentinfo"></div>
 		<div id="spinner" class="spinner" style="display:none;"><g:message code="spinner.alt" default="Loading&hellip;"/></div>
-		<g:javascript library="application"/>
+		<g:javascript library="application"/>	
 		<r:layoutResources />
 	</body>
 </html>

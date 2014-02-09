@@ -3,10 +3,9 @@ package isima
 import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.security.access.annotation.Secured
 
-@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class MessageController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [create: "POST", save: "POST", update: "POST", delete: "POST"]
 
     def springSecurityService
     def privilegeService
@@ -63,6 +62,17 @@ class MessageController {
 
     def addComment (Long id) {
 
+        if (!springSecurityService.isLoggedIn()){
+            if (request.xhr) {
+                render(text:"<script>showLogin();</script>", contentType: "js", encoding: "UTF-8")
+                return
+            }
+            else{
+                redirect(controller:"login")
+                return
+            }
+        }
+
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
@@ -85,6 +95,17 @@ class MessageController {
     }
 
     def voteUp (Long id) {
+
+        if (!springSecurityService.isLoggedIn()){
+            if (request.xhr) {                
+                render(text:"<script>showLogin();</script>", contentType: "js", encoding: "UTF-8")
+                return
+            }
+            else{
+                redirect(controller:"login")
+                return
+            }
+        }
 
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
@@ -121,6 +142,17 @@ class MessageController {
     }
 
     def voteDown (Long id) {
+
+        if (!springSecurityService.isLoggedIn()){
+            if (request.xhr) {
+                render(text:"<script>showLogin();</script>", contentType: "js", encoding: "UTF-8")
+                return
+            }
+            else{
+                redirect(controller:"login")
+                return
+            }
+        }
 
         def voter = springSecurityService.currentUser
         def messageInstance = Message.get(id)
@@ -168,6 +200,18 @@ class MessageController {
     }
 
     def edit(Long id) {
+
+        if (!springSecurityService.isLoggedIn()){
+            if (request.xhr) {
+                render(text:"<script>showLogin();</script>", contentType: "js", encoding: "UTF-8")
+                return
+            }
+            else{
+                redirect(controller:"login")
+                return
+            }
+        }
+
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
@@ -205,6 +249,18 @@ class MessageController {
     }
 
     def canDelete(Long id) {
+
+        if (!springSecurityService.isLoggedIn()){
+            if (request.xhr) {
+                render(text:"<script>showLogin();</script>", contentType: "js", encoding: "UTF-8")
+                return
+            }
+            else{
+                redirect(controller:"login")
+                return
+            }
+        }
+
         def user = springSecurityService.currentUser
         def messageInstance = Message.get(id)
 
@@ -304,7 +360,7 @@ class MessageController {
             return
         }
 
-        flash.message = message(code: 'default.updated.message', args: [message(code: 'message.label', default: 'Message'), messageInstance.id])
-        redirect(action: "show", id: messageInstance.id)
+        flash.message = message(code: 'default.updated.message', args: [message(code: 'message.label', default: 'Message')])
+        redirect(controller:"topic", action:"show", id:messageInstance.topic.id)
     }
 }
