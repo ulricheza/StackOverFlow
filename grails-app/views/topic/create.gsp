@@ -69,12 +69,12 @@
 				</ul>
 			</g:hasErrors>	
 			<g:form action="save" >
-				<fieldset class="form">
-					<g:render template="form"/>
-				</fieldset>
-				<fieldset class="buttons">
+				<g:render template="form"/>
+				<div style="border-bottom: 1px solid rgb(204, 204, 204);margin-top:17px;"></div>
+				
+				<div id="form-buttons">
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
+				</div>
 			</g:form>
 		</div>
 	</body>

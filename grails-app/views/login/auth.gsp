@@ -27,7 +27,7 @@
 
 <body>
 <div id='login'>
-	<div id="title"><g:message code="springSecurity.login.title"/></div><br/><br/>
+	<div class="page-title"><h1><g:message code="springSecurity.login.title"/></div></br>
 	<div id="content">
 		<div id="instruction"><g:message code="springSecurity.login.instruction"/></div>
 		<g:if test='${flash.message}'>
@@ -35,7 +35,7 @@
 		</g:if>
 		<div id="fields">
 			<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
-				<input type='text' class='text_' name='j_username' id='username' placeholder="${message(code:"form.placeholder.email")}" />
+				<input type='text' class='text_' name='j_username' id='username' placeholder="${message(code:"form.placeholder.login")}" />
 				<input type='password' class='text_' name='j_password' id='password' placeholder="${message(code:"form.placeholder.password")}"/><br/><br/>
 
 				<label>

@@ -828,9 +828,9 @@ a.skip {
 }
 
 #title {
-	border-bottom:1px solid #cccccc;
+	/*border-bottom:1px solid #cccccc;
 	font-weight:bold;
-	color: black;
+	color: black;*/
 }
 
 #question-summary {
@@ -949,7 +949,7 @@ a.skip {
     padding-top: 2px;
     text-align: left;
     vertical-align: top;
-    width: 200px;
+    width: 220px;
     height: 58px;
 }
 
