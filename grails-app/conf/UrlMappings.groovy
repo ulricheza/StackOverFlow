@@ -24,7 +24,6 @@ class UrlMappings {
 		"/users"(controller:"user", action:"list")
 		"/unanswered"(controller:"message",action:"list")
 		"/tags"(controller:"tag",action:"list")
-		//"/"(view:'/index')
    		"404"(view: "errors/notFound")
    		"405"(view: "errors/notAllowed")
 		"500"(view:"errors/serverError")

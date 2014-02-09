@@ -17,9 +17,8 @@
 			<g:each in="${topicInstanceList}" status="i" var="topicInstance">
 				<div id="question-summary">
 					<div id="votes-counter">
-						<span class="nbvotes">0</span> <br/>
-						<span class="nbvotes-label"><g:message code="isima.topic.newestquestions.votes" /></span><br/>
-						<span class="nbanswers">0</span> <br/>
+						<br/>
+						<span class="nbanswers">${topicInstance?.replies?.size()-1}</span><br/>
 						<span class="nbanswers-label"><g:message code="isima.topic.newestquestions.answers" /></span>
 					</div>
 					<div id="summary">
@@ -35,7 +34,7 @@
 							<g:each in="${topicInstance.tags}" var="tag">
 								<a class="post-tag" href="${createLink(uri: '/tag/show/')}${fieldValue(bean: tag, field: "id")}">${fieldValue(bean: tag, field: "tagName")}</a>
 							</g:each>
-							<div class="question-author"><g:message code="topic.askedby.text" /> <g:link action="show" id="${topicInstance.author.id}">${topicInstance.author.username}</g:link></div>
+							<div class="question-author"><g:message code="topic.askedby.text" /> <g:link controller="user" action="show" id="${topicInstance.author.id}">${topicInstance.author.username}</g:link></div>
 						</div>
 					</div>
 				</div>

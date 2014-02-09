@@ -80,15 +80,13 @@
 		
 
 		<div id="list-tag" class="content scaffold-list" role="main">
-			<div class="page-title"><h1><g:message code="isima.tags.list.title" /></h1></div><br/><br/>
+			<div class="page-title"><h1><g:message code="isima.tags.list.title" /></h1></div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 
-			<div class="shortdescription">
-				<g:message code="isima.tags.list.paragraph" />
-				<br/><br/>
-				<label for="tagName"><g:message code="isima.tags.list.search.label" default="Tag Name" /></label>
+			<div class="shortdescription">				
+				<label for="tagSearch"><g:message code="isima.tags.list.search.label" default="Tag Name" /></label>
 				<g:textField name="tagSearch" id="tagSearch" placeholder="Tag" value="" />
 				<br/><br/>
 			</div>

@@ -86,13 +86,13 @@
 	</head>
 	<body>
 		<div id="list-user" class="content scaffold-list" role="main">
-			<div id="title"><h1><g:message code="isima.user.list.title" /></h1></div><br/><br/>
+			<div class="page-title"><h1><g:message code="isima.user.list.title" /></h1></div>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 
 			<div class="shortdescription">
-				<label for="tagName"><g:message code="isima.user.list.search.label" default="Tag Name" /></label>
+				<label for="userSearch"><g:message code="isima.user.list.search.label" default="Tag Name" /></label>
 				<g:textField name="userSearch" id="userSearch" placeholder="${message(code:"form.placeholder.user")}" value="" />
 				<br/><br/>
 			</div>
