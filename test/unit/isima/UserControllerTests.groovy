@@ -47,10 +47,4 @@ class UserControllerTests {
         assert flash.message != null
         assert response.redirectedUrl == '/user/list'
     }
-
-    void testDelete() {
-        controller.delete()
-        assert flash.message != null
-        assert response.redirectedUrl == '/user/list'
-    }
 }

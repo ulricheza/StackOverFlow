@@ -52,8 +52,7 @@
 									
 									$("#tagListContent tbody tr").last().append(
 										"<td class=\"tag-cell\">" +
-											"<a class=\"post-tag\" href=\"./tag/show/"+te["tags"][i]["id"]+"\">"+te["tags"][i]["tagName"]+"</a><br/>" +
-											"<div class=\"tag-short-description\">"+te["tags"][i]["description"]+"</div>" +
+											"<a class=\"post-tag\" href=\"./tag/show/"+te["tags"][i]["id"]+"\">"+te["tags"][i]["tagName"]+"</a>" +
 										"</td>"
 									);
 
@@ -100,7 +99,6 @@
 					</g:if>
 						<td class="tag-cell">
 							<a class="post-tag" href="${createLink(uri: '/tag/show/')}${tagInstance.id}">${tagInstance.tagName}</a><br/>
-							<div class="tag-short-description">${tagInstance.description}</div>
 						</td>
 					<g:if test="${(tagInstanceId+1)%4==0}">
 					</tr>

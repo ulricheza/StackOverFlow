@@ -27,7 +27,7 @@
 
 <body>
 <div id='login'>
-	<div class="page-title"><h1><g:message code="springSecurity.login.title"/></div></br>
+	<div class="page-title"><h1><g:message code="springSecurity.login.title"/></h1></div></br>
 	<div id="content">
 		<div id="instruction"><g:message code="springSecurity.login.instruction"/></div>
 		<g:if test='${flash.message}'>

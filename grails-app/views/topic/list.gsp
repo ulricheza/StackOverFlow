@@ -18,8 +18,9 @@
 				<div id="question-summary">
 					<div id="votes-counter">
 						<br/>
+						<g:set var="nbAnswersSuffix" value="${(topicInstance?.replies?.size() > 2) ? 's' : ''}" />
 						<span class="nbanswers">${topicInstance?.replies?.size()-1}</span><br/>
-						<span class="nbanswers-label"><g:message code="isima.topic.newestquestions.answers" /></span>
+						<span class="nbanswers-label"><g:message code="isima.topic.newestquestions.answer" />${nbAnswersSuffix}</span>
 					</div>
 					<div id="summary">
 						<h3>
@@ -27,7 +28,9 @@
 							${fieldValue(bean: topicInstance, field: "title")}</a>
 						</h3>
 						<div id="question-description">
-							${messageHeaders[i]}
+							<g:encodeAs codec="HTML">
+								${topicInstance?.replies?.get(0).content}
+							</g:encodeAs>
 						</div>
 
 						<div>

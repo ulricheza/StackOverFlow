@@ -33,19 +33,18 @@ class ReputationService {
 		User prevAnswerAuthor = prevAnswer?.author
 		User newAnswerAuthor = newAnswer.author
 
-		if (newAnswerAuthor == acceptor) return
-
-		if (prevAnswerAuthor){
-			prevAnswerAuthor.reputation -= 15
-			acceptor.reputation -= 2
-
-			if (prevAnswerAuthor.reputation < MIN_REPUTATION) prevAnswerAuthor.reputation = MIN_REPUTATION
-			if (acceptor.reputation < MIN_REPUTATION) acceptor.reputation = MIN_REPUTATION   
-		}
-
 		if (newAnswer.accepted) {
-			newAnswerAuthor.reputation += 15
-			acceptor.reputation += 2
+			if (newAnswerAuthor != acceptor) {
+				newAnswerAuthor.reputation += 15
+				acceptor.reputation += 2
+			}
+		}
+		
+		if (prevAnswerAuthor) {
+			if (prevAnswerAuthor != acceptor) {
+				prevAnswerAuthor.reputation -= 15
+				acceptor.reputation -= 2
+			}
 		}
 	}
 }

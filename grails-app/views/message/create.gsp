@@ -4,7 +4,7 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'message.label', default: 'Message')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title><g:fieldValue bean="${topicInstance}" field="title"/></title>
 		<ckeditor:resources/>
 	</head>
 	<body>		

@@ -17,7 +17,7 @@ class TagService {
 
     	// Find or Create the tags
     	uniqueTags.each{
-    		def tag = Tag.findByTagName(it)?:new Tag(tagName:it,tagCount:0,description:"")  
+    		def tag = Tag.findByTagName(it)?:new Tag(tagName:it,tagCount:0)  
 	    	tag.tagCount += 1		
 	    	result.add(tag)
     	}

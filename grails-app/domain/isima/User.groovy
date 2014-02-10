@@ -43,6 +43,14 @@ class User {
     	birthDate type:'date'
     }
 
+    int getNbAnswers() {
+        int res = 0
+
+        answers.each { if (!it.isQuestion()) ++res }
+
+        return res
+    }
+
     def String toString(){
     	username
     }

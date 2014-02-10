@@ -9,7 +9,7 @@ class PrivilegeService {
 	def canVoteDown (User voter, Message msg) {
 		
 		if (voter == msg.author)
-			[result:'false',errorMsg:'You cannot vote down your own message'];
+			[result:'false',errorMsg:'You cannot vote down your own message',code:'default.cannotSelfVoteDown.message'];
 		else 
 			checkReputation(voter.reputation,VOTE_DOWN_REPUTATION)		
 	}
@@ -25,7 +25,7 @@ class PrivilegeService {
 	def canVoteUp (User voter, Message msg) {
 		
 		if (voter == msg.author)
-			[result:'false',errorMsg:'You cannot vote up your own message']
+			[result:'false',errorMsg:'You cannot vote up your own message',code:'default.cannotSelfVoteUp.message']
 		else
 			checkReputation(voter.reputation,VOTE_UP_REPUTATION)	
 	}
@@ -35,7 +35,7 @@ class PrivilegeService {
 		if (msg.author == user)
 			[result:'true']
 		else
-			[result:'false',errorMsg:'You are not allowed to edit this message']
+			[result:'false',errorMsg:'You are not allowed to edit this message',code:'default.cannotEdit.message']
 	}
 
 	def canDelete (User deleter, Message msg) {
@@ -43,24 +43,24 @@ class PrivilegeService {
 		if (msg.author == deleter || msg.topic.author == deleter)
 			[result:'true']
 		else
-			[result:'false',errorMsg:'You are not allowed to delete this message']
+			[result:'false',errorMsg:'You are not allowed to delete this message',code:'default.cannotDelete.message']
 	}
 
 	def canToggleAnswerStatus(User user,Topic topic,Message msg) {
 		if (topic.author == user){
 			if (msg.isQuestion())
-				[result:'false',errorMsg:"This message is not an answer"]
+				[result:'false',errorMsg:"This message is not an answer",code:'default.notAnAnswer.message']
 			else
 				[result:'true']			
 		}			
 		else 
-			[result:'false',errorMsg:'You are not allowed to accept an answer of this topic']
+			[result:'false',errorMsg:'You are not allowed to accept an answer of this topic',code:'default.cannotAcceptAnswer.message']
 	}
 	
 	private def checkReputation (int voterReputation, int requiredReputation) {
 		if (voterReputation >= requiredReputation)
 			[result:'true']
 		else
-			[result:'false',errorMsg:'You must have at least '+requiredReputation+' reputation']	
+			[result:'false',errorMsg:'You must have at least '+requiredReputation+' reputation',code:'default.lackReputation.message',args:requiredReputation]	
 	}
 }

@@ -6,8 +6,8 @@
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'topic.label', default: 'Topic')}" />
 		<g:set var="topicQuestion" value="${topicInstance?.replies?.get(0)}" />
-		<g:set var="nbAnswersSuffix" value="${(topicInstanceTotal > 1) ? 'answers' : 'answer'}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<g:set var="nbAnswersSuffix" value="${(topicInstanceTotal > 1) ? 's' : ''}" />
+		<title><g:fieldValue bean="${topicInstance}" field="title"/></title>
 		<r:require module="scriptaculous" />
 		<g:javascript library="prototype" />
 		<g:setProvider library="scriptaculous" />	
@@ -30,7 +30,7 @@
 
    			function authAjax() {
 		    	Form.enable(document.ajaxLoginForm); 
-		      	Element.update('loginMessage', 'Sending request ...');
+		      	Element.update('loginMessage', '...');
 		      	Element.show('loginMessage');
 
 		      	var form = document.ajaxLoginForm; 
@@ -67,7 +67,7 @@
 			<tmpl:postTmpl msg="${topicQuestion}" tags="${topicInstance?.tags}" label="${message(code:"topic.askedon.text")}" />					    
 			
 			<g:if test="${topicInstanceTotal > 0}">
-				<tmpl:/shared/subHeader title="${topicInstanceTotal} ${nbAnswersSuffix}" filters="['active','oldest']" 
+				<tmpl:/shared/subHeader title="${topicInstanceTotal} ${message(code:"default.answer.label")}${nbAnswersSuffix}" filters="['active','oldest']" 
 						controller="topic" action="show" id="${topicInstance?.id}"  />
 			</g:if>
 			<g:else>
@@ -77,7 +77,7 @@
 
 			<g:each in="${topicReplies}" var="answer" status="i">
 				<div id="answer_${i}">
-					<tmpl:postTmpl msg="${answer}" label="answered" />
+					<tmpl:postTmpl msg="${answer}" label="${message(code:"topic.answeredon.text")}" />
 					<div style="border-bottom: 1px solid rgb(204, 204, 204);"></div>
 				</div>
 			</g:each>
@@ -100,7 +100,7 @@
 		<sec:ifNotLoggedIn>			
 			<div id="form-buttons">
 				<g:link controller="user" action="create" style="text-decoration:none;">
-					<input type="button" value="Sign up to post an answer" />
+					<input type="button" value="${message(code:'topic.signUpToPost.text', default:'Sign up to post an answer')}" />
 				</g:link>
 			</div>
 		</sec:ifNotLoggedIn>

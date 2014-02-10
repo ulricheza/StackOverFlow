@@ -30,7 +30,7 @@
 				<sec:ifLoggedIn>
 					<g:link class="topbar-link" controller="logout"><g:message code="identification.logout.text" /></g:link>
 					<g:link controller="user" action="show" id="${loggedUser_id}" >
-						<img class="topbar-link" width="25" height="25" alt="user-profile-picture" title="go to your profile page"
+						<img class="topbar-link" width="25" height="25" alt="" title="go to your profile page"
 							src="data:image/png;base64,${loggedUser_img}" />
 						</img>
 					</g:link>					

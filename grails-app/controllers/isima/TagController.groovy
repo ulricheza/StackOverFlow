@@ -28,7 +28,7 @@ class TagController {
         def tags = Tag.findAllByTagNameLike("%${params.term}%")
 
         def toRender = tags.collect { tag->
-            ["tagName": tag.tagName, "description":tag.description, "id":tag.id] 
+            ["tagName": tag.tagName, "id":tag.id] 
         }
 
         def result = ["tags" : toRender]
@@ -56,26 +56,16 @@ class TagController {
     }
 
     def show(Long id) {
+        params.max = 10
 
-        def topicsList = Tag.get(id).taggedTopics
-        params.max = Math.min(topicsList.size() ?: 16, 100)
-
-        def messageHeaders = []
-        topicsList.each {
-            messageHeaders.add(it.replies[0].content.take(250) + ' ...')
-        }
-
-        [topicInstanceList:topicsList , messageHeaders:messageHeaders, topicInstanceTotal: topicsList.size(), tagName: Tag.get(id).tagName]    
-
-
-
-        /*def tagInstance = Tag.get(id)
+        def tagInstance = Tag.get(id)
         if (!tagInstance) {
             flash.message = message(code: 'default.not.found.message', args: [message(code: 'tag.label', default: 'Tag'), id])
             redirect(action: "list")
             return
         }
 
-        [tagInstance: tagInstance]*/
+        def topicsList = tagInstance.taggedTopics
+        [topicInstanceList:topicsList, topicInstanceTotal: topicsList.size(),tagInstance:tagInstance]    
     }
 }

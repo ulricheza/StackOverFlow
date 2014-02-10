@@ -5,10 +5,21 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-		<title><g:message code="default.show.label" args="[entityName]" /></title>
+		<g:set var="nbQuestionsSuffix" value="${(userInstance?.questions?.size() > 1) ? 's' : ''}" />
+		<g:set var="nbAnswersSuffix" value="${(userInstance?.nbAnswers > 1) ? 's' : ''}" />
+		<title>${userInstance?.username}</title>
 	</head>
 	<body>
-		<div class="page-title"><h1>${userInstance.username}</h1></div>
+		<div class="page-title">
+			<div style="display:inline-block;">
+			<h1>${userInstance.username}</h1>
+			</div>
+			<div style="display:inline-block;float:right;margin-right:15px;">
+				<g:link controller="user" action="edit" id="${userInstance.id}" style="text-decoration:none;">
+					<input style="border: 1px solid #cccccc;font-size: 1em;cursor: pointer;background-color: rgb(26,26,26);color: white;" type="button" value="${message(code:'isima.user.edit.title', default:'Edit your profile')}" />
+				</g:link>
+			</div>
+		</div>
 		<div id="show-user" class="content scaffold-show" role="main">
 			<div>
 				<div id="profile-imagecontainer-div">
@@ -49,26 +60,24 @@
 				</div>
 			</div>
 
-			<div style="clear: both">
-			<div style="display:inline-block; width:49%">
-				<div class="page-title"><h1>${userInstance.questions.size()} <g:message code="isima.profile.questions.label" /></h1></div>
+			<div style="clear:both">
+			<div style="display:inline-block; width:49%;vertical-align:top;">
+				<div class="page-title"><h1>${userInstance.questions.size()} <g:message code="isima.profile.question.label" />${nbQuestionsSuffix}</h1></div>
 				<g:each var="curTopic" in="${userInstance?.questions}">
     				<br/><span style="background:green; color:white">${curTopic.replies.size()<2?0:curTopic.replies.size()-1}</span> <a href="${createLink(uri: '/topic/show/')}${fieldValue(bean: curTopic, field: "id")}">${curTopic.title}</a>
   				</g:each>
 			</div>
-			<div style="display:inline-block; width:50%">
-				<div class="page-title"><h1>${userInstance.answers.size()} <g:message code="isima.profile.answers.label" /></h1></div>
+			<div style="display:inline-block; width:50%;vertical-align:top;">
+				<div class="page-title"><h1>${userInstance.nbAnswers} <g:message code="isima.profile.answer.label" />${nbAnswersSuffix}</h1></div>
 				<g:each var="curAnswer" in="${userInstance?.answers}">
-    				<br/><span style="background:green; color:white">${curAnswer.topic.replies.size()<2?0:curAnswer.topic.replies.size()-1}</span> <a href="${createLink(uri: '/topic/show/')}${fieldValue(bean: curAnswer.topic, field: "id")}">curTopic${curAnswer.topic.title}</a>
+					<g:if test="${!curAnswer.isQuestion()}">
+    				<br/><span style="background:green; color:white">${curAnswer.topic.replies.size()<2?0:curAnswer.topic.replies.size()-1}</span> <a href="${createLink(uri: '/topic/show/')}${fieldValue(bean: curAnswer.topic, field: "id")}">${curAnswer.topic.title}</a>
+    				</g:if>
   				</g:each>
 			</div>
 			</div>
 			<br/>
 			<br/>
-
-			<g:if test="${flash.message}">
-				<div class="message" role="status">${flash.message}</div>
-			</g:if>
 		</div>
 	</body>
 </html>

@@ -38,7 +38,6 @@ class MessageController {
         
         def messageInstance = new Message(params)
 
-        user.addToAnswers(messageInstance)
         topic.addToReplies(messageInstance)
 
         if (!messageInstance.save(flush: true)) {
@@ -49,7 +48,7 @@ class MessageController {
         }
         
         // computing in order to redirect to the last page of the topic.show() page
-        int max = 2
+        int max = 10
         int offset = Math.floor((topic.replies.size()-2)/max)*max
         
         redirect(controller:"topic", action: "show", id: topic.id, params:[offset:offset])
@@ -82,7 +81,8 @@ class MessageController {
 
         def model = privilegeService.canComment(user,messageInstance)
         if (model.result=='false'){
-            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'addCom'], layout:'ajax')
+            String errorMsg = message(code:model.code, default:model.errorMsg, args:[model.args])
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:errorMsg,suffix:'addCom'], layout:'ajax')
             return
         }
 
@@ -116,8 +116,8 @@ class MessageController {
 
         def model = privilegeService.canVoteUp(user,messageInstance)
         if (model.result=='false'){           
-
-            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'voteUp'], layout:'ajax')
+            String errorMsg = message(code:model.code, default:model.errorMsg, args:[model.args])
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:errorMsg,suffix:'voteUp'], layout:'ajax')
             return
         }
 
@@ -163,8 +163,8 @@ class MessageController {
         
         def model = privilegeService.canVoteDown(voter,messageInstance)
         if (model.result=='false'){
-
-            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'voteDown'], layout:'ajax')
+            String errorMsg = message(code:model.code, default:model.errorMsg, args:[model.args])
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:errorMsg,suffix:'voteDown'], layout:'ajax')
             return
         }
 
@@ -214,7 +214,8 @@ class MessageController {
         def model = privilegeService.canEdit(user,messageInstance)
         if (model.result=='false'){
             if(request.xhr) { 
-                render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'edit'], layout:'ajax')
+                String errorMsg = message(code:model.code, default:model.errorMsg, args:[model.args])
+                render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:errorMsg,suffix:'edit'], layout:'ajax')
                 return
             }
             else {
@@ -264,8 +265,8 @@ class MessageController {
         
         def model = privilegeService.canDelete(user,messageInstance)
         if (model.result=='false'){
-
-            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:model.errorMsg,suffix:'edit'], layout:'ajax')
+            String errorMsg = message(code:model.code, default:model.errorMsg, args:[model.args])
+            render(template:'/shared/errorMessage', model:[msg_id:id,errorMsg:errorMsg,suffix:'edit'], layout:'ajax')
             return
         }
 
@@ -287,7 +288,7 @@ class MessageController {
 
         def model = privilegeService.canDelete(user,messageInstance)
         if (model.result=='false'){
-            flash.message = model.errorMsg
+            flash.message = message(code:model.code, default:model.errorMsg, args:[model.args])
             redirect(controller:"topic", action:"list")
             return 
         }
@@ -296,7 +297,7 @@ class MessageController {
             
             if (messageInstance.isQuestion()) {
                 topic.delete(flush:true)
-                flash.message = message(code:'default.deleted.message', args:[message(code:'topic.label', default:'Topic')])
+                flash.message = message(code:'default.deleted.topic.message')
                 redirect(uri: "/")
                 return
             }

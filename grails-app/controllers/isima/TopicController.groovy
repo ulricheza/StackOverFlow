@@ -25,16 +25,11 @@ class TopicController {
     }
 
     def list(Integer max) {
-        params.max = Math.min(max ?: 10, 100) 
-
-        def messageHeaders = []
-        Topic.list(params).each {
-        	messageHeaders.add(it.replies[0].content.take(250) + ' ...')
-        }
-
-        [topicInstanceList:Topic.list(params) , messageHeaders:messageHeaders, topicInstanceTotal: Topic.count()]
+        params.max = Math.min(max ?: 10, 100)
+        [topicInstanceList:Topic.list(params) ,topicInstanceTotal: Topic.count()]
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def create() {
         [topicInstance: new Topic(params)]
     }
@@ -71,7 +66,7 @@ class TopicController {
             return
         }
 
-        flash.message = message(code: 'default.created.message', args: [message(code: 'topic.label', default: 'Topic'), topicInstance.id])
+        flash.message = message(code:'default.created.topic.message')
         redirect(action: "show", id: topicInstance.id)
     }
     
@@ -103,7 +98,8 @@ class TopicController {
 
         def model = privilegeService.canToggleAnswerStatus(acceptor,topicInstance,newAnswer)
         if (model.result=='false'){
-            render(template:'/shared/errorMessage', model:[msg_id:newAnswer.id,errorMsg:model.errorMsg,suffix:'toggle'], layout:'ajax')
+            String errorMsg = message(code:'default.cannotAcceptAnswer.message',default:model.errorMsg)
+            render(template:'/shared/errorMessage', model:[msg_id:newAnswer.id,errorMsg:errorMsg,suffix:'toggle'], layout:'ajax')
             return
         }
 
@@ -118,7 +114,7 @@ class TopicController {
     }
 
     def show(Long id) {
-        params.max = 2
+        params.max = 10
 
         def topicInstance = Topic.get(id)
         if (!topicInstance) {
@@ -130,7 +126,15 @@ class TopicController {
         def topicReplies = topicInstance.replies - topicInstance.replies[0]
         int topicInstanceTotal = topicReplies.size()
         if (topicReplies.size() > 0) {
-            int offset = params.offset ?Integer.parseInt(params.offset):0   
+            int offset 
+
+            try {
+                offset = params.offset ?Integer.parseInt(params.offset):0                  
+            }
+            catch(NumberFormatException e) {
+                offset = 0
+            }            
+             
             if (offset >= topicReplies.size()) offset = 0
             params.offset = offset 
             

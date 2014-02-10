@@ -4,11 +4,11 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
-		<title><g:message code="default.create.label" args="[entityName]" /></title>
+		<title><g:message code="default.create.account" /></title>
 	</head>
 	<body>
 		<div id="create-user" class="content scaffold-create" role="main">
-			<div class="page-title"><h1>Sign up</h1></div>
+			<div class="page-title"><h1><g:message code="default.create.account" /></h1></div>
 
 			<g:hasErrors bean="${userInstance}">
 				<ul class="errors" role="alert">
@@ -24,7 +24,7 @@
 				</fieldset>
 				<div style="border-bottom: 1px solid rgb(204, 204, 204);margin-top:17px;"></div>
 				<div id="form-buttons">
-					<g:submitButton name="create" value="Create Account"/>
+					<g:submitButton name="create" value="${message(code:'default.create.user')}"/>
 				</div>
 			</g:form>
 		</div>

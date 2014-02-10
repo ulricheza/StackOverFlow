@@ -1,6 +1,6 @@
 <div>
 	<div class="user-avatar">
-		<img width="32" height="35" alt="user-profile-picture" 
+		<img width="32" height="35" alt="" 
 			src="data:image/png;base64,${user.profileImage.encodeBase64().toString()}">
 		</img>
 	</div>

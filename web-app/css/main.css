@@ -863,6 +863,8 @@ a.skip {
 	white-space:nowrap;
 	text-overflow:ellipsis;
 	height:50px;
+	width: 75%;
+	margin-bottom:2px;
 }
 
 #votes-counter .nbvotes {
@@ -949,7 +951,7 @@ a.skip {
     padding-top: 2px;
     text-align: left;
     vertical-align: top;
-    width: 220px;
+    width: 240px;
     height: 58px;
 }
 
@@ -1108,10 +1110,15 @@ a.comment-user {
 	font-size:14px;
 }
 
-.tag-cell {
-	width: 230px;
+#tagListContent {
+	border-collapse: collapse;
 }
 
+.tag-cell {
+	width: 230px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
 
 .post-tag {
 	padding-left: 4px;

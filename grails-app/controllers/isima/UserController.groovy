@@ -63,7 +63,6 @@ class UserController {
             return
         }
 
-        userInstance.enabled = true
         if(!userInstance.profileImage.size()) userInstance.profileImage = userService.loadDefaultProfileImage()       
 
         // defining roles
@@ -125,6 +124,7 @@ class UserController {
             }
         }
 
+        byte[] previousProfileImage = userInstance.profileImage
         userInstance.properties = params
 
         if (!userInstance.save(flush: true)) {
@@ -132,26 +132,17 @@ class UserController {
             return
         }
 
+        if(!userInstance.profileImage.size()){
+            if (previousProfileImage.size())
+                userInstance.profileImage = previousProfileImage
+            else
+                userInstance.profileImage = userService.loadDefaultProfileImage() 
+        }
+
+        // re-authentificate the user
+        springSecurityService.reauthenticate userInstance.username
+
         flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
         redirect(action: "show", id: userInstance.id)
-    }
-
-    def delete(Long id) {
-        def userInstance = User.get(id)
-        if (!userInstance) {
-            flash.message = message(code: 'default.not.found.message', args: [message(code: 'user.label', default: 'User'), id])
-            redirect(action: "list")
-            return
-        }
-
-        try {
-            userInstance.delete(flush: true)
-            flash.message = message(code: 'default.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
-            redirect(action: "list")
-        }
-        catch (DataIntegrityViolationException e) {
-            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'user.label', default: 'User'), id])
-            redirect(action: "show", id: id)
-        }
     }
 }
