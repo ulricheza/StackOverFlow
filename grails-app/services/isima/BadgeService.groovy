@@ -138,7 +138,6 @@ class BadgeService {
     }
 
     def addModerationBadge (User user, String badgeTitle){
-
         addBadge(user,Badge.findByTitle(badgeTitle))        
     }
 
@@ -168,7 +167,6 @@ class BadgeService {
     }
 
     private def addBadge (User user, Badge badge){
-
         if (!user.badges.contains(badge)) UserBadge.create user, badge, true
     }
 }

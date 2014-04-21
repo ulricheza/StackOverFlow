@@ -19,8 +19,8 @@
 			</g:hasErrors>
 
 			<g:form action="save" enctype="multipart/form-data">
-				<fieldset class="form">
-					<g:render template="form"/>
+				<fieldset class="form">					
+					<g:render template="form" model="['displayPasswordField':true]" />
 				</fieldset>
 				<div style="border-bottom: 1px solid rgb(204, 204, 204);margin-top:17px;"></div>
 				<div id="form-buttons">

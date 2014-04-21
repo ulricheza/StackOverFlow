@@ -45,9 +45,7 @@ class User {
 
     int getNbAnswers() {
         int res = 0
-
         answers.each { if (!it.isQuestion()) ++res }
-
         return res
     }
 

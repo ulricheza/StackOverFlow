@@ -16,13 +16,15 @@
 	<g:field type="email" name="email" required="" value="${userInstance.email}"/>
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
-	<label for="password">
-		<g:message code="user.password.label" default="Password" />
-		<span class="required-indicator">*</span>
-	</label>
-	<g:passwordField required="" name="password" value="${userInstance.password}" />
-</div>
+<g:if test="${displayPasswordField}">
+	<div class="fieldcontain ${hasErrors(bean: userInstance, field: 'password', 'error')} required">
+		<label for="password">
+			<g:message code="user.password.label" default="Password" />
+			<span class="required-indicator">*</span>
+		</label>
+		<g:passwordField required="" name="password" value="${userInstance.password}" />
+	</div>
+</g:if>
 
 <div class="fieldcontain ${hasErrors(bean: userInstance, field: 'profileImage', 'error')} ">
 	<label for="profileImage">

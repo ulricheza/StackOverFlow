@@ -16,7 +16,6 @@ class UserController {
         model.selectedTab = 'users'
     }
 
-
     //  Used in user/list
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def findUsersAjax () {
@@ -29,8 +28,6 @@ class UserController {
         def result = ["users" : toRender]
         render result as JSON
     }
-
-
 
     @Secured(['IS_AUTHENTICATED_ANONYMOUSLY'])
     def index() {
@@ -57,13 +54,13 @@ class UserController {
     def save() {
 
         params.reputation = ReputationService.INITIAL_REPUTATION
+
         def userInstance = new User(params)  
+        if(!userInstance.profileImage.size()) userInstance.profileImage = userService.loadDefaultProfileImage()   
         if (!userInstance.save(flush: true)) {
             render(view: "create", model: [userInstance: userInstance])
             return
         }
-
-        if(!userInstance.profileImage.size()) userInstance.profileImage = userService.loadDefaultProfileImage()       
 
         // defining roles
         def userRole = Role.findByAuthority('ROLE_USER')
@@ -83,7 +80,6 @@ class UserController {
             redirect(action: "list")
             return
         }
-
 
         [userInstance: userInstance]
     }
@@ -126,17 +122,16 @@ class UserController {
 
         byte[] previousProfileImage = userInstance.profileImage
         userInstance.properties = params
-
-        if (!userInstance.save(flush: true)) {
-            render(view: "edit", model: [userInstance: userInstance])
-            return
-        }
-
         if(!userInstance.profileImage.size()){
             if (previousProfileImage.size())
                 userInstance.profileImage = previousProfileImage
             else
                 userInstance.profileImage = userService.loadDefaultProfileImage() 
+        }
+
+        if (!userInstance.save(flush: true)) {
+            render(view: "edit", model: [userInstance: userInstance])
+            return
         }
 
         // re-authentificate the user
