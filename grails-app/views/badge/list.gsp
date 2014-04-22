@@ -5,12 +5,13 @@
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'badge.label', default: 'Badge')}" />
-		<title><g:message code="badges.page.h1.text" /></title>
+		<title><g:message code="badges.list.page.title" /></title>
 	</head>
+	<body>
 		<div id="subHeader">
-			<h1><g:message code="badges.page.h1.text" /></h1>
-			<div class="tabs">
-			
+			<h1><g:message code="badges.list.page.title" /></h1>
+
+			<div class="tabs">			
 				<g:link class="${(params.filter) == 'all' ?'currentTab':''}"
 						controller="badge" action="list" params="[filter:'all']"><g:message code="badges.tab.all" /></g:link>
 
@@ -30,6 +31,7 @@
 						controller="badge" action="list" params="[filter:'bronze']"><g:message code="badges.tab.bronze" /></g:link>
 			</div>
 		</div>
+
 		<div id="list-badge" class="content scaffold-list" role="main">				
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>

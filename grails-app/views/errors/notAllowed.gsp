@@ -10,7 +10,6 @@
 			The method you are trying to call is not allowed for this kind of requests.
 			<p>
 			    <img style="margin-top:20px" width="250" src="${resource(dir:'images',file:'nyan.gif')}" alt="error image"/>
-				</img>
 			</p>	
 		</div>
 	</body> 

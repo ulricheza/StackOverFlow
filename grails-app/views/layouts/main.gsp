@@ -25,7 +25,7 @@
 			<div>
 				<sec:ifNotLoggedIn>
 					<g:link class="topbar-link" controller="login"><g:message code="identification.login.text" /></g:link>
-					<g:link class="topbar-link" controller="user" action="create"><g:message code="identification.signup.text" /></g:link>
+					<g:link class="topbar-link" controller="user" action="create"><g:message code="identification.signUp.text" /></g:link>
 				</sec:ifNotLoggedIn>
 				<sec:ifLoggedIn>
 					<g:link class="topbar-link" controller="logout"><g:message code="identification.logout.text" /></g:link>
@@ -37,6 +37,7 @@
 				</sec:ifLoggedIn>
 			</div>
 		</div>
+		
 		<div id="header">
 			<div id="grailsLogo" role="banner">
 				<a href="${createLink(uri: '/')}"><img width="250" src="${resource(dir: 'images', file: 'logo.StackOverflow.png')}" alt="logo"/></a>
@@ -45,23 +46,23 @@
 				<ul>
 					<li>
 						<g:link class="${(selectedTab == 'questions')? 'youarehere' : ''}" 
-							url="${createLink(uri:'/questions')}"><g:message code="isima.header.tags.questions"/></g:link>
+							url="${createLink(uri:'/questions')}"><g:message code="header.questions.title"/></g:link>
 					</li>
 					<li>
 						<g:link class="${(selectedTab == 'tags')? 'youarehere' : ''}" 
-							url="${createLink(uri:'/tags')}"><g:message code="isima.header.tags.tags" /></g:link>
+							url="${createLink(uri:'/tags')}"><g:message code="header.tags.title" /></g:link>
 					</li>
 					<li>
 						<g:link class="${(selectedTab == 'users')? 'youarehere' : ''}" 
-							url="${createLink(uri:'/users')}"><g:message code="isima.header.tags.users" /></g:link>
+							url="${createLink(uri:'/users')}"><g:message code="header.users.title" /></g:link>
 					</li>
 					<li>
 						<g:link class="${(selectedTab == 'badges')? 'youarehere' : ''}" 
-							url="${createLink(uri: '/badges')}"><g:message code="isima.header.tags.badges" /></g:link>
+							url="${createLink(uri: '/badges')}"><g:message code="header.badges.title" /></g:link>
 					</li>
 					<li class="last-link">
 						<g:link class="${(selectedTab == 'askQuestion')? 'youarehere' : ''}"
-							controller="topic" action="create"><g:message code="isima.header.tags.askquestion" /></g:link>
+							controller="topic" action="create"><g:message code="header.askQuestion.title" /></g:link>
 					</li>
 				</ul>
 			</div>

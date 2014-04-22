@@ -10,7 +10,6 @@
 			We were unable to find the page you requested.
 			<p>
 			    <img style="margin-top:20px" width="250" src="${resource(dir:'images',file:'nyan.gif')}" alt="error image"/>
-				</img>
 			</p>	
 		</div>
 	</body> 

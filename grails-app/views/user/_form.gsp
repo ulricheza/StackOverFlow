@@ -58,5 +58,5 @@
 	<label for="aboutMe">
 		<g:message code="user.aboutMe.label" default="About Me" />		
 	</label>	
-	<g:textArea style="resize:none;" name="aboutMe" value="${userInstance?.aboutMe}" />
+	<g:textArea style="resize:none" name="aboutMe" value="${userInstance?.aboutMe}" />
 </div>
