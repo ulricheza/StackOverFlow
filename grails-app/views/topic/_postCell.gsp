@@ -1,7 +1,8 @@
 <td class="post-cell">
 	<div class="post-text">
-			${msg?.content}
+		${msg?.content}
 	</div>
+
 	<div class="post-tags-list">
 		<g:each in="${tags}" var="tag">
 			<g:link class="post-tag" controller="tag" action="show" id="${tag.id}">
@@ -9,6 +10,7 @@
 			</g:link>										
 		</g:each>
 	</div>
+	
 	<table >
     	<tbody>
 			<tr>
@@ -22,7 +24,7 @@
 			    			<g:message code="topic.message.delete" />
 						</g:remoteLink>
 			    	</div>
-			    	<div id="edit-delete-error-${msg?.id}"></div>
+			    	<div id="edit-delete-error-${msg?.id}"/>
 				</td>
 				<td class="post-signature owner">
 				    <div>

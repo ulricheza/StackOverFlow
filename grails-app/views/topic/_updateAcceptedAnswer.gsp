@@ -1,5 +1,4 @@
-<r:script>
-	
+<r:script>	
 	var id = "${msg_id}"
 	var accepted = "${accepted}" === 'true'
 

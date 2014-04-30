@@ -92,7 +92,7 @@ class TopicController {
             return
         }  
         if (!newAnswer) {
-            render(text:"<script>location.reload('true')</script>", contentType: "js", encoding: "UTF-8")
+            render(text:"<script>location.reload('true');</script>", contentType: "js", encoding: "UTF-8")
             return
         }         
 

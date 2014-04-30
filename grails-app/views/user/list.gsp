@@ -85,7 +85,7 @@
 			</g:if>
 
 			<div class="shortdescription">
-				<label for="userSearch"><g:message code="user.list.search.label" default="Tag Name" /></label>
+				<label for="userSearch"><g:message code="user.list.search.label" /></label>
 				<g:textField name="userSearch" id="userSearch" placeholder="${message(code:"form.placeholder.user")}" value="" />
 				<br/><br/>
 			</div>

@@ -22,7 +22,10 @@ class UserController {
         def users = User.findAllByUsernameLike("%${params.term}%")
 
         def toRender = users.collect { user->
-            ["username": user.username, "location":(user.location==null)?"":user.location, "id":user.id, "img":user.profileImage.encodeBase64().toString()] 
+            ["username": user.username, 
+             "location":(user.location==null)?"":user.location, 
+             "id":user.id, 
+             "img":user.profileImage.encodeBase64().toString()] 
         }
 
         def result = ["users" : toRender]

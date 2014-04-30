@@ -1,6 +1,6 @@
 <%@ page import="isima.Topic" %>
 
-<div class="fieldcontain">
+<div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'title', 'error')}">
 	<strong><g:message code="isima.topic.create.topictitle.label" default="Title" /></strong>
 	<g:textField style="width:30%;" name="title" value="${topicInstance?.title}" placeholder="${message(code:"topic.title.label.placeholder")}" />
 </div>
@@ -8,10 +8,7 @@
 <div class="fieldcontain">	
 	<ckeditor:editor name="content">	
 		${topicInstance?.replies?.get(0)?.content}
-	</ckeditor:editor>
-
-	<!-- <g:textArea name="content" value="" rows="5" cols="100"/>  -->
-	 
+	</ckeditor:editor>	 
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: topicInstance, field: 'tags', 'error')}">
